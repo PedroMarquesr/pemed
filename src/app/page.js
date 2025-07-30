@@ -1,30 +1,28 @@
 "use client";
-
-import { Button } from "@chakra-ui/react";
-import { Group } from "@chakra-ui/react";
-import { Alert } from "@chakra-ui/react";
-
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { Provider } from "@/components/ui/provider";
 export default function Home() {
   return (
-    <div style={{ padding: "10px 50px" }}>
-      <Button size="xs" colorScheme="blue">
-        Clique !
-      </Button>
-      <Group colorScheme={"blue"}>
-        <div
-          style={{ backgroundColor: "blue", width: "100px", height: "100px" }}
-        />
-        <div
-          style={{ backgroundColor: "blue", width: "100px", height: "100px" }}
-        />
-      </Group>
-      <Alert.Root>
-        <Alert.Indicator />
-        <Alert.Content>
-          <Alert.Title>Erro</Alert.Title>
-          <Alert.Description> Azul</Alert.Description>
-        </Alert.Content>
-      </Alert.Root>
-    </div>
+    <Provider>
+      <Box
+        bg="#86efac/40"
+        color="white"
+        margin={5}
+        padding={5}
+        borderRadius="md"
+        boxShadow="md"
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <Box>
+          <Text textAlign="center" display="flex" fontSize="2xl">
+            Login
+          </Text>
+        </Box>
+        <Box></Box>
+      </Box>
+    </Provider>
   );
 }
