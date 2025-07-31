@@ -39,16 +39,18 @@ export default function Home() {
         >
           <Box flex="1">
             <Image
+              borderRadius={(8, 10, 0, 0)}
               src="/login-illustration-pemed.png"
               objectFit="fill"
               width="100%"
-              height="100%"
+              height="93vh"
             />
           </Box>
 
           <Flex
+            borderRadius={8}
             width="50%"
-            height={"100vh"}
+            height={"93vh"}
             bg="rgba(31, 150, 94, 0.6)"
             color="white"
             direction="column"
