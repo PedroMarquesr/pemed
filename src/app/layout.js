@@ -1,11 +1,10 @@
-"use client";
 import { Provider } from "@/components/ui/provider";
-import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import Navbar from "@/components/navbar/Navbar";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <Provider>
           <Navbar />
