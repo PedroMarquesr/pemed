@@ -3,7 +3,7 @@ import { Box, Flex, Text, Link, Button, Image } from "@chakra-ui/react";
 
 export default function Navbar() {
   return (
-    <Box bg="gray.800" color="white" py={4} width={"100vw"} overflow="hidden">
+    <Box bg="gray.800" color="white" py={1} width={"100vw"} overflow="hidden">
       <Flex align="center" justify="space-between" maxW="1200px" mx="auto">
         <Image src="/logo.png" alt="Logo" height={"20"} borderRadius={"md"} />
         <Flex align="center">

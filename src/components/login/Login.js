@@ -30,7 +30,6 @@ export default function Login() {
         />
       </Box>
 
-      {/* Conteúdo principal */}
       <Flex
         minHeight="100%"
         width="100%"
