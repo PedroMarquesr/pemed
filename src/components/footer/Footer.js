@@ -4,7 +4,7 @@ import { RxBoxModel } from "react-icons/rx";
 
 export default function Footer() {
   return (
-    <Box bg="gray.800" color="white" py={8} width={"100vw"} overflow={"hidden"}>
+    <Box bg="gray.800" color="white" py={8} width={"100vw"} overflow={"hidden"} mt={0}>
       <Flex justify={"center"}>
         <Box mr={"60"}>
           <Text

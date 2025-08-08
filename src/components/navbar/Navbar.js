@@ -1,11 +1,11 @@
-"use client";
-import { Box, Flex, Link, Image } from "@chakra-ui/react";
+"use client"
+import { Box, Flex, Link, Image } from "@chakra-ui/react"
 
 export default function Navbar() {
   return (
     <Box bg="gray.800" color="white" py={1} width={"100vw"} overflow="hidden">
       <Flex align="center" justify="space-between" maxW="1200px" mx="auto">
-        <Image src="/logo.png" alt="Logo" height={"20"} borderRadius={"md"} />
+        <Image src="/logo.png" alt="Logo" height={"10"} borderRadius={"md"} />
         <Flex align="center">
           <Link href="/" mx={4}>
             Home
@@ -22,5 +22,5 @@ export default function Navbar() {
         </Flex>
       </Flex>
     </Box>
-  );
+  )
 }
