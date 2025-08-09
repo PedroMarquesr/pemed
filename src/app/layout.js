@@ -1,15 +1,20 @@
+"use client";
+import { usePathname } from "next/navigation";
 import { Provider } from "@/components/ui/provider";
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const isDashboardRoute = pathname?.startsWith("/dashboard"); // Ajuste para suas rotas
+
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <Provider>
-          {/* <Navbar /> */}
+          {!isDashboardRoute && <Navbar />}
           {children}
-          <Footer />
+          {!isDashboardRoute && <Footer />}
         </Provider>
       </body>
     </html>

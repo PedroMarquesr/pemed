@@ -1,5 +1,5 @@
-"use client"
-import { Box, Flex, Link, Image } from "@chakra-ui/react"
+"use client";
+import { Box, Flex, Link, Image } from "@chakra-ui/react";
 
 export default function Navbar() {
   return (
@@ -16,11 +16,11 @@ export default function Navbar() {
           <Link href="/contato" mx={4}>
             Contato
           </Link>
-          <Link href="/login" mx={4}>
-            Login
+          <Link href="/dashboard" mx={4}>
+            Funcionalidades
           </Link>
         </Flex>
       </Flex>
     </Box>
-  )
+  );
 }
