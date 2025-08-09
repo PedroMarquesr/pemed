@@ -95,6 +95,36 @@ export default function ItemRegistration() {
                 placeholder="Digite o nome do produto: Ex: Benzetacil/Benzilpenicilina"
               />
             </Field.Root>
+
+            {categoriaSelecionada === "Medicamento" ? (
+              <Field.Root>
+                <Fieldset.Legend>Tipo de medicamento</Fieldset.Legend>
+                <Select
+                  value={tipoSelecionado}
+                  onChange={(e) => setTipoSelecionado(e.target.value)}
+                >
+                  {categories.Medicamento.tipo.map((tipo) => (
+                    <option key={tipo} value={tipo}>
+                      {tipo}
+                    </option>
+                  ))}
+                </Select>
+              </Field.Root>
+            ) : categoriaSelecionada === "Material" ? (
+              <Field.Root>
+                <Fieldset.Legend>Tipo de material</Fieldset.Legend>
+                <Select
+                  value={tipoSelecionado}
+                  onChange={(e) => setTipoSelecionado(e.target.value)}
+                >
+                  {categories.Material.tipo.map((tipo) => (
+                    <option key={tipo} value={tipo}>
+                      {tipo}
+                    </option>
+                  ))}
+                </Select>
+              </Field.Root>
+            ) : null}
           </Fieldset.Content>
         </Fieldset.Root>
       </VStack>
