@@ -6,8 +6,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
-        <Provider > 
-          <Navbar />
+        <Provider>
+          {/* <Navbar /> */}
           {children}
           <Footer />
         </Provider>
