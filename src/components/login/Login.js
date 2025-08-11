@@ -21,20 +21,20 @@ export default function Login() {
       width="100vw"
       alignItems="center"
       justifyContent="center"
-      bg="gray.50" // Fundo claro e neutro
+      bg="gray.50"
       margin={0}
     >
       <Flex
         border={"1px solid"}
-        borderColor="gray.200" // Borda suave
-        bg="white" // Fundo branco para o card
-        boxShadow="md" // Sombra suave
+        borderColor="gray.200"
+        bg="white"
+        boxShadow="md"
         borderRadius={"8px"}
         p={6}
         width={"400px"}
         alignItems={"center"}
         flexDirection={"column"}
-        color="gray.700" // Texto escuro mas não preto puro
+        color="gray.700"
       >
         <Box>
           <Image src="/logo.png" alt="Logo Pemed" width={90} />
@@ -107,7 +107,7 @@ export default function Login() {
           <Button
             width="100%"
             mt={6}
-            colorScheme="blue" // Azul consistente
+            colorScheme="blue"
             _hover={{ bg: "blue.600" }}
           >
             Entrar
