@@ -1,22 +1,20 @@
-"use client";
+"use client"
+
 import {
   Box,
   Input,
   Fieldset,
   Flex,
-  FormControl,
   For,
   NativeSelect,
-  FormHelperText,
-  FormLabel,
   Field,
   Stack,
   Text,
   VStack,
   Select,
   Button,
-} from "@chakra-ui/react";
-import { useState } from "react";
+} from "@chakra-ui/react"
+import { useState } from "react"
 
 export default function ItemRegistration() {
   const categories = {
@@ -39,12 +37,12 @@ export default function ItemRegistration() {
     Material: {
       tipo: ["Descartavel", "Curativo", "Equipamento"],
     },
-  };
-  const [nome, setNome] = useState("");
-  const [tipoSelecionado, setTipoSelecionado] = useState("");
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
+  }
+  const [nome, setNome] = useState("")
+  const [tipoSelecionado, setTipoSelecionado] = useState("")
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("")
   const [formaFarmaceuticaSelecionada, setFormaFarmaceuticaSelecionada] =
-    useState("");
+    useState("")
 
   const handleSave = () => {
     const dados = {
@@ -52,9 +50,9 @@ export default function ItemRegistration() {
       categoria: categoriaSelecionada,
       tipo: tipoSelecionado,
       formaFarmaceutica: formaFarmaceuticaSelecionada,
-    };
-    console.log("Item cadastrado:", dados);
-  };
+    }
+    console.log("Item cadastrado:", dados)
+  }
   return (
     <Box>
       <Text>Cadastro de produtos</Text>
@@ -74,60 +72,44 @@ export default function ItemRegistration() {
             <Fieldset.Legend>Categoria do produto</Fieldset.Legend>
 
             <NativeSelect.Root>
-              <NativeSelect.Field>
-                <For each={["Medicamento", "Material"]}>
-                  {(item) => (
-                    <option key={item} value={item}>
-                      {item}
+              <NativeSelect.Field
+                placeholder="Selecione a categoria"
+                value={categoriaSelecionada}
+                onChange={(e) => {
+                  setCategoriaSelecionada(e.target.value)
+                  setTipoSelecionado("")
+                  setFormaFarmaceuticaSelecionada("")
+                }}
+              >
+                <For each={Object.keys(categories)}>
+                  {(categoria) => (
+                    <option key={categoria} value={categoria}>
+                      {categoria}
                     </option>
                   )}
                 </For>
               </NativeSelect.Field>
+
+              {categoriaSelecionada === "Medicamento" && (
+                <NativeSelect.Field
+                  placeholder="Selecione o tipo"
+                  value={tipoSelecionado}
+                  onChange={(e) => setTipoSelecionado(e.target.value)}
+                >
+                  <For each={categories.Medicamento.tipo}>
+                    {(tipo) => (
+                      <option key={tipo} value={tipo}>
+                        {tipo}
+                      </option>
+                    )}
+                  </For>
+                </NativeSelect.Field>
+              )}
             </NativeSelect.Root>
-            <Field.Root>
-              {/* Nome */}
-
-              <Fieldset.Legend>Nome do produto</Fieldset.Legend>
-
-              <Input
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                placeholder="Digite o nome do produto: Ex: Benzetacil/Benzilpenicilina"
-              />
-            </Field.Root>
-
-            {categoriaSelecionada === "Medicamento" ? (
-              <Field.Root>
-                <Fieldset.Legend>Tipo de medicamento</Fieldset.Legend>
-                <Select
-                  value={tipoSelecionado}
-                  onChange={(e) => setTipoSelecionado(e.target.value)}
-                >
-                  {categories.Medicamento.tipo.map((tipo) => (
-                    <option key={tipo} value={tipo}>
-                      {tipo}
-                    </option>
-                  ))}
-                </Select>
-              </Field.Root>
-            ) : categoriaSelecionada === "Material" ? (
-              <Field.Root>
-                <Fieldset.Legend>Tipo de material</Fieldset.Legend>
-                <Select
-                  value={tipoSelecionado}
-                  onChange={(e) => setTipoSelecionado(e.target.value)}
-                >
-                  {categories.Material.tipo.map((tipo) => (
-                    <option key={tipo} value={tipo}>
-                      {tipo}
-                    </option>
-                  ))}
-                </Select>
-              </Field.Root>
-            ) : null}
           </Fieldset.Content>
         </Fieldset.Root>
       </VStack>
+      <Text>{categoriaSelecionada}</Text>
     </Box>
-  );
+  )
 }
