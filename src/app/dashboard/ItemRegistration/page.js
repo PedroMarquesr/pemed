@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Flex,
   Input,
   Fieldset,
   For,
@@ -36,9 +37,11 @@ export default function ItemRegistration() {
         validadeRegistro: null,
       },
       embalagem: {
-        primaria: 0,
-        secundaria: 0,
+        primaria: 0 /*Quantidade de caixas por caixa de embarque*/,
+        secundaria: 0 /*Quantidade de unidades por embalagem*/,
       },
+      marca: { nomeMarca: "", categoriaRegulatoia: "" },
+      fabricante: { nomeFabricante: "", cnpjFabricante: "" },
     },
     material: {
       tipo: ["Descartável", "Curativo", "Equipamento"],
@@ -54,7 +57,13 @@ export default function ItemRegistration() {
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("")
   const [formaFarmaceuticaSelecionada, setFormaFarmaceuticaSelecionada] =
     useState("")
+  const [embalagemPrimariaInserida, setEmbalagemPrimariaInserida] = useState(0)
+  const [embalagemSecundariaInserida, setEmbalagemSecundariaInserida] =
+    useState(0)
   const [registroInserido, setRegistroInserido] = useState("")
+  const [validadeRegistroInserida, setValidadeRegistroInserida] = useState("")
+  const [marcaInserida, setMarcaInserida] = useState("")
+  const [fabricanteInserido, setFabricanteInserido] = useState("")
 
   const handleSave = () => {
     const dados = {
@@ -62,6 +71,17 @@ export default function ItemRegistration() {
       categoria: categoriaSelecionada,
       tipo: tipoSelecionado,
       formaFarmaceutica: formaFarmaceuticaSelecionada,
+      registroAnvisa: {
+        numeroRegistro: registroInserido,
+        temRegistro: !!registroInserido,
+        validadeRegistro: validadeRegistroInserida,
+      },
+      embalagem: {
+        primaria: embalagemPrimariaInserida,
+        secundaria: embalagemSecundariaInserida,
+      },
+      marca: marcaInserida,
+      fabricante: fabricanteInserido,
     }
     console.log("Item cadastrado:", dados)
   }
@@ -81,7 +101,7 @@ export default function ItemRegistration() {
             {/* Categoria */}
             <Box w="100%">
               <Fieldset.Legend color="gray.700">Categoria:</Fieldset.Legend>
-              <NativeSelect.Root>
+              <NativeSelect.Root w={"40%"}>
                 <NativeSelect.Field
                   boxShadow="md"
                   rounded="md"
@@ -110,7 +130,7 @@ export default function ItemRegistration() {
             {categoriaSelecionada && (
               <Box w="100%">
                 <Fieldset.Legend color="gray.700">Tipo:</Fieldset.Legend>
-                <NativeSelect.Root>
+                <NativeSelect.Root w={"40%"}>
                   <NativeSelect.Field
                     boxShadow="md"
                     rounded="md"
@@ -137,55 +157,93 @@ export default function ItemRegistration() {
                 </NativeSelect.Root>
               </Box>
             )}
-
             {categoriaSelecionada === "medicamento" && (
-              <Box w="100%">
-                <Fieldset.Legend color="gray.700">
-                  Forma Farmacêutica:
-                </Fieldset.Legend>
-                <NativeSelect.Root>
-                  <NativeSelect.Field
-                    boxShadow="md"
-                    rounded="md"
-                    color="white"
-                    bg={"gray.800"}
-                    placeholder="Selecione a forma farmaceutica"
-                    value={formaFarmaceuticaSelecionada}
-                    onChange={(e) =>
-                      setFormaFarmaceuticaSelecionada(e.target.value)
-                    }
-                  >
-                    <For
-                      each={Object.entries(
-                        categories.medicamento.formaFarmaceutica
-                      ).flatMap(([grupo, opcoes]) =>
-                        opcoes.map((opcao) => ({ grupo, valor: opcao }))
-                      )}
+              <>
+                <Box w="100vw">
+                  <Fieldset.Legend color="gray.700">
+                    Forma Farmacêutica:
+                  </Fieldset.Legend>
+                  <NativeSelect.Root w={"40%"}>
+                    <NativeSelect.Field
+                      justifyContent={"center"}
+                      boxShadow="md"
+                      rounded="md"
+                      color="white"
+                      bg={"gray.800"}
+                      placeholder="Selecione a forma farmaceutica"
+                      value={formaFarmaceuticaSelecionada}
+                      onChange={(e) =>
+                        setFormaFarmaceuticaSelecionada(e.target.value)
+                      }
                     >
-                      {({ grupo, valor }) => (
-                        <option key={valor} value={valor}>
-                          {valor} ({grupo})
-                        </option>
-                      )}
-                    </For>
-                  </NativeSelect.Field>
-                </NativeSelect.Root>
-                <Fieldset.Legend color="gray.700">
-                  Registro da Anvisa:
-                </Fieldset.Legend>
-                <Fieldset.Root>
-                  <Input
-                    boxShadow="md"
-                    rounded="md"
-                    color="white"
-                    bg={"gray.800"}
-                    value={registroInserido}
-                    placeholder="Insira apenas números:"
-                    maxLength={"11"}
-                    onChange={(e) => setRegistroInserido(e.target.value)}
-                  />
-                </Fieldset.Root>
-              </Box>
+                      <For
+                        each={Object.entries(
+                          categories.medicamento.formaFarmaceutica
+                        ).flatMap(([grupo, opcoes]) =>
+                          opcoes.map((opcao) => ({ grupo, valor: opcao }))
+                        )}
+                      >
+                        {({ grupo, valor }) => (
+                          <option key={valor} value={valor}>
+                            {valor} ({grupo})
+                          </option>
+                        )}
+                      </For>
+                    </NativeSelect.Field>
+                  </NativeSelect.Root>
+                </Box>
+                <Flex
+                  w={"40%"}
+                  justifyContent={"space-between"}
+                  alignItems={"start"}
+                >
+                  <Box>
+                    <Fieldset.Legend color="gray.700">
+                      Registro da Anvisa:
+                    </Fieldset.Legend>
+                    <Fieldset.Root>
+                      <Input
+                        w={"100%"}
+                        boxShadow="md"
+                        rounded="md"
+                        color="white"
+                        bg={"gray.800"}
+                        value={registroInserido}
+                        placeholder="Insira apenas números:"
+                        maxLength={"11"}
+                        onChange={(e) => setRegistroInserido(e.target.value)}
+                      />
+                    </Fieldset.Root>
+                  </Box>
+                  <Box justifyContent={"center"} w={"350px"}>
+                    <Fieldset.Legend color="gray.700">Marca: </Fieldset.Legend>
+                    <Fieldset.Root>
+                      <Input
+                        boxShadow="md"
+                        rounded="md"
+                        color="white"
+                        bg={"gray.800"}
+                        value={marcaInserida}
+                        placeholder="Insira 'GENERICO' para medicamentos genéricos"
+                        onChange={(e) => setMarcaInserida(e.target.value)}
+                      />
+                    </Fieldset.Root>
+                    <Fieldset.Legend color="gray.700">
+                      Fabricante:{" "}
+                    </Fieldset.Legend>
+                    <Fieldset.Root>
+                      <Input
+                        boxShadow="md"
+                        rounded="md"
+                        color="white"
+                        bg={"gray.800"}
+                        value={fabricanteInserido}
+                        onChange={(e) => setFabricanteInserido(e.target.value)}
+                      />
+                    </Fieldset.Root>
+                  </Box>
+                </Flex>
+              </>
             )}
           </VStack>
         </Fieldset.Content>
