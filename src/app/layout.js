@@ -6,7 +6,7 @@ import Navbar from "@/components/navbar/Navbar";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const isDashboardRoute = pathname?.startsWith("/dashboard"); // Ajuste para suas rotas
+  const isDashboardRoute = pathname?.startsWith("/dashboard");
 
   return (
     <html lang="pt-BR" suppressHydrationWarning>

@@ -28,8 +28,8 @@ export default function ItemRegistration() {
           "Granulado",
           "Supositório",
         ],
-        formaLiquida: ["Solução", "Suspensão", "Emulsão", "Injetável"],
-        formaSemissólida: ["Pomada", "Pasta", "Creme", "Gel", "Loção"],
+        FormaLiquida: ["Solução", "Suspensão", "Emulsão", "Injetável"],
+        FormaSemissólida: ["Pomada", "Pasta", "Creme", "Gel", "Loção"],
         FormaGasosa: ["Aerossol", "Inalador"],
         FormaEspecial: ["Adesivo", "Implante", "Comprimido Sublingual"],
       },
@@ -61,13 +61,8 @@ export default function ItemRegistration() {
         <Fieldset.Legend>Informações do produto</Fieldset.Legend>
 
         <Fieldset.Content>
-          {/* Categoria */}
-
-          <Fieldset.Legend pb={0} mb={-2}>
-            Categoria:
-          </Fieldset.Legend>
-
-          <NativeSelect.Root mt={-2} w={300}>
+          <Fieldset.Legend>Categoria:</Fieldset.Legend>
+          <NativeSelect.Root>
             <NativeSelect.Field
               placeholder="Selecione a categoria"
               value={categoriaSelecionada}
@@ -79,43 +74,87 @@ export default function ItemRegistration() {
             >
               <For each={Object.keys(categories)}>
                 {(categoria) => (
-                  <option h={10} key={categoria} value={categoria}>
+                  <option key={categoria} value={categoria}>
                     {categoria}
                   </option>
                 )}
               </For>
             </NativeSelect.Field>
           </NativeSelect.Root>
-          <Fieldset.Legend pb={0} mb={-2}>
-            Tipo:
-          </Fieldset.Legend>
-          <NativeSelect.Root mt={-2} w={300}>
-            {categoriaSelecionada === "Medicamento" ? (
-              <NativeSelect.Field
-                placeholder="Selecione o tipo"
-                value={tipoSelecionado}
-                onChange={(e) => setTipoSelecionado(e.target.value)}
-              >
-                <For each={categories.Medicamento.tipo}>
-                  {(tipo) => (
-                    <option key={tipo} value={tipo}>
-                      {tipo}
-                    </option>
-                  )}
-                </For>
-              </NativeSelect.Field>
-            ) : (
-              <NativeSelect.Field>
-                <For each={categories.Material.tipo}>
-                  {(tipo) => (
-                    <option key={tipo} value={tipo}>
-                      {tipo}
-                    </option>
-                  )}
-                </For>
-              </NativeSelect.Field>
-            )}
-          </NativeSelect.Root>
+
+          {categoriaSelecionada === "Medicamento" && (
+            <>
+              <Fieldset.Legend>Tipo:</Fieldset.Legend>
+              <NativeSelect.Root>
+                <NativeSelect.Field
+                  placeholder="Selecione o tipo"
+                  value={tipoSelecionado}
+                  onChange={(e) => {
+                    setTipoSelecionado(e.target.value);
+                    setFormaFarmaceuticaSelecionada("");
+                  }}
+                >
+                  <For each={categories.Medicamento.tipo}>
+                    {(tipo) => (
+                      <option key={tipo} value={tipo}>
+                        {tipo}
+                      </option>
+                    )}
+                  </For>
+                </NativeSelect.Field>
+              </NativeSelect.Root>
+            </>
+          )}
+
+          {tipoSelecionado && categoriaSelecionada === "Medicamento" && (
+            <>
+              <Fieldset.Legend>Forma Farmacêutica:</Fieldset.Legend>
+              <NativeSelect.Root>
+                <NativeSelect.Field
+                  placeholder="Selecione a forma"
+                  value={formaFarmaceuticaSelecionada}
+                  onChange={(e) =>
+                    setFormaFarmaceuticaSelecionada(e.target.value)
+                  }
+                >
+                  <For
+                    each={Object.entries(
+                      categories.Medicamento.formaFarmaceutica
+                    ).flatMap(([forma, opcoes]) =>
+                      opcoes.map((opcao) => ({ grupo: forma, valor: opcao }))
+                    )}
+                  >
+                    {({ grupo, valor }) => (
+                      <option key={valor} value={valor}>
+                        {valor} ({grupo})
+                      </option>
+                    )}
+                  </For>
+                </NativeSelect.Field>
+              </NativeSelect.Root>
+            </>
+          )}
+
+          {/* Select para categoria "Material" (opcional) */}
+          {categoriaSelecionada === "Material" && (
+            <>
+              <Fieldset.Legend>Tipo de Material:</Fieldset.Legend>
+              <NativeSelect.Root>
+                <NativeSelect.Field
+                  value={tipoSelecionado}
+                  onChange={(e) => setTipoSelecionado(e.target.value)}
+                >
+                  <For each={categories.Material.tipo}>
+                    {(tipo) => (
+                      <option key={tipo} value={tipo}>
+                        {tipo}
+                      </option>
+                    )}
+                  </For>
+                </NativeSelect.Field>
+              </NativeSelect.Root>
+            </>
+          )}
         </Fieldset.Content>
       </Fieldset.Root>
     </Box>
