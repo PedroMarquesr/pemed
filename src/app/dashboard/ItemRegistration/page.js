@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Box,
@@ -13,8 +13,8 @@ import {
   VStack,
   Select,
   Button,
-} from "@chakra-ui/react"
-import { useState } from "react"
+} from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function ItemRegistration() {
   const categories = {
@@ -37,12 +37,12 @@ export default function ItemRegistration() {
     Material: {
       tipo: ["Descartavel", "Curativo", "Equipamento"],
     },
-  }
-  const [nome, setNome] = useState("")
-  const [tipoSelecionado, setTipoSelecionado] = useState("")
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState("")
+  };
+  const [nome, setNome] = useState("");
+  const [tipoSelecionado, setTipoSelecionado] = useState("");
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
   const [formaFarmaceuticaSelecionada, setFormaFarmaceuticaSelecionada] =
-    useState("")
+    useState("");
 
   const handleSave = () => {
     const dados = {
@@ -50,66 +50,74 @@ export default function ItemRegistration() {
       categoria: categoriaSelecionada,
       tipo: tipoSelecionado,
       formaFarmaceutica: formaFarmaceuticaSelecionada,
-    }
-    console.log("Item cadastrado:", dados)
-  }
+    };
+    console.log("Item cadastrado:", dados);
+  };
   return (
     <Box>
-      <Text>Cadastro de produtos</Text>
+      <Text>Cadastro de item</Text>
 
-      <VStack spacing={4} align="start">
-        <Fieldset.Root>
-          <Stack>
-            <Fieldset.Legend>Informações do produto</Fieldset.Legend>
-            <Fieldset.HelperText>
-              Insira as informações do produto abaixo.
-            </Fieldset.HelperText>
-          </Stack>
+      <Fieldset.Root>
+        <Fieldset.Legend>Informações do produto</Fieldset.Legend>
 
-          <Fieldset.Content>
-            {/* Categoria */}
+        <Fieldset.Content>
+          {/* Categoria */}
 
-            <Fieldset.Legend>Categoria do produto</Fieldset.Legend>
+          <Fieldset.Legend pb={0} mb={-2}>
+            Categoria:
+          </Fieldset.Legend>
 
-            <NativeSelect.Root>
+          <NativeSelect.Root mt={-2} w={300}>
+            <NativeSelect.Field
+              placeholder="Selecione a categoria"
+              value={categoriaSelecionada}
+              onChange={(e) => {
+                setCategoriaSelecionada(e.target.value);
+                setTipoSelecionado("");
+                setFormaFarmaceuticaSelecionada("");
+              }}
+            >
+              <For each={Object.keys(categories)}>
+                {(categoria) => (
+                  <option h={10} key={categoria} value={categoria}>
+                    {categoria}
+                  </option>
+                )}
+              </For>
+            </NativeSelect.Field>
+          </NativeSelect.Root>
+          <Fieldset.Legend pb={0} mb={-2}>
+            Tipo:
+          </Fieldset.Legend>
+          <NativeSelect.Root mt={-2} w={300}>
+            {categoriaSelecionada === "Medicamento" ? (
               <NativeSelect.Field
-                placeholder="Selecione a categoria"
-                value={categoriaSelecionada}
-                onChange={(e) => {
-                  setCategoriaSelecionada(e.target.value)
-                  setTipoSelecionado("")
-                  setFormaFarmaceuticaSelecionada("")
-                }}
+                placeholder="Selecione o tipo"
+                value={tipoSelecionado}
+                onChange={(e) => setTipoSelecionado(e.target.value)}
               >
-                <For each={Object.keys(categories)}>
-                  {(categoria) => (
-                    <option key={categoria} value={categoria}>
-                      {categoria}
+                <For each={categories.Medicamento.tipo}>
+                  {(tipo) => (
+                    <option key={tipo} value={tipo}>
+                      {tipo}
                     </option>
                   )}
                 </For>
               </NativeSelect.Field>
-
-              {categoriaSelecionada === "Medicamento" && (
-                <NativeSelect.Field
-                  placeholder="Selecione o tipo"
-                  value={tipoSelecionado}
-                  onChange={(e) => setTipoSelecionado(e.target.value)}
-                >
-                  <For each={categories.Medicamento.tipo}>
-                    {(tipo) => (
-                      <option key={tipo} value={tipo}>
-                        {tipo}
-                      </option>
-                    )}
-                  </For>
-                </NativeSelect.Field>
-              )}
-            </NativeSelect.Root>
-          </Fieldset.Content>
-        </Fieldset.Root>
-      </VStack>
-      <Text>{categoriaSelecionada}</Text>
+            ) : (
+              <NativeSelect.Field>
+                <For each={categories.Material.tipo}>
+                  {(tipo) => (
+                    <option key={tipo} value={tipo}>
+                      {tipo}
+                    </option>
+                  )}
+                </For>
+              </NativeSelect.Field>
+            )}
+          </NativeSelect.Root>
+        </Fieldset.Content>
+      </Fieldset.Root>
     </Box>
-  )
+  );
 }
