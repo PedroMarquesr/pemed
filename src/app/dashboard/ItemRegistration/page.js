@@ -6,6 +6,7 @@ import {
   Input,
   Fieldset,
   For,
+  Field,
   Radio,
   RadioGroup,
   NativeSelect,
@@ -43,7 +44,6 @@ export default function ItemRegistration() {
       embalagem: {
         primaria: 0 /*Quantidade de caixas por caixa de embarque*/,
         secundaria: 0 /*Quantidade de unidades por embalagem*/,
-        bister: { contemBlister: false, quantUndPorBlister: 0 },
       },
       marca: { nomeMarca: "", categoriaRegulatoia: "" },
       fabricante: { nomeFabricante: "", cnpjFabricante: "" },
@@ -65,9 +65,6 @@ export default function ItemRegistration() {
   const [embalagemPrimariaInserida, setEmbalagemPrimariaInserida] = useState(0)
   const [embalagemSecundariaInserida, setEmbalagemSecundariaInserida] =
     useState(0)
-  const [contemBlister, setContemBlister] = useState(false)
-  const [quantidadePorBlisterInserida, setQuantidadePorBlisterInserida] =
-    useState(0)
   const [registroInserido, setRegistroInserido] = useState("")
   const [validadeRegistroInserida, setValidadeRegistroInserida] = useState("")
   const [marcaInserida, setMarcaInserida] = useState("")
@@ -75,6 +72,15 @@ export default function ItemRegistration() {
   const [ggremInserido, setGgremInserido] = useState("")
 
   const handleSave = () => {
+    if (
+      !nome ||
+      !categoriaSelecionada ||
+      !tipoSelecionado ||
+      !formaFarmaceuticaSelecionada
+    ) {
+      alert("Preencha todos os campos obrigatórios!")
+      return
+    }
     const dados = {
       nome,
       categoria: categoriaSelecionada,
@@ -213,6 +219,7 @@ export default function ItemRegistration() {
                     </Fieldset.Legend>
                     <Fieldset.Root>
                       <Input
+                        required
                         w={"100%"}
                         boxShadow="md"
                         rounded="md"
@@ -265,6 +272,9 @@ export default function ItemRegistration() {
                         value={fabricanteInserido}
                         onChange={(e) => setFabricanteInserido(e.target.value)}
                       />
+                      <Field.HelperText />
+                      <Field.ErrorText />
+                      <Field.RequiredIndicator />
                     </Fieldset.Root>
                   </Box>
                 </Flex>
@@ -300,28 +310,6 @@ export default function ItemRegistration() {
                         }
                       />
                     </Fieldset.Root>
-                  </Box>
-                  <Box border="1px solid gray" p={4} borderRadius="md" w="50%">
-                    <RadioGroup.Root
-                      value={contemBlister}
-                      onChange={setContemBlister}
-                    >
-                      <RadioGroup.Item key="sim" value="sim">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>
-                          Sim, contém blister
-                        </RadioGroup.ItemText>
-                      </RadioGroup.Item>
-
-                      <RadioGroup.Item key="nao" value="nao">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>
-                          Não contém blister
-                        </RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                    </RadioGroup.Root>
                   </Box>
                 </Flex>
               </>
