@@ -1,7 +1,7 @@
-"use client";
-import { Flex, Box } from "@chakra-ui/react";
-import { Provider } from "@/components/ui/provider";
-import Sidebar from "@/app/dashboard/components/Sidebar/Sidebar";
+"use client"
+import { Flex, Box } from "@chakra-ui/react"
+import { Provider } from "@/components/ui/provider"
+import Sidebar from "@/app/dashboard/components/Sidebar/Sidebar"
 export default function DashboardLayout({ children }) {
   return (
     <Provider>
@@ -17,10 +17,10 @@ export default function DashboardLayout({ children }) {
           <Sidebar />
         </Box>
 
-        <Box zIndex={1} flex={1} p={20} overflowY="auto" bg="gray">
+        <Box zIndex={1} flex={1} p={20} overflowY="auto" bg="white">
           {children}
         </Box>
       </Flex>
     </Provider>
-  );
+  )
 }
