@@ -272,9 +272,6 @@ export default function ItemRegistration() {
                         value={fabricanteInserido}
                         onChange={(e) => setFabricanteInserido(e.target.value)}
                       />
-                      <Field.HelperText />
-                      <Field.ErrorText />
-                      <Field.RequiredIndicator />
                     </Fieldset.Root>
                   </Box>
                 </Flex>
