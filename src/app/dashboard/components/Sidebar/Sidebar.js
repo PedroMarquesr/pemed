@@ -10,7 +10,7 @@ const menuItems = [
   {
     icon: FaPills,
     label: "Cadastro de item",
-    link: "/dashboard/ItemRegistration/",
+    link: "/dashboard/inventory/registration",
   },
   {
     icon: IoPersonAddSharp,

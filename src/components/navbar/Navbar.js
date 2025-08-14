@@ -16,7 +16,7 @@ export default function Navbar() {
           <Link href="/contato" mx={4}>
             Contato
           </Link>
-          <Link href="/dashboard" mx={4}>
+          <Link href="/dashboard/" mx={4}>
             Funcionalidades
           </Link>
         </Flex>
