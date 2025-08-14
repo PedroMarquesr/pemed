@@ -68,10 +68,16 @@ export default function registration() {
             borderRadius="50%"
             w="50px"
             h="50px"
-            bg={"rgb(188,188,189)"}
+            bg={currentStep >= 3 ? "rgba(19,92,254,255)" : "rgb(188,188,189)"}
           >
-            <Text fontSize={"lg"} bold={"md"} color={"rgba(77,81,90,255)"}>
-              3
+            <Text
+              fontSize={"lg"}
+              bold={"md"}
+              color={
+                currentStep >= 3 ? "rgb(188, 188, 189)" : "rgba(77,81,90,255)"
+              }
+            >
+              {currentStep > 3 ? "✓" : "3"}
             </Text>
           </Flex>
         </Flex>
