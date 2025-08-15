@@ -2,19 +2,20 @@
 import { usePathname } from "next/navigation";
 import { Provider } from "@/components/ui/provider";
 import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
+import Sidebar from "./dashboard/components/Sidebar/Sidebar";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isDashboardRoute = pathname?.startsWith("/dashboard");
+  const isLoged = true;
 
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <Provider>
-          {!isDashboardRoute && <Navbar />}
+          {isLoged ? <Sidebar /> : null}
           {children}
-          {!isDashboardRoute && <Footer />}
+          {isLoged ? <Footer /> : null}
         </Provider>
       </body>
     </html>

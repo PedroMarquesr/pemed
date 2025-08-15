@@ -1,4 +1,4 @@
-export const categories = {
+export default categories = {
   medicamento: {
     tipo: ["Medicamento comum", "Medicamento especial"],
     formaFarmaceutica: {
@@ -35,4 +35,4 @@ export const categories = {
       numeroRegistro: null,
     },
   },
-}
+};

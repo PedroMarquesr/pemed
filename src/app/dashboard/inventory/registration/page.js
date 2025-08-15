@@ -1,10 +1,12 @@
-"use client"
+"use client";
 
-import { Text, Flex, Button } from "@chakra-ui/react"
-import { useState } from "react"
+import { Text, Flex, Button } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function registration() {
-  const [currentStep, SetCurrentStep] = useState(1)
+  const [currentStep, SetCurrentStep] = useState(1);
+  const [data, setData] = useState({});
+
   return (
     <>
       <Flex justifyContent={"center"}>
@@ -92,5 +94,5 @@ export default function registration() {
         Continuar
       </Button>
     </>
-  )
+  );
 }
