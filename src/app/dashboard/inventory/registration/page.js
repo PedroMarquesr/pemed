@@ -1,8 +1,8 @@
 "use client"
 
-import { Text, Flex, Button } from "@chakra-ui/react"
+import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react"
 import { useState } from "react"
-import { FaArrowLeft } from "react-icons/fa"
+import { GoArrowLeft } from "react-icons/go"
 
 import Modal1 from "./Modal1"
 
@@ -11,7 +11,48 @@ export default function registration() {
   const [data, setData] = useState({})
 
   return (
-    <Flex flexDirection={"column"}>
+    <>
+      <Flex mb={"9"}>
+        <Flex justifyContent={"center"} alignItems={"center"}>
+          <Link href="/dashboard">
+            <Button
+              _hover={{
+                color: "gray",
+                textDecoration: "underline",
+                transform: "translateY(-3px)",
+                transition: "transform 0.2s ease",
+              }}
+            >
+              <GoArrowLeft fontSize="small" />
+              <Text fontSize="medium">Voltar</Text>
+            </Button>
+          </Link>
+        </Flex>
+        <Flex
+          ml={"3"}
+          pt={"0"}
+          mt={"0"}
+          flexDirection={"column"}
+          justifyContent={"space-between"}
+        >
+          <Text
+            color="black"
+            fontSize={"3xl"}
+            fontWeight={"700"}
+            lineHeight={"0"}
+            textShadow="1px 1px 2px rgba(0, 0, 0, 0.5)"
+          >
+            Cadastro de item
+          </Text>
+          <Text
+            color={"gray.600"}
+            fontWeight={"light"}
+            textShadow="1px 1px 2px rgba(0, 0, 0, 0.5)"
+          >
+            Cadastre medicamentos e materiais no sistema
+          </Text>
+        </Flex>
+      </Flex>
       <Flex justifyContent={"center"}>
         <Flex justifyContent="center" alignItems="center">
           <Flex
@@ -88,15 +129,26 @@ export default function registration() {
         </Flex>
       </Flex>
       <Modal1 />
-      <Button
-        boxShadow={"md"}
-        bg={"rgba(24,24,24,255)"}
-        onClick={() => SetCurrentStep(currentStep + 1)}
-        color={"rgba(223,223,223,255)"}
-        _hover={{ bg: "rgba(19,92,254,255)", w: "7vw" }}
-      >
-        Continuar
-      </Button>
-    </Flex>
+      <Flex justifyContent={"end"}>
+        <Button
+          isDisabled={currentStep > 3}
+          boxShadow={"md"}
+          bg={currentStep > 3 ? "green.500" : "rgba(24,24,24,255)"}
+          onClick={() => SetCurrentStep(currentStep + 1)}
+          color={"rgba(223,223,223,255)"}
+          _hover={
+            currentStep < 3
+              ? {
+                  bg: "rgba(19,92,254,255)",
+                  transform: "translateY(-3px)",
+                  transition: "transform 0.2s ease",
+                }
+              : {}
+          }
+        >
+          {currentStep < 3 ? "Continuar" : currentStep === 3 ? "Salvar" : "✓"}
+        </Button>
+      </Flex>
+    </>
   )
 }
