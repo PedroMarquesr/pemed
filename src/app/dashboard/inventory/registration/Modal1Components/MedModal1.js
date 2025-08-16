@@ -11,7 +11,12 @@ export default function MedModal1() {
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
         <Field.Root>
-          <Field.Label fontWeight="bold">
+          <Field.Label
+            fontSize="sm"
+            fontWeight="semibold"
+            color="gray.700"
+            mb={2}
+          >
             {" "}
             Selecione a categoria regulatória:
           </Field.Label>
@@ -58,7 +63,14 @@ export default function MedModal1() {
           selectedCategory === "radiofarmaco") && (
           <Box mt="4">
             <Field.Root>
-              <Field.Label fontWeight="bold">Nome comercial:</Field.Label>
+              <Field.Label
+                fontSize="sm"
+                fontWeight="semibold"
+                color="gray.700"
+                mb={2}
+              >
+                Nome comercial:
+              </Field.Label>
               <Input
                 width="35vw"
                 boxShadow={"md"}
@@ -79,7 +91,14 @@ export default function MedModal1() {
         )}
         <Box>
           <Field.Root>
-            <Field.Label fontWeight="bold">Pincípio ativo:</Field.Label>
+            <Field.Label
+              fontSize="sm"
+              fontWeight="semibold"
+              color="gray.700"
+              mb={2}
+            >
+              Pincípio ativo:
+            </Field.Label>
             <Input
               width="35vw"
               bg="white"
@@ -98,7 +117,14 @@ export default function MedModal1() {
           </Field.Root>
 
           <Field.Root>
-            <Field.Label fontWeight="bold">Fabricante:</Field.Label>
+            <Field.Label
+              fontSize="sm"
+              fontWeight="semibold"
+              color="gray.700"
+              mb={2}
+            >
+              Fabricante:
+            </Field.Label>
             <Input
               width="35vw"
               bg="white"
@@ -124,7 +150,13 @@ export default function MedModal1() {
         alignItems="center"
         justifyContent="center"
       >
-        <Text justifyContent={"left"} fontWeight="bold">
+        <Text
+          justifyContent={"left"}
+          fontSize="xl"
+          fontWeight="semibold"
+          color="gray.700"
+          mb={2}
+        >
           Código do item
         </Text>
         <Text
