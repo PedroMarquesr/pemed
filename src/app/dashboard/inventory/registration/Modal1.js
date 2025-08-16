@@ -1,17 +1,40 @@
 "use client";
-import {
-  Box,
-  Flex,
-  Text,
-  Field,
-  Select,
-  Fieldset,
-  FieldsetLegend,
-  NativeSelect,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+
+import { Box, Flex, Text, Field, NativeSelect } from "@chakra-ui/react";
 import { LuPill } from "react-icons/lu";
+import MedModal1 from "./Modal1Components/MedModal1";
 
 export default function Modal1() {
+  const [selectOption, setSelectOption] = useState("Medicamento");
+
+  const renderSelectedScreen = () => {
+    switch (selectOption) {
+      case "Medicamento":
+        return <MedModal1 />;
+      case "Material":
+        return (
+          <Box p="4" mt="4" border="1px solid #2b4d52ff" borderRadius="md">
+            <Text fontWeight="bold">Tela de Material</Text>
+          </Box>
+        );
+      case "Insumo":
+        return (
+          <Box p="4" mt="4" border="1px solid #2b4d52ff" borderRadius="md">
+            <Text fontWeight="bold">Tela de Insumo</Text>
+          </Box>
+        );
+      case "Outros":
+        return (
+          <Box p="4" mt="4" border="1px solid #2b4d52ff" borderRadius="md">
+            <Text fontWeight="bold">Tela de Outros</Text>
+          </Box>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <Flex
       bg="white"
@@ -21,18 +44,41 @@ export default function Modal1() {
       boxShadow={"xl"}
       flexDirection={"column"}
     >
-      <Flex h={"5"}>
-        <LuPill color="rgba(19,92,254,255)" border={"1px solid red"} />
+      <Flex h={"5"} alignItems="center" gap="2" p="4">
+        <LuPill color="rgba(19,92,254,255)" size={20} />
         <Text color={"black"} fontWeight={"900"}>
-          Identificação e especificações
+          Identificação básica
         </Text>
       </Flex>
-      <Flex>
-        <Select.Root>
-          <Select.Label>Selecione o tipo do item</Select.Label>
-          <Select.Content></Select.Content>
-        </Select.Root>
+      <Flex p="4">
+        <Field.Root>
+          <Field.Label>Tipo de item:</Field.Label>
+          <NativeSelect.Root>
+            <NativeSelect.Field
+              value={selectOption}
+              onChange={(e) => setSelectOption(e.target.value)}
+              unstyled
+              width="25vw"
+              bg="white"
+              boxShadow={"md"}
+              color="black"
+              borderRadius="md"
+              border={"1px, solid, #2b4d52ff"}
+              px="3"
+              py="2"
+              _hover={{
+                borderColor: "#5d8288c4",
+              }}
+            >
+              <option value="Medicamento">Medicamento</option>
+              <option value="Material">Material</option>
+              <option value="Insumo">Insumo</option>
+              <option value="Outros">Outros</option>
+            </NativeSelect.Field>
+          </NativeSelect.Root>
+        </Field.Root>
       </Flex>
+      {renderSelectedScreen(selectOption)}
     </Flex>
   );
 }
