@@ -52,7 +52,7 @@ export default function Modal1() {
       </Flex>
       <Flex p="4">
         <Field.Root>
-          <Field.Label>Tipo de item:</Field.Label>
+          <Field.Label fontWeight={"bold"}>Tipo de item:</Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
               value={selectOption}

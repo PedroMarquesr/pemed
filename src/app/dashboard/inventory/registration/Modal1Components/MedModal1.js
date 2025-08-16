@@ -6,12 +6,15 @@ import { Box, Flex, Input, Text, Field, NativeSelect } from "@chakra-ui/react";
 
 export default function MedModal1() {
   const [selectedCategory, setSelectedCategory] = useState("Genérico");
-
+  let codItem = "MED12345";
   return (
     <Flex w={"100%"}>
-      <Box flex="1" p="4" borderRadius="md" border={"1px, solid, #2b4d52ff"}>
+      <Box flex="1" p="4" borderRadius="md">
         <Field.Root>
-          <Field.Label> Selecione a categoria regulatória:</Field.Label>
+          <Field.Label fontWeight="bold">
+            {" "}
+            Selecione a categoria regulatória:
+          </Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
               value={selectedCategory}
@@ -56,9 +59,9 @@ export default function MedModal1() {
           selectedCategory === "radiofarmaco") && (
           <Box mt="4">
             <Field.Root>
-              <Field.Label>Nome comercial:</Field.Label>
+              <Field.Label fontWeight="bold">Nome comercial:</Field.Label>
               <Input
-                width="50%"
+                width="35vw"
                 boxShadow={"md"}
                 bg="white"
                 mb={"4"}
@@ -77,7 +80,7 @@ export default function MedModal1() {
         )}
         <Box>
           <Field.Root>
-            <Field.Label>Pincípio ativo</Field.Label>
+            <Field.Label fontWeight="bold">Pincípio ativo:</Field.Label>
             <Input
               width="35vw"
               bg="white"
@@ -96,7 +99,7 @@ export default function MedModal1() {
           </Field.Root>
 
           <Field.Root>
-            <Field.Label>Fabricante</Field.Label>
+            <Field.Label fontWeight="bold">Fabricante:</Field.Label>
             <Input
               width="35vw"
               bg="white"
@@ -117,12 +120,26 @@ export default function MedModal1() {
       </Box>
 
       <Flex
+        flexDirection={"column"}
         flex="1"
         alignItems="center"
         justifyContent="center"
-        border={"1px solid red"}
       >
-        <Text>Teste</Text>
+        <Text justifyContent={"left"} fontWeight="bold">
+          Código do item
+        </Text>
+        <Text
+          textAlign={"center"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          border={"2px solid #0c142e"}
+          p={"4px"}
+          width="10vw"
+          boxShadow={"md"}
+          borderRadius="md"
+        >
+          {codItem}
+        </Text>
       </Flex>
     </Flex>
   );

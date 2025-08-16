@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { Text, Flex, Button } from "@chakra-ui/react"
-import { useState } from "react"
-import { FaArrowLeft } from "react-icons/fa"
+import { Text, Flex, Button } from "@chakra-ui/react";
+import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
-import Modal1 from "./Modal1"
+import Modal1 from "./Modal1";
 
 export default function registration() {
-  const [currentStep, SetCurrentStep] = useState(1)
-  const [data, setData] = useState({})
+  const [currentStep, SetCurrentStep] = useState(1);
+  const [data, setData] = useState({});
 
   return (
     <Flex flexDirection={"column"}>
@@ -98,5 +98,5 @@ export default function registration() {
         Continuar
       </Button>
     </Flex>
-  )
+  );
 }
