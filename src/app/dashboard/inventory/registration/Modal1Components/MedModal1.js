@@ -47,7 +47,6 @@ export default function MedModal1() {
                 Produto de Terapia Avançada
               </option>
               <option value="radiofarmaco">Radiofármaco</option>
-              <option value="similar">Similar</option>
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Field.Root>
