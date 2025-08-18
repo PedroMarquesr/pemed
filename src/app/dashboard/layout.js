@@ -34,13 +34,20 @@ export default function DashboardLayout({ children }) {
             zIndex={2}
             w="10px"
             bg="gray.800"
-            color="white"
+            color="black"
             position="sticky"
           >
             <Sidebar />
           </Box>
 
-          <Box zIndex={1} flex={1} p={20} overflowY="auto" bg="white">
+          <Box
+            zIndex={1}
+            flex={1}
+            p={20}
+            overflowY="auto"
+            color={"black"}
+            bg={"whiteAlpha.900"}
+          >
             {children}
           </Box>
         </Flex>

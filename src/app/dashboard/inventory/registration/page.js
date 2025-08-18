@@ -65,7 +65,13 @@ export default function registration() {
             h="50px"
             bg={"rgba(19,92,254,255)"}
           >
-            <Text fontSize={"lg"} bold={"md"}>
+            <Text
+              fontSize={"lg"}
+              bold={"md"}
+              color={
+                currentStep >= 1 ? "rgb(188, 188, 189)" : "rgba(77,81,90,255)"
+              }
+            >
               {currentStep > 1 ? "✓" : "1"}
             </Text>
           </Flex>
@@ -128,6 +134,7 @@ export default function registration() {
           </Flex>
         </Flex>
       </Flex>
+
       <Modal1 />
       <Flex justifyContent={"end"}>
         <Button
