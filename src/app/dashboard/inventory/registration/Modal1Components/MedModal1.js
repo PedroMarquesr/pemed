@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
+import React, { useState } from "react"
 
-import { Box, Flex, Input, Text, Field, NativeSelect } from "@chakra-ui/react";
+import { Box, Flex, Input, Text, Field, NativeSelect } from "@chakra-ui/react"
 
 export default function MedModal1() {
-  const [selectedCategory, setSelectedCategory] = useState("Genérico");
-  let codItem = "MED12345";
+  const [selectedCategory, setSelectedCategory] = useState("Genérico")
+  let codItem = "MED12345"
   return (
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
@@ -138,7 +138,7 @@ export default function MedModal1() {
               _hover={{
                 borderColor: "#5d8288c4",
               }}
-              placeholder="Digite o princípio ativo"
+              placeholder="Digite o nome do fabricante"
             />
           </Field.Root>
         </Box>
@@ -173,5 +173,5 @@ export default function MedModal1() {
         </Text>
       </Flex>
     </Flex>
-  );
+  )
 }

@@ -5,7 +5,7 @@ import { useState } from "react"
 import { GoArrowLeft } from "react-icons/go"
 
 import Modal1 from "./Modal1"
-
+import Modal2 from "./Modal2"
 export default function registration() {
   const [currentStep, SetCurrentStep] = useState(1)
   const [data, setData] = useState({})
@@ -44,11 +44,7 @@ export default function registration() {
           >
             Cadastro de item
           </Text>
-          <Text
-            color={"gray.600"}
-            fontWeight={"light"}
-            textShadow="1px 1px 2px rgba(0, 0, 0, 0.5)"
-          >
+          <Text color={"gray.600"} fontWeight={"light"} textShadow="xs">
             Cadastre medicamentos e materiais no sistema
           </Text>
         </Flex>
@@ -134,9 +130,30 @@ export default function registration() {
           </Flex>
         </Flex>
       </Flex>
+      {currentStep === 1 ? <Modal1 /> : <Modal2 />}
+      <Flex justifyContent={"end"} gap={3}>
+        {currentStep >= 2 && (
+          <Button
+            display={currentStep > 2 ? "none" : "block"}
+            isDisabled={currentStep > 3}
+            boxShadow={"md"}
+            bg={currentStep > 3 ? "green.500" : "rgba(24,24,24,255)"}
+            onClick={() => SetCurrentStep(currentStep - 1)}
+            color={"rgba(223,223,223,255)"}
+            _hover={
+              currentStep < 3
+                ? {
+                    bg: "rgba(19,92,254,255)",
+                    transform: "translateY(-3px)",
+                    transition: "transform 0.2s ease",
+                  }
+                : {}
+            }
+          >
+            Voltar
+          </Button>
+        )}
 
-      <Modal1 />
-      <Flex justifyContent={"end"}>
         <Button
           isDisabled={currentStep > 3}
           boxShadow={"md"}
@@ -144,7 +161,7 @@ export default function registration() {
           onClick={() => SetCurrentStep(currentStep + 1)}
           color={"rgba(223,223,223,255)"}
           _hover={
-            currentStep < 3
+            currentStep <= 3
               ? {
                   bg: "rgba(19,92,254,255)",
                   transform: "translateY(-3px)",

@@ -36,51 +36,50 @@ export default function Modal1() {
   }
 
   return (
-    <Box>
-      <Flex
-        flexDirection={"column"}
-        bg="white"
-        my={"2.5"}
-        w={"100%"}
-        h={"100vh"}
-        boxShadow={"xl"}
-      >
-        <Flex h={"5"} alignItems="center" gap="2" p="4">
-          <LuPill color="rgba(19,92,254,255)" size={20} />
-          <Text color={"black"} fontWeight={"900"}>
-            Identificação básica
-          </Text>
-        </Flex>
-        <Flex p="4">
-          <Field.Root>
-            <Field.Label fontWeight={"bold"}>Tipo de item:</Field.Label>
-            <NativeSelect.Root>
-              <NativeSelect.Field
-                value={selectOption}
-                onChange={(e) => setSelectOption(e.target.value)}
-                unstyled
-                width="25vw"
-                bg="white"
-                boxShadow={"md"}
-                color="black"
-                borderRadius="md"
-                border={"1px, solid, #2b4d52ff"}
-                px="3"
-                py="2"
-                _hover={{
-                  borderColor: "#5d8288c4",
-                }}
-              >
-                <option value="Medicamento">Medicamento</option>
-                <option value="Material">Material</option>
-                <option value="Insumo">Insumo</option>
-                <option value="Outros">Outros</option>
-              </NativeSelect.Field>
-            </NativeSelect.Root>
-          </Field.Root>
-        </Flex>
-        {renderSelectedScreen(selectOption)}
+    <Flex
+      flexDirection={"column"}
+      bg="white"
+      borderRadius={"md"}
+      my={"5"}
+      w={"100%"}
+      h={"auto"}
+      boxShadow={"xl"}
+    >
+      <Flex h={"5"} alignItems="center" gap="2" p="4">
+        <LuPill color="rgba(19,92,254,255)" size={20} />
+        <Text color={"black"} fontWeight={"900"}>
+          Identificação básica
+        </Text>
       </Flex>
-    </Box>
+      <Flex p="4">
+        <Field.Root>
+          <Field.Label fontWeight={"bold"}>Tipo de item:</Field.Label>
+          <NativeSelect.Root>
+            <NativeSelect.Field
+              value={selectOption}
+              onChange={(e) => setSelectOption(e.target.value)}
+              unstyled
+              width="25vw"
+              bg="white"
+              boxShadow={"md"}
+              color="black"
+              borderRadius="md"
+              border={"1px, solid, #2b4d52ff"}
+              px="3"
+              py="2"
+              _hover={{
+                borderColor: "#5d8288c4",
+              }}
+            >
+              <option value="Medicamento">Medicamento</option>
+              <option value="Material">Material</option>
+              <option value="Insumo">Insumo</option>
+              <option value="Outros">Outros</option>
+            </NativeSelect.Field>
+          </NativeSelect.Root>
+        </Field.Root>
+      </Flex>
+      {renderSelectedScreen(selectOption)}
+    </Flex>
   )
 }
