@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from "react"
-
-import { Box, Flex, Text, Field, NativeSelect } from "@chakra-ui/react"
+import { Flex, Text, Field, NativeSelect, Box } from "@chakra-ui/react"
 import { LuPill } from "react-icons/lu"
 import MedModal1 from "./Modal1Components/MedModal1"
 
@@ -14,19 +13,19 @@ export default function Modal1() {
         return <MedModal1 />
       case "Material":
         return (
-          <Box p="4" mt="4" border="1px solid #2b4d52ff" borderRadius="md">
+          <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
             <Text fontWeight="bold">Tela de Material</Text>
           </Box>
         )
       case "Insumo":
         return (
-          <Box p="4" mt="4" border="1px solid #2b4d52ff" borderRadius="md">
+          <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
             <Text fontWeight="bold">Tela de Insumo</Text>
           </Box>
         )
       case "Outros":
         return (
-          <Box p="4" mt="4" border="1px solid #2b4d52ff" borderRadius="md">
+          <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
             <Text fontWeight="bold">Tela de Outros</Text>
           </Box>
         )
@@ -37,36 +36,36 @@ export default function Modal1() {
 
   return (
     <Flex
-      flexDirection={"column"}
+      flexDirection="column"
       bg="white"
-      borderRadius={"md"}
-      my={"5"}
-      w={"100%"}
-      h={"auto"}
-      boxShadow={"xl"}
+      borderRadius="md"
+      my={5}
+      w="100%"
+      boxShadow="xl"
     >
-      <Flex h={"5"} alignItems="center" gap="2" p="4">
+      <Flex alignItems="center" gap={2} p={4}>
         <LuPill color="rgba(19,92,254,255)" size={20} />
-        <Text color={"black"} fontWeight={"900"}>
+        <Text color="black" fontWeight="bold" fontSize="lg">
           Identificação básica
         </Text>
       </Flex>
-      <Flex p="4">
-        <Field.Root>
-          <Field.Label fontWeight={"bold"}>Tipo de item:</Field.Label>
+
+      <Flex p={4}>
+        <Field.Root width="100%" maxWidth="500px">
+          <Field.Label fontWeight="bold">Tipo de item</Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
+              unstyled
               value={selectOption}
               onChange={(e) => setSelectOption(e.target.value)}
-              unstyled
-              width="25vw"
+              width="100%"
               bg="white"
-              boxShadow={"md"}
+              boxShadow="md"
               color="black"
               borderRadius="md"
-              border={"1px, solid, #2b4d52ff"}
-              px="3"
-              py="2"
+              border="1px solid #2b4d52ff"
+              px={3}
+              py={2}
               _hover={{
                 borderColor: "#5d8288c4",
               }}
@@ -79,7 +78,8 @@ export default function Modal1() {
           </NativeSelect.Root>
         </Field.Root>
       </Flex>
-      {renderSelectedScreen(selectOption)}
+
+      {renderSelectedScreen()}
     </Flex>
   )
 }
