@@ -9,7 +9,8 @@ import {
   NativeSelect,
   NativeSelectField,
 } from "@chakra-ui/react"
-import formasFarmaceuticas from "../../../../../data/inventory/formasFarmaceuticas.js"
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
+import viaAdministracao from "@/data/inventory/viaAdministracao.js"
 import { useState } from "react"
 
 import { LuPill } from "react-icons/lu"
@@ -66,8 +67,6 @@ export default function Modal3() {
           </NativeSelect.Root>
         </Field.Root>
 
-        {/* Campo 2 (condicional ou placeholder) */}
-
         {forma && formasFarmaceuticas[forma] ? (
           <Field.Root flex="1" minW="0">
             <Field.Label fontWeight="bold">Unidade de fornecimento</Field.Label>
@@ -100,6 +99,59 @@ export default function Modal3() {
         ) : (
           <Box flex="1" minW="0" />
         )}
+      </Flex>
+      <Flex p={4} gap={4} justifyContent="space-between">
+        <Field.Root flex="1">
+          <Field.Label>Via de administração: </Field.Label>
+          <NativeSelect.Root>
+            <NativeSelect.Field
+              unstyled
+              width="100%"
+              bg="white"
+              boxShadow="md"
+              color="black"
+              borderRadius="md"
+              border="1px solid #2b4d52ff"
+              px={3}
+              py={2}
+              _hover={{
+                borderColor: "#5d8288c4",
+              }}
+            >
+              <option value={""}>Selecione</option>
+              {viaAdministracao.via.map((via) => (
+                <option key={via} value={via}>
+                  {via}
+                </option>
+              ))}
+            </NativeSelect.Field>
+          </NativeSelect.Root>
+        </Field.Root>
+        <Box flex="1"></Box>
+      </Flex>
+      <Flex p={4} gap={4} justifyContent={"space-between"}>
+        <Field.Root>
+          <Field.Label>Quantidade de unidades por embalagem</Field.Label>
+          <Input
+            placeholder="Apenas números"
+            maxLength={11}
+            bg="white"
+            boxShadow="md"
+            border="1px solid #2b4d52ff"
+            _hover={{ borderColor: "#5d8288c4" }}
+          />
+        </Field.Root>
+        <Field.Root>
+          <Field.Label>Dosagem/Concentração</Field.Label>
+          <Input
+            placeholder="Ex: 500mg, 5%, 100UI/ml"
+            maxLength={11}
+            bg="white"
+            boxShadow="md"
+            border="1px solid #2b4d52ff"
+            _hover={{ borderColor: "#5d8288c4" }}
+          />
+        </Field.Root>
       </Flex>
     </Flex>
   )
