@@ -3,6 +3,7 @@ import React from "react"
 import {
   Flex,
   Input,
+  Box,
   Text,
   Field,
   NativeSelect,
@@ -14,7 +15,7 @@ import { useState } from "react"
 import { LuPill } from "react-icons/lu"
 
 export default function Modal3() {
-  const [forma, setForma] = useState("comprimido")
+  const [forma, setForma] = useState("")
   const [embalagem, setEmbalagem] = useState("")
   return (
     <Flex
@@ -33,7 +34,7 @@ export default function Modal3() {
       </Flex>
 
       <Flex p={4} gap={4} justifyContent="space-between">
-        <Field.Root width="100%" maxWidth="500px">
+        <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="bold">Forma Farmacêutica</Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
@@ -41,7 +42,7 @@ export default function Modal3() {
               value={forma}
               onChange={(e) => {
                 setForma(e.target.value)
-                setEmbalagem("") // reseta embalagem ao trocar forma
+                setEmbalagem("")
               }}
               width="100%"
               bg="white"
@@ -55,6 +56,7 @@ export default function Modal3() {
                 borderColor: "#5d8288c4",
               }}
             >
+              <option value={""}>Selecione</option>
               {Object.keys(formasFarmaceuticas).map((forma) => (
                 <option key={forma} value={forma}>
                   {forma}
@@ -63,29 +65,40 @@ export default function Modal3() {
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Field.Root>
-        {forma && formasFarmaceuticas[forma] && (
-          <Box>
-            <>
-              <Field.Root>
-                <NativeSelect.Root>
-                  <Field.Label fontWeight="bold">
-                    Forma Farmacêutica
-                  </Field.Label>
 
-                  <NativeSelect.Field
-                    value={embalagem}
-                    onChange={(e) => setEmbalagem(e.target.value)}
-                  >
-                    {formasFarmaceuticas[forma].map((emb) => (
-                      <option key={emb} value={emb}>
-                        {emb}
-                      </option>
-                    ))}
-                  </NativeSelect.Field>
-                </NativeSelect.Root>
-              </Field.Root>
-            </>
-          </Box>
+        {/* Campo 2 (condicional ou placeholder) */}
+
+        {forma && formasFarmaceuticas[forma] ? (
+          <Field.Root flex="1" minW="0">
+            <Field.Label fontWeight="bold">Unidade de fornecimento</Field.Label>
+            <NativeSelect.Root>
+              <NativeSelect.Field
+                unstyled
+                value={embalagem}
+                onChange={(e) => setEmbalagem(e.target.value)}
+                width="100%"
+                bg="white"
+                boxShadow="md"
+                color="black"
+                borderRadius="md"
+                border="1px solid #2b4d52ff"
+                px={3}
+                py={2}
+                _hover={{
+                  borderColor: "#5d8288c4",
+                }}
+              >
+                <option value="">Selecione uma forma</option>
+                {formasFarmaceuticas[forma].map((emb) => (
+                  <option key={emb} value={emb}>
+                    {emb}
+                  </option>
+                ))}
+              </NativeSelect.Field>
+            </NativeSelect.Root>
+          </Field.Root>
+        ) : (
+          <Box flex="1" minW="0" />
         )}
       </Flex>
     </Flex>
