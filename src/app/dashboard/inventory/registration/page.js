@@ -1,14 +1,24 @@
-"use client"
+"use client";
 
-import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react"
-import { useState } from "react"
-import { GoArrowLeft } from "react-icons/go"
+import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
+import { useState } from "react";
+import { GoArrowLeft } from "react-icons/go";
 
-import Modal1 from "./Modal1"
-import Modal2 from "./Modal2"
-export default function registration() {
-  const [currentStep, SetCurrentStep] = useState(1)
-  const [data, setData] = useState({})
+import Modal1 from "./Modal1";
+import Modal2 from "./Modal2";
+import MedModal2 from "./Modal2Components/MedModal2";
+import MatModal2 from "./Modal2Components/MatModal2 ";
+
+export default function Registration() {
+  const [currentStep, SetCurrentStep] = useState(1);
+  const [selectOption, setSelectOption] = useState("Medicamento");
+  const [data, setData] = useState({});
+
+  const renderModal2 = () => {
+    if (currentStep === 2) {
+      return selectOption === "Medicamento" ? <MedModal2 /> : <MatModal2 />;
+    }
+  };
 
   return (
     <>
@@ -130,7 +140,11 @@ export default function registration() {
           </Flex>
         </Flex>
       </Flex>
-      {currentStep === 1 ? <Modal1 /> : <Modal2 />}
+      {currentStep === 1 ? (
+        <Modal1 selectOption={selectOption} setSelectOption={setSelectOption} />
+      ) : (
+        renderModal2(selectOption)
+      )}
       <Flex justifyContent={"end"} gap={3}>
         {currentStep >= 2 && (
           <Button
@@ -174,5 +188,5 @@ export default function registration() {
         </Button>
       </Flex>
     </>
-  )
+  );
 }
