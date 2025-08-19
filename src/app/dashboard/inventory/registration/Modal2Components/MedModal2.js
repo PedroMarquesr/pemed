@@ -16,7 +16,7 @@ export default function Modal2() {
       <Flex alignItems="center" gap={2} p={4}>
         <LuPill color="rgba(19,92,254,255)" size={20} />
         <Text color="black" fontWeight="bold" fontSize="lg">
-          Classificação e especificações
+          Classificação
         </Text>
       </Flex>
 
@@ -34,7 +34,7 @@ export default function Modal2() {
         </Field.Root>
 
         <Field.Root flex="1" minW="0">
-          <Field.Label fontWeight="semibold">Validade do Registro</Field.Label>
+          <Field.Label fontWeight="semibold">Validade do Registro:</Field.Label>
           <Input
             type="date"
             bg="white"
@@ -58,8 +58,9 @@ export default function Modal2() {
         </Field.Root>
 
         <Field.Root flex="1" minW="0">
-          <Field.Label>Validade total do medicamento: </Field.Label>
+          <Field.Label>Validade total do medicamento (Em meses): </Field.Label>
           <Input
+            type="number"
             bg="white"
             boxShadow="md"
             border="1px solid #2b4d52ff"
@@ -70,9 +71,9 @@ export default function Modal2() {
 
       <Flex p={4}>
         <Field.Root width="100%">
-          <Field.Label fontWeight="semibold">Forma farmacêutica</Field.Label>
+          <Field.Label fontWeight="semibold">Código CMED</Field.Label>
           <Input
-            placeholder="Insira a forma farmacêutica"
+            placeholder="(Número do medicamento no banco de preços da ANVISA/CMED)."
             bg="white"
             boxShadow="md"
             border="1px solid #2b4d52ff"

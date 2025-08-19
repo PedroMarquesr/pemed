@@ -11,12 +11,7 @@ export default function MedModal1() {
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
         <Field.Root>
-          <Field.Label
-            fontSize="sm"
-            fontWeight="semibold"
-            color="gray.700"
-            mb={2}
-          >
+          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700" mb={2}>
             {" "}
             Selecione a categoria regulatória:
           </Field.Label>
@@ -65,7 +60,7 @@ export default function MedModal1() {
             <Field.Root>
               <Field.Label
                 fontSize="sm"
-                fontWeight="semibold"
+                fontWeight="bold"
                 color="gray.700"
                 mb={2}
               >
@@ -93,7 +88,7 @@ export default function MedModal1() {
           <Field.Root>
             <Field.Label
               fontSize="sm"
-              fontWeight="semibold"
+              fontWeight="bold"
               color="gray.700"
               mb={2}
             >
@@ -119,7 +114,7 @@ export default function MedModal1() {
           <Field.Root>
             <Field.Label
               fontSize="sm"
-              fontWeight="semibold"
+              fontWeight="bold"
               color="gray.700"
               mb={2}
             >
@@ -153,7 +148,7 @@ export default function MedModal1() {
         <Text
           justifyContent={"left"}
           fontSize="xl"
-          fontWeight="semibold"
+          fontWeight="bold"
           color="gray.700"
           mb={2}
         >

@@ -1,24 +1,29 @@
-"use client";
+"use client"
 
-import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
-import { useState } from "react";
-import { GoArrowLeft } from "react-icons/go";
+import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react"
+import { useState } from "react"
+import { GoArrowLeft } from "react-icons/go"
 
-import Modal1 from "./Modal1";
-import Modal2 from "./Modal2";
-import MedModal2 from "./Modal2Components/MedModal2";
-import MatModal2 from "./Modal2Components/MatModal2 ";
+import Modal1 from "./Modal1"
+import MedModal2 from "./Modal2Components/MedModal2"
+import MatModal2 from "./Modal2Components/MatModal2 "
+import MedModal3 from "./Modal3Components/MedModal3"
 
 export default function Registration() {
-  const [currentStep, SetCurrentStep] = useState(1);
-  const [selectOption, setSelectOption] = useState("Medicamento");
-  const [data, setData] = useState({});
+  const [currentStep, SetCurrentStep] = useState(1)
+  const [selectOption, setSelectOption] = useState("Medicamento")
+  const [data, setData] = useState({})
 
   const renderModal2 = () => {
     if (currentStep === 2) {
-      return selectOption === "Medicamento" ? <MedModal2 /> : <MatModal2 />;
+      return selectOption === "Medicamento" ? <MedModal2 /> : <MatModal2 />
     }
-  };
+  }
+  const renderModal3 = () => {
+    if (currentStep === 3) {
+      return selectOption === "Medicamento" ? <MedModal3 /> : null
+    }
+  }
 
   return (
     <>
@@ -142,20 +147,21 @@ export default function Registration() {
       </Flex>
       {currentStep === 1 ? (
         <Modal1 selectOption={selectOption} setSelectOption={setSelectOption} />
-      ) : (
+      ) : currentStep === 2 ? (
         renderModal2(selectOption)
+      ) : (
+        renderModal3(selectOption)
       )}
       <Flex justifyContent={"end"} gap={3}>
-        {currentStep >= 2 && (
+        {currentStep >= 2 && currentStep <= 3 && (
           <Button
-            display={currentStep > 2 ? "none" : "block"}
             isDisabled={currentStep > 3}
             boxShadow={"md"}
             bg={currentStep > 3 ? "green.500" : "rgba(24,24,24,255)"}
             onClick={() => SetCurrentStep(currentStep - 1)}
             color={"rgba(223,223,223,255)"}
             _hover={
-              currentStep < 3
+              currentStep <= 3
                 ? {
                     bg: "rgba(19,92,254,255)",
                     transform: "translateY(-3px)",
@@ -188,5 +194,5 @@ export default function Registration() {
         </Button>
       </Flex>
     </>
-  );
+  )
 }
