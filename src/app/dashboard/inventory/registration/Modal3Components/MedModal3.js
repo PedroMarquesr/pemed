@@ -1,23 +1,26 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
+
 import {
   Flex,
   Input,
   Box,
+  HStack,
   Text,
+  RadioGroup,
   Field,
   NativeSelect,
   NativeSelectField,
-} from "@chakra-ui/react"
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
-import viaAdministracao from "@/data/inventory/viaAdministracao.js"
-import { useState } from "react"
+} from "@chakra-ui/react";
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
+import viaAdministracao from "@/data/inventory/viaAdministracao.js";
+import { useState } from "react";
 
-import { LuPill } from "react-icons/lu"
+import { LuPill } from "react-icons/lu";
 
 export default function Modal3() {
-  const [forma, setForma] = useState("")
-  const [embalagem, setEmbalagem] = useState("")
+  const [forma, setForma] = useState("");
+  const [embalagem, setEmbalagem] = useState("");
   return (
     <Flex
       flexDirection="column"
@@ -42,8 +45,8 @@ export default function Modal3() {
               unstyled
               value={forma}
               onChange={(e) => {
-                setForma(e.target.value)
-                setEmbalagem("")
+                setForma(e.target.value);
+                setEmbalagem("");
               }}
               width="100%"
               bg="white"
@@ -153,6 +156,28 @@ export default function Modal3() {
           />
         </Field.Root>
       </Flex>
+      <Flex p={4} gap={4} justifyContent={"space-between"}>
+        <Flex justifyContent={"center"}>
+          <Field.Root justifyContent={"center"}>
+            <RadioGroup.Root defaultValue="1">
+              <Field.Label>Medicamento controlado ?</Field.Label>
+
+              <HStack gap="3" justifyContent={"center"}>
+                <RadioGroup.Item key="re" value="re" colorPalette={"blue"}>
+                  <RadioGroup.ItemHiddenInput />
+                  <RadioGroup.ItemIndicator />
+                  <RadioGroup.ItemText>Sim</RadioGroup.ItemText>
+                </RadioGroup.Item>
+                <RadioGroup.Item key="be" value="be" colorPalette={"blue"}>
+                  <RadioGroup.ItemHiddenInput />
+                  <RadioGroup.ItemIndicator />
+                  <RadioGroup.ItemText>Não</RadioGroup.ItemText>
+                </RadioGroup.Item>
+              </HStack>
+            </RadioGroup.Root>
+          </Field.Root>
+        </Flex>
+      </Flex>
     </Flex>
-  )
+  );
 }
