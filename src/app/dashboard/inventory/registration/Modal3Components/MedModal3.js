@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 
 import {
   Flex,
@@ -7,20 +7,23 @@ import {
   Box,
   HStack,
   Text,
+  Radio,
   RadioGroup,
   Field,
   NativeSelect,
-  NativeSelectField,
-} from "@chakra-ui/react";
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
-import viaAdministracao from "@/data/inventory/viaAdministracao.js";
-import { useState } from "react";
+} from "@chakra-ui/react"
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
+import viaAdministracao from "@/data/inventory/viaAdministracao.js"
+import { useState } from "react"
 
-import { LuPill } from "react-icons/lu";
+import { LuPill } from "react-icons/lu"
 
 export default function Modal3() {
-  const [forma, setForma] = useState("");
-  const [embalagem, setEmbalagem] = useState("");
+  const [forma, setForma] = useState("")
+  const [embalagem, setEmbalagem] = useState("")
+  const [termolabil, setTermolabil] = useState("nao")
+  const [controlado, setControlado] = useState("nao")
+
   return (
     <Flex
       flexDirection="column"
@@ -45,8 +48,8 @@ export default function Modal3() {
               unstyled
               value={forma}
               onChange={(e) => {
-                setForma(e.target.value);
-                setEmbalagem("");
+                setForma(e.target.value)
+                setEmbalagem("")
               }}
               width="100%"
               bg="white"
@@ -156,21 +159,61 @@ export default function Modal3() {
           />
         </Field.Root>
       </Flex>
-      <Flex p={4} gap={4} justifyContent={"space-between"}>
+      <Flex p={4} gap={4} justifyContent={"flex-start"}>
         <Flex justifyContent={"center"}>
-          <Field.Root justifyContent={"center"}>
-            <RadioGroup.Root defaultValue="1">
-              <Field.Label>Medicamento controlado ?</Field.Label>
-
-              <HStack gap="3" justifyContent={"center"}>
-                <RadioGroup.Item key="re" value="re" colorPalette={"blue"}>
+          <Field.Root>
+            <RadioGroup.Root value={controlado} onValueChange={setControlado}>
+              <Field.Label>Medicamento controlado?</Field.Label>
+              <HStack gap="3">
+                <RadioGroup.Item
+                  value="sim"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    padding: "0.5rem 1rem",
+                    border: "1px solid #2b4d52ff",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                  }}
+                >
                   <RadioGroup.ItemHiddenInput />
-                  <RadioGroup.ItemIndicator />
+                  <RadioGroup.ItemIndicator
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      borderRadius: "50%",
+                      backgroundColor:
+                        controlado === "sim" ? "#135cfe" : "transparent",
+                      border: "2px solid #135cfe",
+                    }}
+                  />
                   <RadioGroup.ItemText>Sim</RadioGroup.ItemText>
                 </RadioGroup.Item>
-                <RadioGroup.Item key="be" value="be" colorPalette={"blue"}>
+
+                <RadioGroup.Item
+                  value="nao"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    padding: "0.5rem 1rem",
+                    border: "1px solid #2b4d52ff",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                  }}
+                >
                   <RadioGroup.ItemHiddenInput />
-                  <RadioGroup.ItemIndicator />
+                  <RadioGroup.ItemIndicator
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      borderRadius: "50%",
+                      backgroundColor:
+                        controlado === "nao" ? "#135cfe" : "transparent",
+                      border: "2px solid #135cfe",
+                    }}
+                  />
                   <RadioGroup.ItemText>Não</RadioGroup.ItemText>
                 </RadioGroup.Item>
               </HStack>
@@ -179,5 +222,5 @@ export default function Modal3() {
         </Flex>
       </Flex>
     </Flex>
-  );
+  )
 }
