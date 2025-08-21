@@ -4,7 +4,12 @@ import { Flex, Text, Field, NativeSelect, Box } from "@chakra-ui/react";
 import { LuPill } from "react-icons/lu";
 import MedModal1 from "./Modal1Components/MedModal1";
 
-export default function Modal1({ selectOption, setSelectOption }) {
+export default function Modal1({
+  selectOption,
+  setSelectOption,
+  data,
+  setData,
+}) {
   const renderSelectedScreen = () => {
     switch (selectOption) {
       case "Medicamento":

@@ -31,6 +31,12 @@ export default function Modal3() {
   const [termolabil, setTermolabil] = useState(false);
   const [controlado, setControlado] = useState(false);
 
+  const [data, setData] = useState({
+    forma: "",
+    termolabil: false,
+    controlado: false,
+  });
+
   return (
     <Flex
       flexDirection="column"
@@ -46,16 +52,16 @@ export default function Modal3() {
           Especificações Técnicas
         </Text>
       </Flex>
-
+      {JSON.stringify(data)}
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="bold">Forma Farmacêutica</Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={forma}
+              value={data.forma}
               onChange={(e) => {
-                setForma(e.target.value);
+                setData({ ...data, forma: e.target.value });
                 setEmbalagem("");
               }}
               width="100%"
@@ -80,7 +86,7 @@ export default function Modal3() {
           </NativeSelect.Root>
         </Field.Root>
 
-        {forma && formasFarmaceuticas[forma] ? (
+        {data.forma && formasFarmaceuticas[data.forma] ? (
           <Field.Root flex="1" minW="0">
             <Field.Label fontWeight="bold">Unidade de fornecimento</Field.Label>
             <NativeSelect.Root>
@@ -101,7 +107,7 @@ export default function Modal3() {
                 }}
               >
                 <option value="">Selecione uma forma</option>
-                {formasFarmaceuticas[forma].map((emb) => (
+                {formasFarmaceuticas[data.forma].map((emb) => (
                   <option key={emb} value={emb}>
                     {emb}
                   </option>
