@@ -5,12 +5,14 @@ import {
   Flex,
   Input,
   Box,
+  Switch,
   HStack,
   Text,
   Radio,
   RadioGroup,
   Field,
   NativeSelect,
+  Stack,
 } from "@chakra-ui/react"
 import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
 import viaAdministracao from "@/data/inventory/viaAdministracao.js"
@@ -19,9 +21,14 @@ import { useState } from "react"
 import { LuPill } from "react-icons/lu"
 
 export default function Modal3() {
+  const optionTermolabil = [
+    { label: "termolabil", option: "nao" },
+    { label: "termolabil", option: "sim" },
+  ]
+
   const [forma, setForma] = useState("")
   const [embalagem, setEmbalagem] = useState("")
-  const [termolabil, setTermolabil] = useState("nao")
+  const [termolabil, setTermolabil] = useState(false)
   const [controlado, setControlado] = useState("nao")
 
   return (
@@ -159,67 +166,72 @@ export default function Modal3() {
           />
         </Field.Root>
       </Flex>
-      <Flex p={4} gap={4} justifyContent={"flex-start"}>
-        <Flex justifyContent={"center"}>
+      <Flex
+        p={4}
+        gap={4}
+        justifyContent={"flex-start"}
+        flexDirection={"column"}
+      >
+        <Flex flexDirection={"row"}>
           <Field.Root>
-            <RadioGroup.Root value={controlado} onValueChange={setControlado}>
-              <Field.Label>Medicamento controlado?</Field.Label>
-              <HStack gap="3">
-                <RadioGroup.Item
-                  value="sim"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    padding: "0.5rem 1rem",
-                    border: "1px solid #2b4d52ff",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                  }}
-                >
-                  <RadioGroup.ItemHiddenInput />
-                  <RadioGroup.ItemIndicator
-                    style={{
-                      width: "16px",
-                      height: "16px",
-                      borderRadius: "50%",
-                      backgroundColor:
-                        controlado === "sim" ? "#135cfe" : "transparent",
-                      border: "2px solid #135cfe",
-                    }}
-                  />
-                  <RadioGroup.ItemText>Sim</RadioGroup.ItemText>
-                </RadioGroup.Item>
-
-                <RadioGroup.Item
-                  value="nao"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    padding: "0.5rem 1rem",
-                    border: "1px solid #2b4d52ff",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                  }}
-                >
-                  <RadioGroup.ItemHiddenInput />
-                  <RadioGroup.ItemIndicator
-                    style={{
-                      width: "16px",
-                      height: "16px",
-                      borderRadius: "50%",
-                      backgroundColor:
-                        controlado === "nao" ? "#135cfe" : "transparent",
-                      border: "2px solid #135cfe",
-                    }}
-                  />
-                  <RadioGroup.ItemText>Não</RadioGroup.ItemText>
-                </RadioGroup.Item>
-              </HStack>
-            </RadioGroup.Root>
+            <Flex alignItems="center" gap={4}>
+              <Field.Label>Medicamento controlado ?</Field.Label>
+              <Switch.Root
+                checked={controlado}
+                onCheckedChange={(e) => setControlado(e.checked)}
+                colorPalette="blue"
+                size="lg"
+              >
+                <Switch.HiddenInput />
+                <Switch.Control>
+                  <Switch.Thumb />
+                </Switch.Control>
+              </Switch.Root>
+            </Flex>
           </Field.Root>
         </Flex>
+        <Box>
+          <Field.Root>
+            <Flex alignItems="center" gap={4}>
+              <Field.Label>Medicamento termolábil ?</Field.Label>
+              <Switch.Root
+                checked={termolabil}
+                onCheckedChange={(e) => setTermolabil(e.checked)}
+                colorPalette="blue"
+                size="lg"
+              >
+                <Switch.HiddenInput />
+                <Switch.Control>
+                  <Switch.Thumb />
+                </Switch.Control>
+              </Switch.Root>
+            </Flex>
+          </Field.Root>
+        </Box>
+        {termolabil && (
+          <>
+            <Flex>
+              <Field.Root flex="1">
+                <Field.Label>
+                  Informe a faixa de temperatura indicada
+                </Field.Label>
+                <Input
+                  placeholder="Exemplo: 8°C a 12°C"
+                  width="100%"
+                  bg="white"
+                  boxShadow="md"
+                  color="black"
+                  borderRadius="md"
+                  border="1px solid #2b4d52ff"
+                  _hover={{
+                    borderColor: "#5d8288c4",
+                  }}
+                />
+              </Field.Root>
+              <Box flex="1" minW="0"></Box>
+            </Flex>
+          </>
+        )}
       </Flex>
     </Flex>
   )
