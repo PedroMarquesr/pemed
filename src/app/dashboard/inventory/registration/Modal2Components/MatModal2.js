@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import { Flex, Input, Text, Field } from "@chakra-ui/react";
-import { LuPill } from "react-icons/lu";
+"use client"
+import React from "react"
+import { Flex, Input, Text, Field } from "@chakra-ui/react"
+import { LuPill } from "react-icons/lu"
 
-export default function Modal2() {
+export default function MatModal2() {
   return (
     <Flex
       flexDirection="column"
@@ -82,5 +82,5 @@ export default function Modal2() {
         </Field.Root>
       </Flex>
     </Flex>
-  );
+  )
 }
