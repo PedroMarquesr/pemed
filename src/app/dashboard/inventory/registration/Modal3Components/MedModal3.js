@@ -23,7 +23,7 @@ export default function Modal3() {
   ]
 
   const [forma, setForma] = useState("")
-  const [embalagem, setEmbalagem] = useState("")
+  const [unidadeFornecimento, setUnidadeFornecimento] = useState("")
   const [termolabil, setTermolabil] = useState(false)
   const [controlado, setControlado] = useState(false)
 
@@ -58,7 +58,7 @@ export default function Modal3() {
               value={data.forma}
               onChange={(e) => {
                 setData({ ...data, forma: e.target.value })
-                setEmbalagem("")
+                setUnidadeFornecimento("")
               }}
               width="100%"
               bg="white"
@@ -88,8 +88,8 @@ export default function Modal3() {
             <NativeSelect.Root>
               <NativeSelect.Field
                 unstyled
-                value={embalagem}
-                onChange={(e) => setEmbalagem(e.target.value)}
+                value={unidadeFornecimento}
+                onChange={(e) => setUnidadeFornecimento(e.target.value)}
                 width="100%"
                 bg="white"
                 boxShadow="md"
