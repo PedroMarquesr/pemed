@@ -1,41 +1,37 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 
 import {
   Flex,
   Input,
   Box,
   Switch,
-  HStack,
   Text,
-  Radio,
-  RadioGroup,
   Field,
   NativeSelect,
-  Stack,
-} from "@chakra-ui/react";
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
-import viaAdministracao from "@/data/inventory/viaAdministracao.js";
-import { useState } from "react";
+} from "@chakra-ui/react"
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
+import viaAdministracao from "@/data/inventory/viaAdministracao.js"
+import { useState } from "react"
 
-import { LuPill } from "react-icons/lu";
+import { LuPill } from "react-icons/lu"
 
 export default function Modal3() {
   const optionTermolabil = [
     { label: "termolabil", option: "nao" },
     { label: "termolabil", option: "sim" },
-  ];
+  ]
 
-  const [forma, setForma] = useState("");
-  const [embalagem, setEmbalagem] = useState("");
-  const [termolabil, setTermolabil] = useState(false);
-  const [controlado, setControlado] = useState(false);
+  const [forma, setForma] = useState("")
+  const [embalagem, setEmbalagem] = useState("")
+  const [termolabil, setTermolabil] = useState(false)
+  const [controlado, setControlado] = useState(false)
 
   const [data, setData] = useState({
     forma: "",
     termolabil: false,
     controlado: false,
-  });
+  })
 
   return (
     <Flex
@@ -61,8 +57,8 @@ export default function Modal3() {
               unstyled
               value={data.forma}
               onChange={(e) => {
-                setData({ ...data, forma: e.target.value });
-                setEmbalagem("");
+                setData({ ...data, forma: e.target.value })
+                setEmbalagem("")
               }}
               width="100%"
               bg="white"
@@ -240,5 +236,5 @@ export default function Modal3() {
         )}
       </Flex>
     </Flex>
-  );
+  )
 }
