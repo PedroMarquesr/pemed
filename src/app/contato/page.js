@@ -1,5 +1,5 @@
-"use client";
-import { Box, Flex, Text, Image, List, ListRoot } from "@chakra-ui/react";
+"use client"
+import { Box, Flex, Text, Image, List, ListRoot } from "@chakra-ui/react"
 
 export default function Contato() {
   return (
@@ -32,5 +32,5 @@ export default function Contato() {
         />
       </Box>
     </Flex>
-  );
+  )
 }

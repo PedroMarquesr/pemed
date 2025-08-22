@@ -10,7 +10,7 @@ import MatModal2 from "./Modal2Components/MatModal2 "
 import MedModal3 from "./Modal3Components/MedModal3"
 
 export default function Registration() {
-  const [currentStep, SetCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(1)
   const [selectOption, setSelectOption] = useState("Medicamento")
 
   const renderModal2 = () => {
@@ -157,7 +157,7 @@ export default function Registration() {
             isDisabled={currentStep > 3}
             boxShadow={"md"}
             bg={currentStep > 3 ? "green.500" : "rgba(24,24,24,255)"}
-            onClick={() => SetCurrentStep(currentStep - 1)}
+            onClick={() => setCurrentStep(currentStep - 1)}
             color={"rgba(223,223,223,255)"}
             _hover={
               currentStep <= 3
@@ -177,7 +177,7 @@ export default function Registration() {
           isDisabled={currentStep > 3}
           boxShadow={"md"}
           bg={currentStep > 3 ? "green.500" : "rgba(24,24,24,255)"}
-          onClick={() => SetCurrentStep(currentStep + 1)}
+          onClick={() => setCurrentStep(currentStep + 1)}
           color={"rgba(223,223,223,255)"}
           _hover={
             currentStep <= 3
