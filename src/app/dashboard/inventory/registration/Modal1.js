@@ -1,8 +1,8 @@
-"use client";
-import React, { useState } from "react";
-import { Flex, Text, Field, NativeSelect, Box } from "@chakra-ui/react";
-import { LuPill } from "react-icons/lu";
-import MedModal1 from "./Modal1Components/MedModal1";
+"use client"
+import React, { useState } from "react"
+import { Flex, Text, Field, NativeSelect, Box } from "@chakra-ui/react"
+import { LuPill } from "react-icons/lu"
+import MedModal1 from "./Modal1Components/MedModal1"
 
 export default function Modal1({
   selectOption,
@@ -13,29 +13,29 @@ export default function Modal1({
   const renderSelectedScreen = () => {
     switch (selectOption) {
       case "Medicamento":
-        return <MedModal1 />;
+        return <MedModal1 />
       case "Material":
         return (
           <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
             <Text fontWeight="bold">Tela de Material</Text>
           </Box>
-        );
+        )
       case "Insumo":
         return (
           <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
             <Text fontWeight="bold">Tela de Insumo</Text>
           </Box>
-        );
+        )
       case "Outros":
         return (
           <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
             <Text fontWeight="bold">Tela de Outros</Text>
           </Box>
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <Flex
@@ -84,5 +84,5 @@ export default function Modal1({
 
       {renderSelectedScreen()}
     </Flex>
-  );
+  )
 }

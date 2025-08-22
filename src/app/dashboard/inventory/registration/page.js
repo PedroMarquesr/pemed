@@ -6,7 +6,7 @@ import { GoArrowLeft } from "react-icons/go"
 
 import Modal1 from "./Modal1"
 import MedModal2 from "./Modal2Components/MedModal2"
-import MatModal2 from "./Modal2Components/MatModal2 "
+import MatModal2 from "./Modal2Components/MatModal2"
 import MedModal3 from "./Modal3Components/MedModal3"
 
 export default function Registration() {
