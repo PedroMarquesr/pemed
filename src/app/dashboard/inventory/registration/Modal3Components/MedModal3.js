@@ -22,14 +22,14 @@ export default function Modal3() {
     { label: "termolabil", option: "sim" },
   ]
 
-  const [forma, setForma] = useState("")
-  const [unidadeFornecimento, setUnidadeFornecimento] = useState("")
-  const [termolabil, setTermolabil] = useState(false)
-  const [controlado, setControlado] = useState(false)
-
   const [data, setData] = useState({
     forma: "",
+    unidadeFornecimento: "",
+    viaAdministracao: "",
+    qtdPorEmbalagem: 0,
+    dosagem: "",
     termolabil: false,
+    faixaTemperatura: "",
     controlado: false,
   })
 
@@ -88,8 +88,10 @@ export default function Modal3() {
             <NativeSelect.Root>
               <NativeSelect.Field
                 unstyled
-                value={unidadeFornecimento}
-                onChange={(e) => setUnidadeFornecimento(e.target.value)}
+                value={data.unidadeFornecimento}
+                onChange={(e) =>
+                  setData({ ...data, unidadeFornecimento: e.target.value })
+                }
                 width="100%"
                 bg="white"
                 boxShadow="md"
@@ -121,6 +123,10 @@ export default function Modal3() {
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
+              value={data.viaAdministracao}
+              onChange={(e) =>
+                setData({ ...data, viaAdministracao: e.target.value })
+              }
               width="100%"
               bg="white"
               boxShadow="md"
@@ -148,8 +154,15 @@ export default function Modal3() {
         <Field.Root>
           <Field.Label>Quantidade de unidades por embalagem</Field.Label>
           <Input
+            value={data.qtdPorEmbalagem}
+            onChange={(e) =>
+              setData({
+                ...data,
+                qtdPorEmbalagem: Number(e.target.value),
+              })
+            }
             placeholder="Apenas números"
-            maxLength={11}
+            maxLength={4}
             bg="white"
             boxShadow="md"
             border="1px solid #2b4d52ff"
@@ -159,6 +172,8 @@ export default function Modal3() {
         <Field.Root>
           <Field.Label>Dosagem/Concentração</Field.Label>
           <Input
+            value={data.dosagem}
+            onChange={(e) => setData({ ...data, dosagem: e.target.value })}
             placeholder="Ex: 500mg, 5%, 100UI/ml"
             maxLength={11}
             bg="white"
@@ -179,8 +194,10 @@ export default function Modal3() {
             <Flex alignItems="center" gap={4}>
               <Field.Label>Medicamento controlado ?</Field.Label>
               <Switch.Root
-                checked={controlado}
-                onCheckedChange={(e) => setControlado(e.checked)}
+                checked={data.controlado}
+                onCheckedChange={(e) =>
+                  setData({ ...data, controlado: e.checked })
+                }
                 colorPalette="blue"
                 size="lg"
               >
@@ -197,8 +214,10 @@ export default function Modal3() {
             <Flex alignItems="center" gap={4}>
               <Field.Label>Medicamento termolábil ?</Field.Label>
               <Switch.Root
-                checked={termolabil}
-                onCheckedChange={(e) => setTermolabil(e.checked)}
+                checked={data.termolabil}
+                onCheckedChange={(e) =>
+                  setData({ ...data, termolabil: e.checked })
+                }
                 colorPalette="blue"
                 size="lg"
               >
@@ -210,7 +229,7 @@ export default function Modal3() {
             </Flex>
           </Field.Root>
         </Box>
-        {termolabil && (
+        {data.termolabil && (
           <>
             <Flex>
               <Field.Root flex="1">
@@ -218,6 +237,10 @@ export default function Modal3() {
                   Informe a faixa de temperatura indicada
                 </Field.Label>
                 <Input
+                  value={data.faixaTemperatura}
+                  onChange={(e) =>
+                    setData({ ...data, faixaTemperatura: e.target.value })
+                  }
                   placeholder="Exemplo: 8°C a 12°C"
                   width="100%"
                   bg="white"
