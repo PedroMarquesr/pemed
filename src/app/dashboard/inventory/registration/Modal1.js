@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react"
-import { Flex, Text, Field, NativeSelect, Box } from "@chakra-ui/react"
+import { Flex, Text, Field, NativeSelect, Box, Switch } from "@chakra-ui/react"
 import { LuPill } from "react-icons/lu"
 import MedModal1 from "./Modal1Components/MedModal1"
 

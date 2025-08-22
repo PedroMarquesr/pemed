@@ -2,7 +2,15 @@
 
 import React, { useState } from "react"
 
-import { Box, Flex, Input, Text, Field, NativeSelect } from "@chakra-ui/react"
+import {
+  Box,
+  Flex,
+  Input,
+  Text,
+  Field,
+  NativeSelect,
+  Switch,
+} from "@chakra-ui/react"
 
 export default function MedModal1() {
   const [selectedCategory, setSelectedCategory] = useState("Genérico")
@@ -51,11 +59,11 @@ export default function MedModal1() {
           </NativeSelect.Root>
         </Field.Root>
 
-        {(selectedCategory === "novo" ||
-          selectedCategory === "similar" ||
-          selectedCategory === "biologico" ||
-          selectedCategory === "produto-terapia-avancada" ||
-          selectedCategory === "radiofarmaco") && (
+        {selectedCategory === "novo" ||
+        selectedCategory === "similar" ||
+        selectedCategory === "biologico" ||
+        selectedCategory === "produto-terapia-avancada" ||
+        selectedCategory === "radiofarmaco" ? (
           <Box mt="4">
             <Field.Root>
               <Field.Label
@@ -68,21 +76,59 @@ export default function MedModal1() {
               </Field.Label>
               <Input
                 width="35vw"
-                boxShadow={"md"}
+                boxShadow="md"
                 bg="white"
-                mb={"4"}
+                mb="4"
                 color="black"
                 borderRadius="md"
-                border={"1px, solid, #2b4d52ff"}
+                border="1px solid #2b4d52ff"
                 px="3"
                 py="2"
-                _hover={{
-                  borderColor: "#5d8288c4",
-                }}
+                _hover={{ borderColor: "#5d8288c4" }}
                 placeholder="Digite o nome comercial"
               />
             </Field.Root>
           </Box>
+        ) : (
+          <Flex>
+            <Field.Root>
+              <Field.Label>Teste</Field.Label>
+              <Switch.Root
+                checked={false}
+                onCheckedChange={() => {}}
+                colorPalette="blue"
+                size="lg"
+              >
+                <Switch.HiddenInput />
+                <Switch.Control>
+                  <Switch.Thumb />
+                </Switch.Control>
+              </Switch.Root>
+            </Field.Root>
+            <Field.Root>
+              <Field.Label
+                fontSize="sm"
+                fontWeight="bold"
+                color="gray.700"
+                mb={2}
+              >
+                Nome comercial:
+              </Field.Label>
+              <Input
+                width="35vw"
+                boxShadow="md"
+                bg="white"
+                mb="4"
+                color="black"
+                borderRadius="md"
+                border="1px solid #2b4d52ff"
+                px="3"
+                py="2"
+                _hover={{ borderColor: "#5d8288c4" }}
+                placeholder="Digite o nome comercial"
+              />
+            </Field.Root>
+          </Flex>
         )}
         <Box>
           <Field.Root>
