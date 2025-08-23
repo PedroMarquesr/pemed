@@ -1,5 +1,5 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
 
 import {
   Flex,
@@ -9,29 +9,34 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react"
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
-import viaAdministracao from "@/data/inventory/viaAdministracao.js"
-import { useState } from "react"
+} from "@chakra-ui/react";
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
+import viaAdministracao from "@/data/inventory/viaAdministracao.js";
+import { useState } from "react";
 
-import { LuPill } from "react-icons/lu"
+import { LuPill } from "react-icons/lu";
 
 export default function Modal3() {
-  const optionTermolabil = [
-    { label: "termolabil", option: "nao" },
-    { label: "termolabil", option: "sim" },
-  ]
-
   const [data, setData] = useState({
+    tipoItem: "",
+    categoriaRegulatoria: "",
+    nomeComercial: "",
+    principioAtivo: "",
+    fabricante: "",
     forma: "",
     unidadeFornecimento: "",
+    registroAnvisa: null,
+    validadeRegistro: null,
+    classeFarmaceutica: "",
+    validadeTotalDoMedicamento: "",
+    codigoCmed: null,
     viaAdministracao: "",
     qtdPorEmbalagem: 0,
     dosagem: "",
     termolabil: false,
     faixaTemperatura: "",
     controlado: false,
-  })
+  });
 
   return (
     <Flex
@@ -57,8 +62,8 @@ export default function Modal3() {
               unstyled
               value={data.forma}
               onChange={(e) => {
-                setData({ ...data, forma: e.target.value })
-                setUnidadeFornecimento("")
+                setData({ ...data, forma: e.target.value });
+                setUnidadeFornecimento("");
               }}
               width="100%"
               bg="white"
@@ -259,5 +264,5 @@ export default function Modal3() {
         )}
       </Flex>
     </Flex>
-  )
+  );
 }

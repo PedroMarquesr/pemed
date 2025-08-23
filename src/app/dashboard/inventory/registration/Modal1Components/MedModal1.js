@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 import {
   Box,
@@ -10,11 +10,11 @@ import {
   Field,
   NativeSelect,
   Switch,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 export default function MedModal1() {
-  const [selectedCategory, setSelectedCategory] = useState("Genérico")
-  let codItem = "MED12345"
+  const [selectedCategory, setSelectedCategory] = useState("Genérico");
+  let codItem = "MED12345";
   return (
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
@@ -92,9 +92,9 @@ export default function MedModal1() {
         ) : (
           <Flex>
             <Field.Root>
-              <Field.Label>Teste</Field.Label>
+              <Field.Label>Contém nome comercial ?</Field.Label>
               <Switch.Root
-                checked={false}
+                checked={true}
                 onCheckedChange={() => {}}
                 colorPalette="blue"
                 size="lg"
@@ -214,5 +214,5 @@ export default function MedModal1() {
         </Text>
       </Flex>
     </Flex>
-  )
+  );
 }
