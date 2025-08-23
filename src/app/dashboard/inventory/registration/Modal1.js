@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Flex, Text, Field, NativeSelect, Box, Switch } from "@chakra-ui/react";
 import { LuPill } from "react-icons/lu";
 import MedModal1 from "./Modal1Components/MedModal1";
+import MatModal1 from "./Modal1Components/MatModal1";
 
 export default function Modal1({
   selectOption,
@@ -15,11 +16,7 @@ export default function Modal1({
       case "Medicamento":
         return <MedModal1 />;
       case "Material":
-        return (
-          <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
-            <Text fontWeight="bold">Tela de Material</Text>
-          </Box>
-        );
+        return <MatModal1 />;
       case "Insumo":
         return (
           <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
