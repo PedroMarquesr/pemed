@@ -12,8 +12,7 @@ import {
   Switch,
 } from "@chakra-ui/react";
 
-export default function MedModal1() {
-  const [selectedCategory, setSelectedCategory] = useState("Genérico");
+export default function MedModal1({ data, setData }) {
   let codItem = "MED12345";
   return (
     <Flex w={"100%"}>
@@ -25,8 +24,10 @@ export default function MedModal1() {
           </Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={data.categoriaRegulatoria}
+              onChange={(e) =>
+                setData({ ...data, categoriaRegulatoria: e.target.value })
+              }
               unstyled
               boxShadow={"md"}
               mb={"4"}
@@ -59,11 +60,11 @@ export default function MedModal1() {
           </NativeSelect.Root>
         </Field.Root>
 
-        {selectedCategory === "novo" ||
-        selectedCategory === "similar" ||
-        selectedCategory === "biologico" ||
-        selectedCategory === "produto-terapia-avancada" ||
-        selectedCategory === "radiofarmaco" ? (
+        {data.categoriaRegulatoria === "novo" ||
+        data.categoriaRegulatoria === "similar" ||
+        data.categoriaRegulatoria === "biologico" ||
+        data.categoriaRegulatoria === "produto-terapia-avancada" ||
+        data.categoriaRegulatoria === "radiofarmaco" ? (
           <Box mt="4">
             <Field.Root>
               <Field.Label
@@ -92,9 +93,16 @@ export default function MedModal1() {
         ) : (
           <Flex>
             <Field.Root>
-              <Field.Label>Contém nome comercial ?</Field.Label>
+              <Field.Label
+                fontSize="sm"
+                fontWeight="bold"
+                color="gray.700"
+                mb={2}
+              >
+                Contém nome comercial ?
+              </Field.Label>
               <Switch.Root
-                checked={true}
+                checked={false}
                 onCheckedChange={() => {}}
                 colorPalette="blue"
                 size="lg"

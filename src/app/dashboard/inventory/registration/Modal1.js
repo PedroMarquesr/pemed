@@ -14,9 +14,9 @@ export default function Modal1({
   const renderSelectedScreen = () => {
     switch (selectOption) {
       case "Medicamento":
-        return <MedModal1 />;
+        return <MedModal1 data={data} setData={setData} />;
       case "Material":
-        return <MatModal1 />;
+        return <MatModal1 data={data} setData={setData} />;
       case "Insumo":
         return (
           <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
@@ -56,8 +56,12 @@ export default function Modal1({
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={selectOption}
-              onChange={(e) => setSelectOption(e.target.value)}
+              value={data.tipoItem}
+              onChange={(e) => {
+                const value = e.target.value;
+                setData({ ...data, tipoItem: value });
+                setSelectOption(value);
+              }}
               width="100%"
               bg="white"
               boxShadow="md"

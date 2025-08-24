@@ -16,28 +16,7 @@ import { useState } from "react";
 
 import { LuPill } from "react-icons/lu";
 
-export default function Modal3() {
-  const [data, setData] = useState({
-    tipoItem: "",
-    categoriaRegulatoria: "",
-    nomeComercial: "",
-    principioAtivo: "",
-    fabricante: "",
-    forma: "",
-    unidadeFornecimento: "",
-    registroAnvisa: null,
-    validadeRegistro: null,
-    classeFarmaceutica: "",
-    validadeTotalDoMedicamento: "",
-    codigoCmed: null,
-    viaAdministracao: "",
-    qtdPorEmbalagem: 0,
-    dosagem: "",
-    termolabil: false,
-    faixaTemperatura: "",
-    controlado: false,
-  });
-
+export default function MedModal3({ data, setData }) {
   return (
     <Flex
       flexDirection="column"
@@ -53,7 +32,6 @@ export default function Modal3() {
           Especificações Técnicas
         </Text>
       </Flex>
-      {JSON.stringify(data)}
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="bold">Forma Farmacêutica</Field.Label>
@@ -63,7 +41,6 @@ export default function Modal3() {
               value={data.forma}
               onChange={(e) => {
                 setData({ ...data, forma: e.target.value });
-                setUnidadeFornecimento("");
               }}
               width="100%"
               bg="white"
