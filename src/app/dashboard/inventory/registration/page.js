@@ -16,12 +16,14 @@ export default function Registration() {
 
   const [data, setData] = useState({
     tipoItem: "",
+    contemNomeComercial: false,
     categoriaRegulatoria: "",
     nomeComercial: "",
     principioAtivo: "",
     fabricante: "",
     forma: "",
     unidadeFornecimento: "",
+    contemRegistroAnvisa: null,
     registroAnvisa: null,
     validadeRegistro: null,
     classeFarmaceutica: "",
@@ -40,7 +42,7 @@ export default function Registration() {
       return selectOption === "Medicamento" ? (
         <MedModal2 data={data} setData={setData} />
       ) : (
-        <MatModal2 />
+        <MatModal2 data={data} setData={setData} />
       );
     }
   };
