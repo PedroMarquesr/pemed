@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
-
+import React from "react"
 import {
   Box,
   Flex,
@@ -14,58 +13,65 @@ import {
 
 export default function MedModal1({ data, setData }) {
   let codItem = "MED12345"
+
   return (
     <Flex w={"100%"}>
-      <Box flex="1" p="4" borderRadius="md">
-        <Field.Root>
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700" mb={2}>
-            {" "}
-            Selecione a categoria regulatória:
-          </Field.Label>
-          <NativeSelect.Root>
-            <NativeSelect.Field
-              value={data.categoriaRegulatoria}
-              onChange={(e) =>
-                setData({ ...data, categoriaRegulatoria: e.target.value })
-              }
-              unstyled
-              boxShadow={"md"}
-              mb={"4"}
-              width="25vw"
-              bg="white"
-              color="black"
-              borderRadius="md"
-              border={"1px, solid, #2b4d52ff"}
-              px="3"
-              py="2"
-              _hover={{
-                borderColor: "#5d8288c4",
-              }}
+      <Box flex="1" borderRadius="md">
+        <Box p={4}>
+          <Field.Root>
+            <Field.Label
+              fontSize="sm"
+              fontWeight="bold"
+              color="gray.700"
+              mb={2}
             >
-              <option value="baixo-risco">Baixo Risco</option>
-              <option value="biologico">Biológico</option>
-              <option value="dinamizado">Dinamizado</option>
-              <option value="especifico">Específico</option>
-              <option value="fitoterapico">Fitoterápico</option>
-              <option value="gases-medicinais">Gases Medicinais</option>
-              <option value="generico">Genérico</option>
-              <option value="novo">Novo</option>
-              <option value="similar">Similar</option>{" "}
-              <option value="radiofarmaco">Rádiofármaco</option>
-              <option value="produto-terapia-avancada">
-                Produto de Terapia Avançada
-              </option>
-              <option value="radiofarmaco">Radiofármaco</option>
-            </NativeSelect.Field>
-          </NativeSelect.Root>
-        </Field.Root>
+              Selecione a categoria regulatória:
+            </Field.Label>
+            <NativeSelect.Root>
+              <NativeSelect.Field
+                value={data.categoriaRegulatoria}
+                onChange={(e) =>
+                  setData({ ...data, categoriaRegulatoria: e.target.value })
+                }
+                unstyled
+                width="100%"
+                bg="white"
+                boxShadow="md"
+                color="black"
+                borderRadius="md"
+                border="1px solid #2b4d52ff"
+                px="3"
+                py="2"
+                _hover={{
+                  borderColor: "#5d8288c4",
+                }}
+              >
+                <option value="">Selecione</option>
+                <option value="baixo-risco">Baixo Risco</option>
+                <option value="biologico">Biológico</option>
+                <option value="dinamizado">Dinamizado</option>
+                <option value="especifico">Específico</option>
+                <option value="fitoterapico">Fitoterápico</option>
+                <option value="gases-medicinais">Gases Medicinais</option>
+                <option value="generico">Genérico</option>
+                <option value="novo">Novo</option>
+                <option value="similar">Similar</option>
+                <option value="radiofarmaco">Rádiofármaco</option>
+                <option value="produto-terapia-avancada">
+                  Produto de Terapia Avançada
+                </option>
+              </NativeSelect.Field>
+            </NativeSelect.Root>
+          </Field.Root>
+        </Box>
 
         {data.categoriaRegulatoria === "novo" ||
         data.categoriaRegulatoria === "similar" ||
         data.categoriaRegulatoria === "biologico" ||
         data.categoriaRegulatoria === "produto-terapia-avancada" ||
         data.categoriaRegulatoria === "radiofarmaco" ? (
-          <Box mt="4">
+          
+          <Box p={4}>
             <Field.Root>
               <Field.Label
                 fontSize="sm"
@@ -76,10 +82,9 @@ export default function MedModal1({ data, setData }) {
                 Nome comercial:
               </Field.Label>
               <Input
-                width="35vw"
+                width="100%"
                 boxShadow="md"
                 bg="white"
-                mb="4"
                 color="black"
                 borderRadius="md"
                 border="1px solid #2b4d52ff"
@@ -91,62 +96,73 @@ export default function MedModal1({ data, setData }) {
             </Field.Root>
           </Box>
         ) : (
-          <Flex>
-            <Box mt="4">
-              <Field.Root>
-                <Flex alignItems="center" gap={4}>
-                  <Field.Label
-                    fontSize="sm"
-                    fontWeight="bold"
-                    color="gray.700"
-                    mb={2}
-                  >
-                    Contém nome comercial ?
-                  </Field.Label>
-                  <Switch.Root
-                    checked={data.contemNomeComercial}
-                    onCheckedChange={(e) =>
-                      setData({ ...data, contemNomeComercial: e.checked })
-                    }
-                    colorPalette="blue"
-                    size="lg"
-                  >
-                    <Switch.HiddenInput />
-                    <Switch.Control>
-                      <Switch.Thumb />
-                    </Switch.Control>
-                  </Switch.Root>
-                </Flex>
-              </Field.Root>
-              {data.contemNomeComercial && (
+          data.categoriaRegulatoria && (
+            
+            <>
+              <Flex
+                p={4}
+                gap={4}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
                 <Field.Root>
-                  <Field.Label
-                    fontSize="sm"
-                    fontWeight="bold"
-                    color="gray.700"
-                    mb={2}
-                  >
-                    Nome comercial:
-                  </Field.Label>
-                  <Input
-                    width="35vw"
-                    boxShadow="md"
-                    bg="white"
-                    mb="4"
-                    color="black"
-                    borderRadius="md"
-                    border="1px solid #2b4d52ff"
-                    px="3"
-                    py="2"
-                    _hover={{ borderColor: "#5d8288c4" }}
-                    placeholder="Digite o nome comercial"
-                  />
+                  <Flex alignItems="center" gap={4} justifyContent={"center"}>
+                    <Field.Label
+                      fontSize="sm"
+                      fontWeight="bold"
+                      color="gray.700"
+                    >
+                      Contém nome comercial?
+                    </Field.Label>
+                    <Switch.Root
+                      checked={data.contemNomeComercial}
+                      onCheckedChange={(e) =>
+                        setData({ ...data, contemNomeComercial: e.checked })
+                      }
+                      colorPalette="blue"
+                      size="lg"
+                    >
+                      <Switch.HiddenInput />
+                      <Switch.Control>
+                        <Switch.Thumb />
+                      </Switch.Control>
+                    </Switch.Root>
+                  </Flex>
                 </Field.Root>
+              </Flex>
+
+              {data.contemNomeComercial && (
+                <Box p={4}>
+                  <Field.Root>
+                    <Field.Label
+                      fontSize="sm"
+                      fontWeight="bold"
+                      color="gray.700"
+                      mb={2}
+                    >
+                      Nome comercial:
+                    </Field.Label>
+                    <Input
+                      width="100%"
+                      boxShadow="md"
+                      bg="white"
+                      color="black"
+                      borderRadius="md"
+                      border="1px solid #2b4d52ff"
+                      px="3"
+                      py="2"
+                      _hover={{ borderColor: "#5d8288c4" }}
+                      placeholder="Digite o nome comercial"
+                    />
+                  </Field.Root>
+                </Box>
               )}
-            </Box>
-          </Flex>
+            </>
+          )
         )}
-        <Box>
+
+        {/* Princípio Ativo */}
+        <Box p={4}>
           <Field.Root>
             <Field.Label
               fontSize="sm"
@@ -154,16 +170,15 @@ export default function MedModal1({ data, setData }) {
               color="gray.700"
               mb={2}
             >
-              Pincípio ativo:
+              Princípio ativo:
             </Field.Label>
             <Input
-              width="35vw"
+              width="100%"
               bg="white"
-              boxShadow={"md"}
-              mb={"4"}
+              boxShadow="md"
               color="black"
               borderRadius="md"
-              border={"1px, solid, #2b4d52ff"}
+              border="1px solid #2b4d52ff"
               px="3"
               py="2"
               _hover={{
@@ -172,7 +187,9 @@ export default function MedModal1({ data, setData }) {
               placeholder="Digite o princípio ativo"
             />
           </Field.Root>
+        </Box>
 
+        <Box p={4}>
           <Field.Root>
             <Field.Label
               fontSize="sm"
@@ -183,13 +200,12 @@ export default function MedModal1({ data, setData }) {
               Fabricante:
             </Field.Label>
             <Input
-              width="35vw"
+              width="100%"
               bg="white"
-              boxShadow={"md"}
-              mb={"4"}
+              boxShadow="md"
               color="black"
               borderRadius="md"
-              border={"1px, solid, #2b4d52ff"}
+              border="1px solid #2b4d52ff"
               px="3"
               py="2"
               _hover={{
@@ -206,20 +222,13 @@ export default function MedModal1({ data, setData }) {
         flex="1"
         alignItems="center"
         justifyContent="center"
+        p={4}
       >
-        <Text
-          justifyContent={"left"}
-          fontSize="xl"
-          fontWeight="bold"
-          color="gray.700"
-          mb={2}
-        >
+        <Text fontSize="xl" fontWeight="bold" color="gray.700" mb={2}>
           Código do item
         </Text>
         <Text
           textAlign={"center"}
-          justifyContent={"center"}
-          alignItems={"center"}
           border={"2px solid #0c142e"}
           p={"4px"}
           width="10vw"

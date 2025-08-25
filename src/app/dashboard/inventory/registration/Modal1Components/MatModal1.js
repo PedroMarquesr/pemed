@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-
 import {
   Box,
   Flex,
@@ -14,19 +13,16 @@ import {
 
 export default function MatModal1({ data, setData }) {
   let codItem = "MAT12345"
+
   return (
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
-        <Box mt="4">
+       
+        <Flex p={4} gap={4} alignItems={"center"} justifyContent={"center"}>
           <Field.Root>
-            <Flex alignItems="center" gap={4}>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="bold"
-                color="gray.700"
-                mb={2}
-              >
-                Contém nome comercial ?
+            <Flex alignItems="center" gap={4} justifyContent={"center"}>
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Contém nome comercial?
               </Field.Label>
               <Switch.Root
                 checked={data.contemNomeComercial}
@@ -43,21 +39,18 @@ export default function MatModal1({ data, setData }) {
               </Switch.Root>
             </Flex>
           </Field.Root>
-          {data.contemNomeComercial && (
-            <Field.Root>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="bold"
-                color="gray.700"
-                mb={2}
-              >
+        </Flex>
+
+        {data.contemNomeComercial && (
+          <Flex p={4} gap={4} justifyContent="space-between">
+            <Field.Root flex="1" minW="0">
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                 Nome comercial:
               </Field.Label>
               <Input
-                width="35vw"
+                width="100%"
                 boxShadow="md"
                 bg="white"
-                mb="4"
                 color="black"
                 borderRadius="md"
                 border="1px solid #2b4d52ff"
@@ -67,10 +60,11 @@ export default function MatModal1({ data, setData }) {
                 placeholder="Digite o nome comercial"
               />
             </Field.Root>
-          )}
-        </Box>
+            <Box flex="1" minW="0"></Box>
+          </Flex>
+        )}
 
-        <Box>
+        <Box p={4}>
           <Field.Root>
             <Field.Label
               fontSize="sm"
@@ -81,24 +75,23 @@ export default function MatModal1({ data, setData }) {
               Nome técnico:
             </Field.Label>
             <Input
-              width="35vw"
+              width="100%"
               bg="white"
               boxShadow={"md"}
-              mb={"4"}
               color="black"
               borderRadius="md"
-              border={"1px, solid, #2b4d52ff"}
+              border={"1px solid #2b4d52ff"}
               px="3"
               py="2"
               _hover={{
                 borderColor: "#5d8288c4",
               }}
-              placeholder="Dex: seringa descartável, cateter venoso, luva de procedimento"
+              placeholder="Ex: seringa descartável, cateter venoso, luva de procedimento"
             />{" "}
           </Field.Root>
         </Box>
 
-        <Box>
+        <Box p={4}>
           <Field.Root>
             <Field.Label
               fontSize="sm"
@@ -109,13 +102,12 @@ export default function MatModal1({ data, setData }) {
               Fabricante:
             </Field.Label>
             <Input
-              width="35vw"
+              width="100%"
               bg="white"
               boxShadow={"md"}
-              mb={"4"}
               color="black"
               borderRadius="md"
-              border={"1px, solid, #2b4d52ff"}
+              border={"1px solid #2b4d52ff"}
               px="3"
               py="2"
               _hover={{
@@ -132,20 +124,13 @@ export default function MatModal1({ data, setData }) {
         flex="1"
         alignItems="center"
         justifyContent="center"
+        p={4}
       >
-        <Text
-          justifyContent={"left"}
-          fontSize="xl"
-          fontWeight="bold"
-          color="gray.700"
-          mb={2}
-        >
+        <Text fontSize="xl" fontWeight="bold" color="gray.700" mb={2}>
           Código do item
         </Text>
         <Text
           textAlign={"center"}
-          justifyContent={"center"}
-          alignItems={"center"}
           border={"2px solid #0c142e"}
           p={"4px"}
           width="10vw"
