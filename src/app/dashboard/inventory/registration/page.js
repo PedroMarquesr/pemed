@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
-import { useState } from "react";
-import { GoArrowLeft } from "react-icons/go";
+import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react"
+import { useState } from "react"
+import { GoArrowLeft } from "react-icons/go"
 
-import Modal1 from "./Modal1";
-import MedModal2 from "./Modal2Components/MedModal2";
-import MatModal2 from "./Modal2Components/MatModal2";
-import MatModal3 from "./Modal3Components/MedModal3";
-import MedModal3 from "./Modal3Components/MedModal3";
+import Modal1 from "./Modal1"
+import MedModal2 from "./Modal2Components/MedModal2"
+import MatModal2 from "./Modal2Components/MatModal2"
+import MedModal3 from "./Modal3Components/MedModal3"
+import MatModal3 from "./Modal3Components/MatModal3"
 
 export default function Registration() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [selectOption, setSelectOption] = useState("Medicamento");
+  const [currentStep, setCurrentStep] = useState(1)
+  const [selectOption, setSelectOption] = useState("Medicamento")
 
   const [data, setData] = useState({
     tipoItem: "",
@@ -23,8 +23,10 @@ export default function Registration() {
     fabricante: "",
     classificacaoDeRisco: "",
     composicaoPrincipal: "",
-    composicaoPrincipalOutros:"",
-
+    composicaoPrincipalOutros: "",
+    dimensaoOuCarateristica: "",
+    dimensaoOuCarateristicaOutro: "",
+    especificacaoDimensaoReferencia: "",
     forma: "",
     unidadeFornecimento: "",
     contemRegistroAnvisa: null,
@@ -41,7 +43,7 @@ export default function Registration() {
     termolabil: false,
     faixaTemperatura: "",
     controlado: false,
-  });
+  })
 
   const renderModal2 = () => {
     if (currentStep === 2) {
@@ -49,16 +51,18 @@ export default function Registration() {
         <MedModal2 data={data} setData={setData} />
       ) : (
         <MatModal2 data={data} setData={setData} />
-      );
+      )
     }
-  };
+  }
   const renderModal3 = () => {
     if (currentStep === 3) {
       return selectOption === "Medicamento" ? (
         <MedModal3 data={data} setData={setData} />
-      ) : null;
+      ) : (
+        <MatModal3 data={data} setData={setData} />
+      )
     }
-  };
+  }
 
   return (
     <>
@@ -236,5 +240,5 @@ export default function Registration() {
         </Button>
       </Flex>
     </>
-  );
+  )
 }

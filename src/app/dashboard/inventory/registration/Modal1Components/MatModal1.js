@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 import {
   Box,
@@ -10,11 +10,10 @@ import {
   Field,
   NativeSelect,
   Switch,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
 export default function MatModal1({ data, setData }) {
-  const [selectedCategory, setSelectedCategory] = useState("Genérico");
-  let codItem = "MAT12345";
+  let codItem = "MAT12345"
   return (
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
@@ -157,5 +156,5 @@ export default function MatModal1({ data, setData }) {
         </Text>
       </Flex>
     </Flex>
-  );
+  )
 }
