@@ -22,6 +22,9 @@ export default function Registration() {
     principioAtivo: "",
     fabricante: "",
     classificacaoDeRisco: "",
+    composicaoPrincipal: "",
+    composicaoPrincipalOutros:"",
+
     forma: "",
     unidadeFornecimento: "",
     contemRegistroAnvisa: null,

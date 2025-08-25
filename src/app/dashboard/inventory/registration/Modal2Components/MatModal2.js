@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 import {
   Flex,
   Input,
@@ -8,8 +8,8 @@ import {
   Field,
   Switch,
   NativeSelect,
-} from "@chakra-ui/react";
-import { FaSyringe } from "react-icons/fa";
+} from "@chakra-ui/react"
+import { FaSyringe } from "react-icons/fa"
 
 export default function MatModal2({ data, setData }) {
   return (
@@ -116,7 +116,7 @@ export default function MatModal2({ data, setData }) {
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Classificação de Risco
+            Classificação de Risco:
           </Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
@@ -149,12 +149,65 @@ export default function MatModal2({ data, setData }) {
         <Box flex="1" minW="0"></Box>
       </Flex>
       <Flex p={4} gap={4} justifyContent="space-between">
-        <Field.Root>
+        <Field.Root flex="1" minW="0">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Composição principal
+            Composição principal:
           </Field.Label>
+          <NativeSelect.Root>
+            <NativeSelect.Field
+              unstyled
+              value={data.composicaoPrincipal}
+              onChange={(e) =>
+                setData({ ...data, composicaoPrincipal: e.target.value })
+              }
+              width="100%"
+              bg="white"
+              boxShadow="md"
+              color="black"
+              borderRadius="md"
+              border="1px solid #2b4d52ff"
+              px={3}
+              py={2}
+              _hover={{
+                borderColor: "#5d8288c4",
+              }}
+            >
+              <option value={""}>Selecione</option>
+              <option value={"Látex"}>Látex</option>
+              <option value={"Polipropileno"}>Polipropileno</option>
+              <option value={"PVC"}>PVC</option>
+              <option value={"Silicone"}>Silicone</option>
+              <option value={"Algodão"}>Algodão</option>
+              <option value={"Aço inoxidável"}>Aço inoxidável</option>
+              <option value={"Silicone"}>Vidro</option>
+              <option value={"Outros"}>Outros</option>
+            </NativeSelect.Field>
+          </NativeSelect.Root>
         </Field.Root>
+        <Box flex="1" minW="0">
+          {data.composicaoPrincipal === "Outros" && (
+            <Field.Root flex="1" minW="0">
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Insira a composição principal:
+              </Field.Label>
+              <Input
+                value={data.composicaoPrincipalOutros}
+                onChange={(e) =>
+                  setData({
+                    ...data,
+                    composicaoPrincipalOutros: e.target.value,
+                  })
+                }
+                placeholder="Insira a composição principal"
+                bg="white"
+                boxShadow="md"
+                border="1px solid #2b4d52ff"
+                _hover={{ borderColor: "#5d8288c4" }}
+              />
+            </Field.Root>
+          )}
+        </Box>
       </Flex>
     </Flex>
-  );
+  )
 }
