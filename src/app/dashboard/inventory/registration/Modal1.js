@@ -74,7 +74,7 @@ export default function Modal1({
                 borderColor: "#5d8288c4",
               }}
             >
-              <option value={""} selected>
+              <option value="" selected>
                 Selecione
               </option>
               <option value="Medicamento">Medicamento</option>

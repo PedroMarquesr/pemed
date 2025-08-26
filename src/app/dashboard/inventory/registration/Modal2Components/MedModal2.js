@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import { Flex, Input, Text, Field } from "@chakra-ui/react"
+import { Flex, Input, Text, Field, Switch } from "@chakra-ui/react"
 import { LuPill } from "react-icons/lu"
 
 export default function MedModal2({ data, setData }) {
@@ -19,7 +19,28 @@ export default function MedModal2({ data, setData }) {
           Classificação
         </Text>
       </Flex>
-
+      <Flex p={4} gap={4} alignItems={"center"} justifyContent={"center"}>
+        <Field.Root>
+          <Flex alignItems="center" gap={4} justifyContent={"center"}>
+            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+              Contém registro completo na Anvisa
+            </Field.Label>
+            <Switch.Root
+              checked={data.contemRegistroAnvisa}
+              onCheckedChange={(e) =>
+                setData({ ...data, contemRegistroAnvisa: e.checked })
+              }
+              colorPalette="blue"
+              size="lg"
+            >
+              <Switch.HiddenInput />
+              <Switch.Control>
+                <Switch.Thumb />
+              </Switch.Control>
+            </Switch.Root>
+          </Flex>
+        </Field.Root>
+      </Flex>
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
