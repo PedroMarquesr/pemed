@@ -9,14 +9,16 @@ import {
   Button,
   Input,
   Text,
+  CloseButton,
   Field,
   NativeSelect,
   Switch,
 } from "@chakra-ui/react"
 import { FaPlus } from "react-icons/fa"
+import { TiDelete } from "react-icons/ti"
+import { RiDeleteBack2Fill } from "react-icons/ri"
 
 export default function MedModal1({ data, setData }) {
-  const [addActiveIngredient, setAddActiveIngredient] = useState(1)
   const addInputForNewActiveIngredient = () => {
     setData({
       ...data,
@@ -173,61 +175,96 @@ export default function MedModal1({ data, setData }) {
             </>
           )
         )}
-        <Flex alignItems={"center"} justifyContent={"flex-start"}>
-          <Box p={4} flex="2">
-            <Field.Root>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="bold"
-                color="gray.700"
-                mb={2}
-              >
-                Princípio ativo:
-              </Field.Label>
-              <Input
-                value={data.activeIngredients.nome}
-                width="100%"
-                bg="white"
+        {data.activeIngredients.map((item, index) => (
+          <Flex
+            key={index}
+            alignItems="center"
+            justifyContent="flex-start"
+            p={4}
+            gap={4}
+          >
+            <Box flex="2">
+              <Field.Root>
+                <Field.Label
+                  fontSize="sm"
+                  fontWeight="bold"
+                  color="gray.700"
+                  mb={2}
+                >
+                  Princípio ativo {index + 1}:
+                </Field.Label>
+                <Input
+                  value={item.principio}
+                  onChange={(e) => {
+                    const updated = [...data.activeIngredients]
+                    updated[index].principio = e.target.value
+                    setData({ ...data, activeIngredients: updated })
+                  }}
+                  placeholder="Digite o princípio ativo"
+                  width="100%"
+                  bg="white"
+                  boxShadow="md"
+                  borderRadius="md"
+                  border="1px solid #2b4d52ff"
+                  px="3"
+                  py="2"
+                  _hover={{ borderColor: "#5d8288c4" }}
+                />
+              </Field.Root>
+            </Box>
+
+            <Box flex="1">
+              <Field.Root>
+                <Field.Label
+                  fontSize="sm"
+                  fontWeight="bold"
+                  color="gray.700"
+                  mb={2}
+                >
+                  Dosagem/Concentração:
+                </Field.Label>
+                <Input
+                  value={item.concentracao}
+                  onChange={(e) => {
+                    const updated = [...data.activeIngredients]
+                    updated[index].concentracao = e.target.value
+                    setData({ ...data, activeIngredients: updated })
+                  }}
+                  placeholder="Ex: 500mg, 5%, 100UI/ml"
+                  width="100%"
+                  bg="white"
+                  boxShadow="md"
+                  borderRadius="md"
+                  border="1px solid #2b4d52ff"
+                  px="3"
+                  py="2"
+                  _hover={{ borderColor: "#5d8288c4" }}
+                />
+              </Field.Root>
+            </Box>
+            <Box alignSelf="flex-end" pb="1">
+              <CloseButton
+                opacity="40%"
                 boxShadow="md"
-                color="black"
-                borderRadius="md"
-                border="1px solid #2b4d52ff"
-                px="3"
-                py="2"
-                _hover={{
-                  borderColor: "#5d8288c4",
+                bg="rgba(24,24,24,255)"
+                size="xs"
+                colorScheme="red"
+                onClick={() => {
+                  const updated = data.activeIngredients.filter(
+                    (_, i) => i !== index
+                  )
+                  setData({ ...data, activeIngredients: updated })
                 }}
-                placeholder="Digite o princípio ativo"
-              />
-            </Field.Root>
-          </Box>
-          <Box p={4} flex="1">
-            <Field.Root>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="bold"
-                color="gray.700"
-                mb={2}
-              >
-                Dosagem/Concentração:
-              </Field.Label>
-              <Input
-                width="100%"
-                bg="white"
-                boxShadow="md"
-                color="black"
-                borderRadius="md"
-                border="1px solid #2b4d52ff"
-                px="3"
-                py="2"
                 _hover={{
-                  borderColor: "#5d8288c4",
+                  opacity: "100%",
+                  bg: "red",
+                  transform: "translateY(-3px)",
+                  transition: "transform 0.2s ease",
                 }}
-                placeholder="Ex: 500mg, 5%, 100UI/ml"
               />
-            </Field.Root>
-          </Box>
-        </Flex>
+            </Box>
+          </Flex>
+        ))}
         <Flex px={4} flex="1" alignItems="center" gap={2}>
           <Text fontSize="sm" fontWeight="bold" color="gray.700">
             Adicionar princípio ativo
