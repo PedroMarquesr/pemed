@@ -12,7 +12,7 @@ import MatModal3 from "./Modal3Components/MatModal3"
 
 export default function Registration() {
   const [currentStep, setCurrentStep] = useState(1)
-  const [selectOption, setSelectOption] = useState("Medicamento")
+  const [selectOption, setSelectOption] = useState("")
 
   const [data, setData] = useState({
     tipoItem: "",

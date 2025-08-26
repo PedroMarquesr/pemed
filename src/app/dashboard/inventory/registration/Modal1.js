@@ -59,7 +59,7 @@ export default function Modal1({
               value={data.tipoItem}
               onChange={(e) => {
                 const value = e.target.value
-                setData({ ...data, tipoItem: value })
+                setData({ ...data, tipoItem: e.target.value })
                 setSelectOption(value)
               }}
               width="100%"
@@ -74,6 +74,9 @@ export default function Modal1({
                 borderColor: "#5d8288c4",
               }}
             >
+              <option value={""} selected>
+                Selecione
+              </option>
               <option value="Medicamento">Medicamento</option>
               <option value="Material">Material</option>
               <option value="Insumo">Insumo</option>
