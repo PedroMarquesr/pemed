@@ -19,6 +19,7 @@ export default function Registration() {
     contemNomeComercial: false,
     categoriaRegulatoria: "",
     nomeComercial: "",
+    activeIngredients: [{ principio: "", concentracao: "" }],
     principioAtivo: "",
     fabricante: "",
     classificacaoDeRisco: "",

@@ -18,12 +18,13 @@ import { FaPlus } from "react-icons/fa"
 export default function MedModal1({ data, setData }) {
   const [addActiveIngredient, setAddActiveIngredient] = useState(1)
   const addInputForNewActiveIngredient = () => {
-    return (
-      <Box>
-        {" "}
-        <Text>Teste</Text>
-      </Box>
-    )
+    setData({
+      ...data,
+      activeIngredients: [
+        ...data.activeIngredients,
+        { principio: "", concentracao: "" },
+      ],
+    })
   }
 
   let codItem = "MED12345"
@@ -172,43 +173,81 @@ export default function MedModal1({ data, setData }) {
             </>
           )
         )}
-
-        <Box p={4}>
-          <Field.Root>
-            <Field.Label
-              fontSize="sm"
-              fontWeight="bold"
-              color="gray.700"
-              mb={2}
-            >
-              Princípio ativo:
-            </Field.Label>
-            <Input
-              width="100%"
-              bg="white"
-              boxShadow="md"
-              color="black"
-              borderRadius="md"
-              border="1px solid #2b4d52ff"
-              px="3"
-              py="2"
-              _hover={{
-                borderColor: "#5d8288c4",
-              }}
-              placeholder="Digite o princípio ativo"
-            />
-          </Field.Root>
-        </Box>
-        <Box p={4}>
+        <Flex alignItems={"center"} justifyContent={"flex-start"}>
+          <Box p={4} flex="2">
+            <Field.Root>
+              <Field.Label
+                fontSize="sm"
+                fontWeight="bold"
+                color="gray.700"
+                mb={2}
+              >
+                Princípio ativo:
+              </Field.Label>
+              <Input
+                value={data.activeIngredients.nome}
+                width="100%"
+                bg="white"
+                boxShadow="md"
+                color="black"
+                borderRadius="md"
+                border="1px solid #2b4d52ff"
+                px="3"
+                py="2"
+                _hover={{
+                  borderColor: "#5d8288c4",
+                }}
+                placeholder="Digite o princípio ativo"
+              />
+            </Field.Root>
+          </Box>
+          <Box p={4} flex="1">
+            <Field.Root>
+              <Field.Label
+                fontSize="sm"
+                fontWeight="bold"
+                color="gray.700"
+                mb={2}
+              >
+                Dosagem/Concentração:
+              </Field.Label>
+              <Input
+                width="100%"
+                bg="white"
+                boxShadow="md"
+                color="black"
+                borderRadius="md"
+                border="1px solid #2b4d52ff"
+                px="3"
+                py="2"
+                _hover={{
+                  borderColor: "#5d8288c4",
+                }}
+                placeholder="Ex: 500mg, 5%, 100UI/ml"
+              />
+            </Field.Root>
+          </Box>
+        </Flex>
+        <Flex px={4} flex="1" alignItems="center" gap={2}>
+          <Text fontSize="sm" fontWeight="bold" color="gray.700">
+            Adicionar princípio ativo
+          </Text>
           <Button
-            boxShadow={"md"}
-            bg={"rgba(24,24,24,255)"}
-            onClick={() => setCurrentStep(currentStep + 1)}
-            color={"rgba(223,223,223,255)"}
+            boxShadow="md"
+            size="xs"
+            bg="rgba(24,24,24,255)"
+            onClick={() => addInputForNewActiveIngredient()}
+            color="rgba(223,223,223,255)"
+            _hover={{
+              bg: "rgba(19,92,254,255)",
+              transform: "translateY(-3px)",
+              transition: "transform 0.2s ease",
+            }}
           >
             <FaPlus />
           </Button>
-        </Box>
+        </Flex>
+
         <Box p={4}>
           <Field.Root>
             <Field.Label

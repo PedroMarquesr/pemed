@@ -132,7 +132,7 @@ export default function MedModal3({ data, setData }) {
         <Box flex="1"></Box>
       </Flex>
       <Flex p={4} gap={4} justifyContent={"space-between"}>
-        <Field.Root>
+        <Field.Root flex="1">
           <Field.Label>Quantidade de unidades por embalagem</Field.Label>
           <Input
             value={data.qtdPorEmbalagem}
@@ -150,19 +150,7 @@ export default function MedModal3({ data, setData }) {
             _hover={{ borderColor: "#5d8288c4" }}
           />
         </Field.Root>
-        <Field.Root>
-          <Field.Label>Dosagem/Concentração</Field.Label>
-          <Input
-            value={data.dosagem}
-            onChange={(e) => setData({ ...data, dosagem: e.target.value })}
-            placeholder="Ex: 500mg, 5%, 100UI/ml"
-            maxLength={11}
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
-          />
-        </Field.Root>
+        <Box flex="1"></Box>
       </Flex>
       <Flex
         p={4}
