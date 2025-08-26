@@ -3,7 +3,7 @@ import React from "react"
 import { Flex, Input, Text, Field } from "@chakra-ui/react"
 import { LuPill } from "react-icons/lu"
 
-export default function MedModal2() {
+export default function MedModal2({ data, setData }) {
   return (
     <Flex
       flexDirection="column"
@@ -24,6 +24,13 @@ export default function MedModal2() {
         <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
           <Input
+            value={data.registroAnvisa}
+            onChange={(e) =>
+              setData({
+                ...data,
+                registroAnvisa: e.target.value,
+              })
+            }
             placeholder="Digite o registro"
             maxLength={11}
             bg="white"
@@ -36,6 +43,10 @@ export default function MedModal2() {
         <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="semibold">Validade do Registro:</Field.Label>
           <Input
+            value={data.validadeRegistro}
+            onChange={(e) =>
+              setData({ ...data, validadeRegistro: e.target.value })
+            }
             type="date"
             bg="white"
             boxShadow="md"
@@ -47,8 +58,12 @@ export default function MedModal2() {
 
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
-          <Field.Label fontWeight="semibold">Classe farmacêutica</Field.Label>
+          <Field.Label fontWeight="semibold">Classe terapeutica</Field.Label>
           <Input
+            value={data.classeTerapeutica}
+            onChange={(e) =>
+              setData({ ...data, classeTerapeutica: e.target.value })
+            }
             placeholder="Insira a classe"
             bg="white"
             boxShadow="md"
@@ -60,6 +75,10 @@ export default function MedModal2() {
         <Field.Root flex="1" minW="0">
           <Field.Label>Validade total do medicamento (Em meses): </Field.Label>
           <Input
+            value={data.validadeTotalDoMedicamento}
+            onChange={(e) =>
+              setData({ ...data, validadeTotalDoMedicamento: e.target.value })
+            }
             type="number"
             bg="white"
             boxShadow="md"
@@ -71,8 +90,12 @@ export default function MedModal2() {
 
       <Flex p={4}>
         <Field.Root width="100%">
-          <Field.Label fontWeight="semibold">Código CMED</Field.Label>
+          <Field.Label fontWeight="semibold">Código CMED (GGREM)</Field.Label>
           <Input
+            value={data.codigoCmedGGREM}
+            onChange={(e) =>
+              setData({ ...data, codigoCmedGGREM: e.target.value })
+            }
             placeholder="(Número do medicamento no banco de preços da ANVISA/CMED)."
             bg="white"
             boxShadow="md"

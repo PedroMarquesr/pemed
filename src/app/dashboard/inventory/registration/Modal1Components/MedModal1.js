@@ -98,6 +98,10 @@ export default function MedModal1({ data, setData }) {
                 Nome comercial:
               </Field.Label>
               <Input
+                value={data.nomeComercial}
+                onChange={(e) =>
+                  setData({ ...data, nomeComercial: e.target.value })
+                }
                 width="100%"
                 boxShadow="md"
                 bg="white"
@@ -296,6 +300,8 @@ export default function MedModal1({ data, setData }) {
               Fabricante:
             </Field.Label>
             <Input
+              value={data.fabricante}
+              onChange={(e) => setData({ ...data, fabricante: e.target.value })}
               width="100%"
               bg="white"
               boxShadow="md"
