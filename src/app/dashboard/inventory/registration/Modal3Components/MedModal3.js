@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 
 import {
   Flex,
@@ -9,12 +9,11 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react";
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
-import viaAdministracao from "@/data/inventory/viaAdministracao.js";
-import { useState } from "react";
+} from "@chakra-ui/react"
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
+import viaAdministracao from "@/data/inventory/viaAdministracao.js"
 
-import { LuPill } from "react-icons/lu";
+import { LuPill } from "react-icons/lu"
 
 export default function MedModal3({ data, setData }) {
   return (
@@ -40,7 +39,7 @@ export default function MedModal3({ data, setData }) {
               unstyled
               value={data.forma}
               onChange={(e) => {
-                setData({ ...data, forma: e.target.value });
+                setData({ ...data, forma: e.target.value })
               }}
               width="100%"
               bg="white"
@@ -241,5 +240,5 @@ export default function MedModal3({ data, setData }) {
         )}
       </Flex>
     </Flex>
-  );
+  )
 }

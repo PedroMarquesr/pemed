@@ -1,17 +1,31 @@
 "use client"
 
 import React from "react"
+import { useState } from "react"
+
 import {
   Box,
   Flex,
+  Button,
   Input,
   Text,
   Field,
   NativeSelect,
   Switch,
 } from "@chakra-ui/react"
+import { FaPlus } from "react-icons/fa"
 
 export default function MedModal1({ data, setData }) {
+  const [addActiveIngredient, setAddActiveIngredient] = useState(1)
+  const addInputForNewActiveIngredient = () => {
+    return (
+      <Box>
+        {" "}
+        <Text>Teste</Text>
+      </Box>
+    )
+  }
+
   let codItem = "MED12345"
 
   return (
@@ -70,7 +84,6 @@ export default function MedModal1({ data, setData }) {
         data.categoriaRegulatoria === "biologico" ||
         data.categoriaRegulatoria === "produto-terapia-avancada" ||
         data.categoriaRegulatoria === "radiofarmaco" ? (
-          
           <Box p={4}>
             <Field.Root>
               <Field.Label
@@ -97,7 +110,6 @@ export default function MedModal1({ data, setData }) {
           </Box>
         ) : (
           data.categoriaRegulatoria && (
-            
             <>
               <Flex
                 p={4}
@@ -161,7 +173,6 @@ export default function MedModal1({ data, setData }) {
           )
         )}
 
-        {/* Princípio Ativo */}
         <Box p={4}>
           <Field.Root>
             <Field.Label
@@ -188,7 +199,16 @@ export default function MedModal1({ data, setData }) {
             />
           </Field.Root>
         </Box>
-
+        <Box p={4}>
+          <Button
+            boxShadow={"md"}
+            bg={"rgba(24,24,24,255)"}
+            onClick={() => setCurrentStep(currentStep + 1)}
+            color={"rgba(223,223,223,255)"}
+          >
+            <FaPlus />
+          </Button>
+        </Box>
         <Box p={4}>
           <Field.Root>
             <Field.Label
