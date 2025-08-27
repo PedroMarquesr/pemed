@@ -17,7 +17,6 @@ export default function MatModal1({ data, setData }) {
   return (
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
-       
         <Flex p={4} gap={4} alignItems={"center"} justifyContent={"center"}>
           <Field.Root>
             <Flex alignItems="center" gap={4} justifyContent={"center"}>
@@ -25,9 +24,9 @@ export default function MatModal1({ data, setData }) {
                 Contém nome comercial?
               </Field.Label>
               <Switch.Root
-                checked={data.contemNomeComercial}
+                checked={data.hasBrandName}
                 onCheckedChange={(e) =>
-                  setData({ ...data, contemNomeComercial: e.checked })
+                  setData({ ...data, hasBrandName: e.checked })
                 }
                 colorPalette="blue"
                 size="lg"
@@ -41,13 +40,17 @@ export default function MatModal1({ data, setData }) {
           </Field.Root>
         </Flex>
 
-        {data.contemNomeComercial && (
+        {data.hasBrandName && (
           <Flex p={4} gap={4} justifyContent="space-between">
             <Field.Root flex="1" minW="0">
               <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                 Nome comercial:
               </Field.Label>
               <Input
+                value={data.brandName}
+                onChange={(e) =>
+                  setData({ ...data, brandName: e.target.value })
+                }
                 width="100%"
                 boxShadow="md"
                 bg="white"
@@ -75,6 +78,8 @@ export default function MatModal1({ data, setData }) {
               Nome técnico:
             </Field.Label>
             <Input
+              value={data.technicalName}
+              onChange={(e) => ({ ...data, technicalName: e.target.value })}
               width="100%"
               bg="white"
               boxShadow={"md"}
@@ -102,6 +107,8 @@ export default function MatModal1({ data, setData }) {
               Fabricante:
             </Field.Label>
             <Input
+              value={data.manufacturer}
+              onChange={(e) => ({...data, manufacturer: e.target.value})}
               width="100%"
               bg="white"
               boxShadow={"md"}

@@ -34,9 +34,9 @@ export default function MatModal2({ data, setData }) {
               Contém registro completo na Anvisa
             </Field.Label>
             <Switch.Root
-              checked={data.contemRegistroAnvisa}
+              checked={data.hasAnvisaRegistration}
               onCheckedChange={(e) =>
-                setData({ ...data, contemRegistroAnvisa: e.checked })
+                setData({ ...data, hasAnvisaRegistration: e.checked })
               }
               colorPalette="blue"
               size="lg"
@@ -49,7 +49,7 @@ export default function MatModal2({ data, setData }) {
           </Flex>
         </Field.Root>
       </Flex>
-      {data.contemRegistroAnvisa && (
+      {data.hasAnvisaRegistration && (
         <Flex p={4} gap={4} justifyContent="space-between">
           <Field.Root flex="1" minW="0">
             <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
@@ -121,9 +121,9 @@ export default function MatModal2({ data, setData }) {
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={data.classificacaoDeRisco}
+              value={data.riskClassification}
               onChange={(e) =>
-                setData({ ...data, classificacaoDeRisco: e.target.value })
+                setData({ ...data, riskClassification: e.target.value })
               }
               width="100%"
               bg="white"
@@ -156,9 +156,9 @@ export default function MatModal2({ data, setData }) {
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={data.composicaoPrincipal}
+              value={data.mainComposition}
               onChange={(e) =>
-                setData({ ...data, composicaoPrincipal: e.target.value })
+                setData({ ...data, mainComposition: e.target.value })
               }
               width="100%"
               bg="white"
@@ -185,17 +185,17 @@ export default function MatModal2({ data, setData }) {
           </NativeSelect.Root>
         </Field.Root>
         <Box flex="1" minW="0">
-          {data.composicaoPrincipal === "Outros" && (
+          {data.mainComposition === "Outros" && (
             <Field.Root flex="1" minW="0">
               <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                 Insira a composição principal:
               </Field.Label>
               <Input
-                value={data.composicaoPrincipalOutros}
+                value={data.otherMainComposition}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    composicaoPrincipalOutros: e.target.value,
+                    otherMainComposition: e.target.value,
                   })
                 }
                 placeholder="Insira a composição principal"

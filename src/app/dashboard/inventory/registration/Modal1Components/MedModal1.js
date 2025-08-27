@@ -15,7 +15,6 @@ import {
   Switch,
 } from "@chakra-ui/react"
 import { FaPlus } from "react-icons/fa"
-import { anvisaCodeRequired } from "@/app/dashboard/inventory/registration/utils/constants"
 
 export default function MedModal1({ data, setData }) {
   const addInputForNewActiveIngredient = () => {
@@ -23,7 +22,7 @@ export default function MedModal1({ data, setData }) {
       ...data,
       activeIngredients: [
         ...data.activeIngredients,
-        { principio: "", concentracao: "" },
+        { ingredient: "", concentration: "" },
       ],
     })
   }
@@ -45,9 +44,9 @@ export default function MedModal1({ data, setData }) {
             </Field.Label>
             <NativeSelect.Root>
               <NativeSelect.Field
-                value={data.categoriaRegulatoria}
+                value={data.regulatoryCategory}
                 onChange={(e) =>
-                  setData({ ...data, categoriaRegulatoria: e.target.value })
+                  setData({ ...data, regulatoryCategory: e.target.value })
                 }
                 unstyled
                 width="100%"
@@ -81,11 +80,11 @@ export default function MedModal1({ data, setData }) {
           </Field.Root>
         </Box>
 
-        {data.categoriaRegulatoria === "novo" ||
-        data.categoriaRegulatoria === "similar" ||
-        data.categoriaRegulatoria === "biologico" ||
-        data.categoriaRegulatoria === "produto-terapia-avancada" ||
-        data.categoriaRegulatoria === "radiofarmaco" ? (
+        {data.regulatoryCategory === "novo" ||
+        data.regulatoryCategory === "similar" ||
+        data.regulatoryCategory === "biologico" ||
+        data.regulatoryCategory === "produto-terapia-avancada" ||
+        data.regulatoryCategory === "radiofarmaco" ? (
           <Box p={4}>
             <Field.Root>
               <Field.Label
@@ -97,9 +96,9 @@ export default function MedModal1({ data, setData }) {
                 Nome comercial:
               </Field.Label>
               <Input
-                value={data.nomeComercial}
+                value={data.brandName}
                 onChange={(e) =>
-                  setData({ ...data, nomeComercial: e.target.value })
+                  setData({ ...data, brandName: e.target.value })
                 }
                 width="100%"
                 boxShadow="md"
@@ -115,7 +114,7 @@ export default function MedModal1({ data, setData }) {
             </Field.Root>
           </Box>
         ) : (
-          data.categoriaRegulatoria && (
+          data.regulatoryCategory && (
             <>
               <Flex
                 p={4}
@@ -133,9 +132,9 @@ export default function MedModal1({ data, setData }) {
                       Contém nome comercial?
                     </Field.Label>
                     <Switch.Root
-                      checked={data.contemNomeComercial}
+                      checked={data.hasBrandName}
                       onCheckedChange={(e) =>
-                        setData({ ...data, contemNomeComercial: e.checked })
+                        setData({ ...data, hasBrandName: e.checked })
                       }
                       colorPalette="blue"
                       size="lg"
@@ -149,7 +148,7 @@ export default function MedModal1({ data, setData }) {
                 </Field.Root>
               </Flex>
 
-              {data.contemNomeComercial && (
+              {data.hasBrandName && (
                 <Box p={4}>
                   <Field.Root>
                     <Field.Label
@@ -197,10 +196,10 @@ export default function MedModal1({ data, setData }) {
                   Princípio ativo {index + 1}:
                 </Field.Label>
                 <Input
-                  value={item.principio}
+                  value={item.ingredient}
                   onChange={(e) => {
                     const updated = [...data.activeIngredients]
-                    updated[index].principio = e.target.value
+                    updated[index].ingredient = e.target.value
                     setData({ ...data, activeIngredients: updated })
                   }}
                   placeholder="Digite o princípio ativo"
@@ -227,10 +226,10 @@ export default function MedModal1({ data, setData }) {
                   Dosagem/Concentração:
                 </Field.Label>
                 <Input
-                  value={item.concentracao}
+                  value={item.concentration}
                   onChange={(e) => {
                     const updated = [...data.activeIngredients]
-                    updated[index].concentracao = e.target.value
+                    updated[index].concentration = e.target.value
                     setData({ ...data, activeIngredients: updated })
                   }}
                   placeholder="Ex: 500mg, 5%, 100UI/ml"
@@ -299,8 +298,10 @@ export default function MedModal1({ data, setData }) {
               Fabricante:
             </Field.Label>
             <Input
-              value={data.fabricante}
-              onChange={(e) => setData({ ...data, fabricante: e.target.value })}
+              value={data.manufacturer}
+              onChange={(e) =>
+                setData({ ...data, manufacturer: e.target.value })
+              }
               width="100%"
               bg="white"
               boxShadow="md"

@@ -37,9 +37,9 @@ export default function MedModal3({ data, setData }) {
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={data.forma}
+              value={data.dosageForm}
               onChange={(e) => {
-                setData({ ...data, forma: e.target.value })
+                setData({ ...data, dosageForm: e.target.value })
               }}
               width="100%"
               bg="white"
@@ -54,24 +54,24 @@ export default function MedModal3({ data, setData }) {
               }}
             >
               <option value={""}>Selecione</option>
-              {Object.keys(formasFarmaceuticas).map((forma) => (
-                <option key={forma} value={forma}>
-                  {forma}
+              {Object.keys(formasFarmaceuticas).map((dosageForm) => (
+                <option key={dosageForm} value={dosageForm}>
+                  {dosageForm}
                 </option>
               ))}
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Field.Root>
 
-        {data.forma && formasFarmaceuticas[data.forma] ? (
+        {data.dosageForm && formasFarmaceuticas[data.dosageForm] ? (
           <Field.Root flex="1" minW="0">
             <Field.Label fontWeight="bold">Unidade de fornecimento</Field.Label>
             <NativeSelect.Root>
               <NativeSelect.Field
                 unstyled
-                value={data.unidadeFornecimento}
+                value={data.supplyUnit}
                 onChange={(e) =>
-                  setData({ ...data, unidadeFornecimento: e.target.value })
+                  setData({ ...data, supplyUnit: e.target.value })
                 }
                 width="100%"
                 bg="white"
@@ -86,7 +86,7 @@ export default function MedModal3({ data, setData }) {
                 }}
               >
                 <option value="">Selecione uma forma</option>
-                {formasFarmaceuticas[data.forma].map((emb) => (
+                {formasFarmaceuticas[data.dosageForm].map((emb) => (
                   <option key={emb} value={emb}>
                     {emb}
                   </option>

@@ -28,9 +28,9 @@ export default function MedModal2({ data, setData }) {
                 Notificação simplificada
               </Field.Label>
               <Switch.Root
-                checked={data.contemNotificacaoSimplificada}
+                checked={data.hasSimplifiedNotification}
                 onCheckedChange={(e) =>
-                  setData({ ...data, contemNotificacaoSimplificada: e.checked })
+                  setData({ ...data, hasSimplifiedNotification: e.checked })
                 }
                 colorPalette="blue"
                 size="lg"
@@ -84,7 +84,7 @@ export default function MedModal2({ data, setData }) {
       )}
 
       {!anvisaCodeRequired.includes(data.categoriaRegulatoria) &&
-        !data.contemNotificacaoSimplificada && (
+        !data.hasSimplifiedNotification && (
           <Flex p={4} gap={4} justifyContent="space-between">
             <Field.Root flex="1" minW="0">
               <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
@@ -123,7 +123,7 @@ export default function MedModal2({ data, setData }) {
             </Field.Root>
           </Flex>
         )}
-      {data.contemNotificacaoSimplificada && (
+      {data.hasSimplifiedNotification && (
         <Flex p={4} gap={4} justifyContent="space-between">
           <Field.Root flex="1" minW="0">
             <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">

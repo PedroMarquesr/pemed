@@ -56,10 +56,10 @@ export default function Modal1({
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={data.tipoItem}
+              value={data.itemType}
               onChange={(e) => {
                 const value = e.target.value
-                setData({ ...data, tipoItem: e.target.value })
+                setData({ ...data, itemType: e.target.value })
                 setSelectOption(value)
               }}
               width="100%"

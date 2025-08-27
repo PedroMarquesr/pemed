@@ -10,9 +10,6 @@ import {
   Field,
   NativeSelect,
 } from "@chakra-ui/react"
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
-import viaAdministracao from "@/data/inventory/viaAdministracao.js"
-import { useState } from "react"
 
 import { FaSyringe } from "react-icons/fa"
 
@@ -40,9 +37,9 @@ export default function MatModal3({ data, setData }) {
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={data.dimensaoOuCarateristica}
+              value={data.dimensionOrCharacteristic}
               onChange={(e) => {
-                setData({ ...data, dimensaoOuCarateristica: e.target.value })
+                setData({ ...data, dimensionOrCharacteristic: e.target.value })
               }}
               width="100%"
               bg="white"
@@ -108,17 +105,17 @@ export default function MatModal3({ data, setData }) {
           </NativeSelect.Root>
         </Field.Root>
         <Box flex="1">
-          {data.dimensaoOuCarateristica === "Outro" && (
+          {data.dimensionOrCharacteristic === "Outro" && (
             <Field.Root flex="1" minW="0">
               <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                 Insira a dimensão ou característica principal:
               </Field.Label>
               <Input
-                value={data.dimensaoOuCarateristicaOutro}
+                value={data.otherDimensionOrCharacteristic}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    dimensaoOuCarateristicaOutro: e.target.value,
+                    otherDimensionOrCharacteristic: e.target.value,
                   })
                 }
                 placeholder="Insira a composição principal"
@@ -137,11 +134,11 @@ export default function MatModal3({ data, setData }) {
             Especifique a dimensão ou referência
           </Field.Label>
           <Input
-            value={data.especificacaoDimensaoReferencia}
+            value={data.dimensionReferenceSpecification}
             onChange={(e) =>
               setData({
                 ...data,
-                especificacaoDimensaoReferencia: e.target.value,
+                dimensionReferenceSpecification: e.target.value,
               })
             }
             placeholder="Ex: 3 cm, 50 mL, 2 g, P, 23x3…"
@@ -154,7 +151,30 @@ export default function MatModal3({ data, setData }) {
         <Box flex="1"></Box>
       </Flex>
       <Flex p={4} gap={4} justifyContent={"space-between"}>
-        <Field.Root>
+        <Field.Root flex="1" minW="0">
+          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+            Unidade de fornecimento
+          </Field.Label>
+          <Input
+            value={data.supplyUnit}
+            onChange={(e) =>
+              setData({
+                ...data,
+                supplyUnit: Number(e.target.value),
+              })
+            }
+            placeholder="Ex: Rolo, Unidade"
+            maxLength={4}
+            bg="white"
+            boxShadow="md"
+            border="1px solid #2b4d52ff"
+            _hover={{ borderColor: "#5d8288c4" }}
+          />{" "}
+        </Field.Root>
+        <Box flex="1"></Box>
+      </Flex>
+      <Flex p={4} gap={4} justifyContent={"space-between"}>
+        <Field.Root flex="1">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
             Quantidade de unidades por embalagem
           </Field.Label>
@@ -174,96 +194,7 @@ export default function MatModal3({ data, setData }) {
             _hover={{ borderColor: "#5d8288c4" }}
           />
         </Field.Root>
-        <Field.Root>
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Dosagem/Concentração
-          </Field.Label>
-          <Input
-            value={data.dosagem}
-            onChange={(e) => setData({ ...data, dosagem: e.target.value })}
-            placeholder="Ex: 500mg, 5%, 100UI/ml"
-            maxLength={11}
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
-          />
-        </Field.Root>
-      </Flex>
-      <Flex
-        p={4}
-        gap={4}
-        justifyContent={"flex-start"}
-        flexDirection={"column"}
-      >
-        <Flex flexDirection={"row"}>
-          <Field.Root>
-            <Flex alignItems="center" gap={4}>
-              <Field.Label>Medicamento controlado ?</Field.Label>
-              <Switch.Root
-                checked={data.controlado}
-                onCheckedChange={(e) =>
-                  setData({ ...data, controlado: e.checked })
-                }
-                colorPalette="blue"
-                size="lg"
-              >
-                <Switch.HiddenInput />
-                <Switch.Control>
-                  <Switch.Thumb />
-                </Switch.Control>
-              </Switch.Root>
-            </Flex>
-          </Field.Root>
-        </Flex>
-        <Box>
-          <Field.Root>
-            <Flex alignItems="center" gap={4}>
-              <Field.Label>Medicamento termolábil ?</Field.Label>
-              <Switch.Root
-                checked={data.termolabil}
-                onCheckedChange={(e) =>
-                  setData({ ...data, termolabil: e.checked })
-                }
-                colorPalette="blue"
-                size="lg"
-              >
-                <Switch.HiddenInput />
-                <Switch.Control>
-                  <Switch.Thumb />
-                </Switch.Control>
-              </Switch.Root>
-            </Flex>
-          </Field.Root>
-        </Box>
-        {data.termolabil && (
-          <>
-            <Flex>
-              <Field.Root flex="1">
-                <Field.Label>
-                  Informe a faixa de temperatura indicada
-                </Field.Label>
-                <Input
-                  value={data.faixaTemperatura}
-                  onChange={(e) =>
-                    setData({ ...data, faixaTemperatura: e.target.value })
-                  }
-                  placeholder="Exemplo: 8°C a 12°C"
-                  width="100%"
-                  bg="white"
-                  boxShadow="md"
-                  color="black"
-                  borderRadius="md"
-                  border="1px solid #2b4d52ff"
-                  _hover={{
-                    borderColor: "#5d8288c4",
-                  }}
-                />
-              </Field.Root>
-              <Box flex="1" minW="0"></Box>
-            </Flex>
-          </>
-        )}
+        <Box flex="1"></Box>
       </Flex>
     </Flex>
   )
