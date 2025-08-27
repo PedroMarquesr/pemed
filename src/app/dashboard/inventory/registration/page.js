@@ -31,19 +31,18 @@ export default function Registration() {
     dosageForm: "",
     supplyUnit: "",
     hasAnvisaRegistration: null,
-    hasSimplifiedNotification: null, // aqui
-    refNormativaNotificacaoSimplificada: "",
-    registroAnvisa: "",
-    validadeRegistro: "",
-    classeTerapeutica: "",
-    validadeTotalDoMedicamento: "",
-    codigoCmedGGREM: "",
-    viaAdministracao: "",
-    qtdPorEmbalagem: 0,
-    dosagem: "",
-    termolabil: false,
-    faixaTemperatura: "",
-    controlado: false,
+    hasSimplifiedNotification: null,
+    simplifiedNotificationReference: "",
+    anvisaRegistrationCode: "",
+    registrationValidity: "",
+    therapeuticClass: "",
+    totalDrugValidity: "",
+    cmedGgremCode: "",
+    administrationRoute: "",
+    packageQuantity: 0,
+    isThermolabile: false,
+    temperatureRange: "",
+    isControlledSubstance: false,
   })
 
   const renderModal2 = () => {
@@ -83,7 +82,6 @@ export default function Registration() {
             </Button>
           </Link>
         </Flex>
-        {JSON.stringify(data)}
 
         <Flex
           ml={"3"}
@@ -240,6 +238,7 @@ export default function Registration() {
           {currentStep < 3 ? "Continuar" : currentStep === 3 ? "Salvar" : "✓"}
         </Button>
       </Flex>
+      {JSON.stringify(data)}
     </>
   )
 }

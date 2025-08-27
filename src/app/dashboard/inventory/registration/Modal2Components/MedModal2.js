@@ -48,11 +48,11 @@ export default function MedModal2({ data, setData }) {
           <Field.Root flex="1" minW="0">
             <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
             <Input
-              value={data.registroAnvisa}
+              value={data.anvisaRegistrationCode}
               onChange={(e) =>
                 setData({
                   ...data,
-                  registroAnvisa: e.target.value,
+                  anvisaRegistrationCode: e.target.value,
                 })
               }
               placeholder="Digite o registro"
@@ -69,9 +69,9 @@ export default function MedModal2({ data, setData }) {
               Validade do Registro:
             </Field.Label>
             <Input
-              value={data.validadeRegistro}
+              value={data.registrationValidity}
               onChange={(e) =>
-                setData({ ...data, validadeRegistro: e.target.value })
+                setData({ ...data, registrationValidity: e.target.value })
               }
               type="date"
               bg="white"
@@ -89,11 +89,11 @@ export default function MedModal2({ data, setData }) {
             <Field.Root flex="1" minW="0">
               <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
               <Input
-                value={data.registroAnvisa}
+                value={data.anvisaRegistrationCode}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    registroAnvisa: e.target.value,
+                    anvisaRegistrationCode: e.target.value,
                   })
                 }
                 placeholder="Digite o registro"
@@ -110,9 +110,9 @@ export default function MedModal2({ data, setData }) {
                 Validade do Registro:
               </Field.Label>
               <Input
-                value={data.validadeRegistro}
+                value={data.registrationValidity}
                 onChange={(e) =>
-                  setData({ ...data, validadeRegistro: e.target.value })
+                  setData({ ...data, registrationValidity: e.target.value })
                 }
                 type="date"
                 bg="white"
@@ -130,11 +130,13 @@ export default function MedModal2({ data, setData }) {
               Referência normativa (RDC aplicável)
             </Field.Label>
             <Input
-              value={data.refNormativaNotificacaoSimplificada}
-              onChange={(e) => ({
-                ...data,
-                refNormativaNotificacaoSimplificada: e.target.value,
-              })}
+              value={data.simplifiedNotificationReference}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  simplifiedNotificationReference: e.target.value,
+                })
+              }
               placeholder="RDC xx/xxxx"
               bg="white"
               boxShadow="md"
@@ -151,9 +153,9 @@ export default function MedModal2({ data, setData }) {
         <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="semibold">Classe terapeutica</Field.Label>
           <Input
-            value={data.classeTerapeutica}
+            value={data.therapeuticClass}
             onChange={(e) =>
-              setData({ ...data, classeTerapeutica: e.target.value })
+              setData({ ...data, therapeuticClass: e.target.value })
             }
             placeholder="Insira a classe"
             bg="white"
@@ -166,9 +168,9 @@ export default function MedModal2({ data, setData }) {
         <Field.Root flex="1" minW="0">
           <Field.Label>Validade total do medicamento (Em meses): </Field.Label>
           <Input
-            value={data.validadeTotalDoMedicamento}
+            value={data.totalDrugValidity}
             onChange={(e) =>
-              setData({ ...data, validadeTotalDoMedicamento: e.target.value })
+              setData({ ...data, totalDrugValidity: e.target.value })
             }
             type="number"
             bg="white"
@@ -183,9 +185,9 @@ export default function MedModal2({ data, setData }) {
         <Field.Root width="100%">
           <Field.Label fontWeight="semibold">Código CMED (GGREM)</Field.Label>
           <Input
-            value={data.codigoCmedGGREM}
+            value={data.cmedGgremCode}
             onChange={(e) =>
-              setData({ ...data, codigoCmedGGREM: e.target.value })
+              setData({ ...data, cmedGgremCode: e.target.value })
             }
             placeholder="(Número do medicamento no banco de preços da ANVISA/CMED)."
             bg="white"

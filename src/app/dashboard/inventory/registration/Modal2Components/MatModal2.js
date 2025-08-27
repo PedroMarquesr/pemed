@@ -56,6 +56,11 @@ export default function MatModal2({ data, setData }) {
               Registro ANVISA
             </Field.Label>
             <Input
+              value={data.anvisaRegistrationCode}
+              onChange={(e) => ({
+                ...data,
+                anvisaRegistrationCode: e.target.value,
+              })}
               placeholder="Digite o registro"
               maxLength={11}
               bg="white"
@@ -76,11 +81,11 @@ export default function MatModal2({ data, setData }) {
               Sujeito a notificação simplificada
             </Field.Label>
             <Switch.Root
-              checked={data.refNormativaNotificacaoSimplificada}
+              checked={data.simplifiedNotificationReference}
               onCheckedChange={(e) =>
                 setData({
                   ...data,
-                  refNormativaNotificacaoSimplificada: e.checked,
+                  simplifiedNotificationReference: e.checked,
                 })
               }
               colorPalette="blue"
@@ -94,7 +99,7 @@ export default function MatModal2({ data, setData }) {
           </Flex>
         </Field.Root>
       </Flex>
-      {data.refNormativaNotificacaoSimplificada && (
+      {data.simplifiedNotificationReference && (
         <Flex p={4} gap={4} justifyContent="space-between">
           <Field.Root flex="1" minW="0">
             <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">

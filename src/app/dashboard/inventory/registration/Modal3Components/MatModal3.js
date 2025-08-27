@@ -179,11 +179,11 @@ export default function MatModal3({ data, setData }) {
             Quantidade de unidades por embalagem
           </Field.Label>
           <Input
-            value={data.qtdPorEmbalagem}
+            value={data.packageQuantity}
             onChange={(e) =>
               setData({
                 ...data,
-                qtdPorEmbalagem: Number(e.target.value),
+                packageQuantity: Number(e.target.value),
               })
             }
             placeholder="Apenas números"

@@ -104,9 +104,9 @@ export default function MedModal3({ data, setData }) {
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
-              value={data.viaAdministracao}
+              value={data.administrationRoute}
               onChange={(e) =>
-                setData({ ...data, viaAdministracao: e.target.value })
+                setData({ ...data, administrationRoute: e.target.value })
               }
               width="100%"
               bg="white"
@@ -135,11 +135,11 @@ export default function MedModal3({ data, setData }) {
         <Field.Root flex="1">
           <Field.Label>Quantidade de unidades por embalagem</Field.Label>
           <Input
-            value={data.qtdPorEmbalagem}
+            value={data.packageQuantity}
             onChange={(e) =>
               setData({
                 ...data,
-                qtdPorEmbalagem: Number(e.target.value),
+                packageQuantity: Number(e.target.value),
               })
             }
             placeholder="Apenas números"
@@ -163,9 +163,9 @@ export default function MedModal3({ data, setData }) {
             <Flex alignItems="center" gap={4}>
               <Field.Label>Medicamento controlado ?</Field.Label>
               <Switch.Root
-                checked={data.controlado}
+                checked={data.isControlledSubstance}
                 onCheckedChange={(e) =>
-                  setData({ ...data, controlado: e.checked })
+                  setData({ ...data, isControlledSubstance: e.checked })
                 }
                 colorPalette="blue"
                 size="lg"
@@ -183,9 +183,9 @@ export default function MedModal3({ data, setData }) {
             <Flex alignItems="center" gap={4}>
               <Field.Label>Medicamento termolábil ?</Field.Label>
               <Switch.Root
-                checked={data.termolabil}
+                checked={data.isThermolabile}
                 onCheckedChange={(e) =>
-                  setData({ ...data, termolabil: e.checked })
+                  setData({ ...data, isThermolabile: e.checked })
                 }
                 colorPalette="blue"
                 size="lg"
@@ -198,7 +198,7 @@ export default function MedModal3({ data, setData }) {
             </Flex>
           </Field.Root>
         </Box>
-        {data.termolabil && (
+        {data.thermolabile && (
           <>
             <Flex>
               <Field.Root flex="1">
@@ -206,9 +206,9 @@ export default function MedModal3({ data, setData }) {
                   Informe a faixa de temperatura indicada
                 </Field.Label>
                 <Input
-                  value={data.faixaTemperatura}
+                  value={data.temperatureRange}
                   onChange={(e) =>
-                    setData({ ...data, faixaTemperatura: e.target.value })
+                    setData({ ...data, temperatureRange: e.target.value })
                   }
                   placeholder="Exemplo: 8°C a 12°C"
                   width="100%"
