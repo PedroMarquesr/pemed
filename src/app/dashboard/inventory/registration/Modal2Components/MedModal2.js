@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import { Flex, Input, Text, Field, Switch } from "@chakra-ui/react"
+import { Flex, Input, Text, Field, Switch, Box } from "@chakra-ui/react"
 import { LuPill } from "react-icons/lu"
 import { anvisaCodeRequired } from "@/app/dashboard/inventory/registration/utils/constants.js"
 
@@ -20,30 +20,30 @@ export default function MedModal2({ data, setData }) {
           Classificação
         </Text>
       </Flex>
-      <Flex p={4} gap={4} alignItems={"center"} justifyContent={"center"}>
-        <Field.Root>
-          <Flex alignItems="center" gap={4} justifyContent={"center"}>
-            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-              Notificação simplificada
-            </Field.Label>
-            <Switch.Root
-              checked={data.contemNotificacaoSimplificada}
-              onCheckedChange={(e) =>
-                setData({ ...data, contemNotificacaoSimplificada: e.checked })
-              }
-              colorPalette="blue"
-              size="lg"
-            >
-              <Switch.HiddenInput />
-              <Switch.Control>
-                <Switch.Thumb />
-              </Switch.Control>
-            </Switch.Root>
-          </Flex>
-        </Field.Root>
-      </Flex>
-
-      {anvisaCodeRequired.includes(data.categoriaRegulatoria) && (
+      {!anvisaCodeRequired.includes(data.categoriaRegulatoria) ? (
+        <Flex p={4} gap={4} alignItems={"center"} justifyContent={"center"}>
+          <Field.Root>
+            <Flex alignItems="center" gap={4} justifyContent={"center"}>
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Notificação simplificada
+              </Field.Label>
+              <Switch.Root
+                checked={data.contemNotificacaoSimplificada}
+                onCheckedChange={(e) =>
+                  setData({ ...data, contemNotificacaoSimplificada: e.checked })
+                }
+                colorPalette="blue"
+                size="lg"
+              >
+                <Switch.HiddenInput />
+                <Switch.Control>
+                  <Switch.Thumb />
+                </Switch.Control>
+              </Switch.Root>
+            </Flex>
+          </Field.Root>
+        </Flex>
+      ) : (
         <Flex p={4} gap={4} justifyContent="space-between">
           <Field.Root flex="1" minW="0">
             <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
@@ -82,41 +82,70 @@ export default function MedModal2({ data, setData }) {
           </Field.Root>
         </Flex>
       )}
-      {/* <Flex p={4} gap={4} justifyContent="space-between">
-        <Field.Root flex="1" minW="0">
-          <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
-          <Input
-            value={data.registroAnvisa}
-            onChange={(e) =>
-              setData({
-                ...data,
-                registroAnvisa: e.target.value,
-              })
-            }
-            placeholder="Digite o registro"
-            maxLength={11}
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
-          />
-        </Field.Root>
 
-        <Field.Root flex="1" minW="0">
-          <Field.Label fontWeight="semibold">Validade do Registro:</Field.Label>
-          <Input
-            value={data.validadeRegistro}
-            onChange={(e) =>
-              setData({ ...data, validadeRegistro: e.target.value })
-            }
-            type="date"
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
-          />
-        </Field.Root>
-      </Flex> */}
+      {!anvisaCodeRequired.includes(data.categoriaRegulatoria) &&
+        !data.contemNotificacaoSimplificada && (
+          <Flex p={4} gap={4} justifyContent="space-between">
+            <Field.Root flex="1" minW="0">
+              <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
+              <Input
+                value={data.registroAnvisa}
+                onChange={(e) =>
+                  setData({
+                    ...data,
+                    registroAnvisa: e.target.value,
+                  })
+                }
+                placeholder="Digite o registro"
+                maxLength={11}
+                bg="white"
+                boxShadow="md"
+                border="1px solid #2b4d52ff"
+                _hover={{ borderColor: "#5d8288c4" }}
+              />
+            </Field.Root>
+
+            <Field.Root flex="1" minW="0">
+              <Field.Label fontWeight="semibold">
+                Validade do Registro:
+              </Field.Label>
+              <Input
+                value={data.validadeRegistro}
+                onChange={(e) =>
+                  setData({ ...data, validadeRegistro: e.target.value })
+                }
+                type="date"
+                bg="white"
+                boxShadow="md"
+                border="1px solid #2b4d52ff"
+                _hover={{ borderColor: "#5d8288c4" }}
+              />
+            </Field.Root>
+          </Flex>
+        )}
+      {data.contemNotificacaoSimplificada && (
+        <Flex p={4} gap={4} justifyContent="space-between">
+          <Field.Root flex="1" minW="0">
+            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+              Referência normativa (RDC aplicável)
+            </Field.Label>
+            <Input
+              value={data.refNormativaNotificacaoSimplificada}
+              onChange={(e) => ({
+                ...data,
+                refNormativaNotificacaoSimplificada: e.target.value,
+              })}
+              placeholder="RDC xx/xxxx"
+              bg="white"
+              boxShadow="md"
+              border="1px solid #2b4d52ff"
+              _hover={{ borderColor: "#5d8288c4" }}
+            />
+          </Field.Root>
+
+          <Box flex="1" minW="0"></Box>
+        </Flex>
+      )}
 
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
