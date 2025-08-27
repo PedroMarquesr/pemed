@@ -15,8 +15,7 @@ import {
   Switch,
 } from "@chakra-ui/react"
 import { FaPlus } from "react-icons/fa"
-import { TiDelete } from "react-icons/ti"
-import { RiDeleteBack2Fill } from "react-icons/ri"
+import { anvisaCodeRequired } from "@/app/dashboard/inventory/registration/utils/constants"
 
 export default function MedModal1({ data, setData }) {
   const addInputForNewActiveIngredient = () => {

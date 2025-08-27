@@ -2,6 +2,7 @@
 import React from "react"
 import { Flex, Input, Text, Field, Switch } from "@chakra-ui/react"
 import { LuPill } from "react-icons/lu"
+import { anvisaCodeRequired } from "@/app/dashboard/inventory/registration/utils/constants.js"
 
 export default function MedModal2({ data, setData }) {
   return (
@@ -23,12 +24,12 @@ export default function MedModal2({ data, setData }) {
         <Field.Root>
           <Flex alignItems="center" gap={4} justifyContent={"center"}>
             <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-              Contém registro completo na Anvisa
+              Notificação simplificada
             </Field.Label>
             <Switch.Root
-              checked={data.contemRegistroAnvisa}
+              checked={data.contemNotificacaoSimplificada}
               onCheckedChange={(e) =>
-                setData({ ...data, contemRegistroAnvisa: e.checked })
+                setData({ ...data, contemNotificacaoSimplificada: e.checked })
               }
               colorPalette="blue"
               size="lg"
@@ -41,7 +42,47 @@ export default function MedModal2({ data, setData }) {
           </Flex>
         </Field.Root>
       </Flex>
-      <Flex p={4} gap={4} justifyContent="space-between">
+
+      {anvisaCodeRequired.includes(data.categoriaRegulatoria) && (
+        <Flex p={4} gap={4} justifyContent="space-between">
+          <Field.Root flex="1" minW="0">
+            <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
+            <Input
+              value={data.registroAnvisa}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  registroAnvisa: e.target.value,
+                })
+              }
+              placeholder="Digite o registro"
+              maxLength={11}
+              bg="white"
+              boxShadow="md"
+              border="1px solid #2b4d52ff"
+              _hover={{ borderColor: "#5d8288c4" }}
+            />
+          </Field.Root>
+
+          <Field.Root flex="1" minW="0">
+            <Field.Label fontWeight="semibold">
+              Validade do Registro:
+            </Field.Label>
+            <Input
+              value={data.validadeRegistro}
+              onChange={(e) =>
+                setData({ ...data, validadeRegistro: e.target.value })
+              }
+              type="date"
+              bg="white"
+              boxShadow="md"
+              border="1px solid #2b4d52ff"
+              _hover={{ borderColor: "#5d8288c4" }}
+            />
+          </Field.Root>
+        </Flex>
+      )}
+      {/* <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
           <Field.Label fontWeight="semibold">Registro ANVISA</Field.Label>
           <Input
@@ -75,7 +116,7 @@ export default function MedModal2({ data, setData }) {
             _hover={{ borderColor: "#5d8288c4" }}
           />
         </Field.Root>
-      </Flex>
+      </Flex> */}
 
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
