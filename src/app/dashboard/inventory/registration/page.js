@@ -9,6 +9,8 @@ import MedModal2 from "./Modal2Components/MedModal2"
 import MatModal2 from "./Modal2Components/MatModal2"
 import MedModal3 from "./Modal3Components/MedModal3"
 import MatModal3 from "./Modal3Components/MatModal3"
+import MedModal4 from "./Modal4Components/MedModal4"
+import MatModal4 from "./Modal4Components/MatModal4"
 
 export default function Registration() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -60,6 +62,15 @@ export default function Registration() {
         <MedModal3 data={data} setData={setData} />
       ) : (
         <MatModal3 data={data} setData={setData} />
+      )
+    }
+  }
+  const renderModal4 = () => {
+    if (currentStep === 4) {
+      return selectOption === "Medicamento" ? (
+        <MedModal4 data={data} setData={setData} />
+      ) : (
+        <MatModal4 data={data} setData={setData} />
       )
     }
   }
@@ -194,9 +205,11 @@ export default function Registration() {
         />
       ) : currentStep === 2 ? (
         renderModal2(selectOption)
-      ) : (
+      ) : currentStep === 3 ? (
         renderModal3(selectOption)
-      )}
+      ) : currentStep === 4 ? (
+        renderModal4(selectOption)
+      ) : null}
       <Flex justifyContent={"end"} gap={3}>
         {currentStep >= 2 && currentStep <= 3 && (
           <Button
@@ -235,7 +248,7 @@ export default function Registration() {
               : {}
           }
         >
-          {currentStep < 3 ? "Continuar" : currentStep === 3 ? "Salvar" : "✓"}
+          {currentStep < 4 ? "Continuar" : currentStep === 4 ? "Salvar" : "✓"}
         </Button>
       </Flex>
       {JSON.stringify(data)}
