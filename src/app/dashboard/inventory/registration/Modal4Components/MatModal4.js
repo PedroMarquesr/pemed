@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 
 import {
   Flex,
@@ -7,13 +7,14 @@ import {
   Box,
   Switch,
   Text,
+  SimpleGrid,
   Field,
   NativeSelect,
   Grid,
   GridItem,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
-import { FaSyringe } from "react-icons/fa";
+import { FaSyringe } from "react-icons/fa"
 
 export default function MatModal4({ data, setData }) {
   return (
@@ -31,13 +32,14 @@ export default function MatModal4({ data, setData }) {
           Revisão de informações{" "}
         </Text>
       </Flex>
-      <Flex>
-        <Grid>
-          <GridItem>
-            <Text>Teste</Text>
-          </GridItem>
-        </Grid>
+      <Flex alignItems="center" justifyContent="center" p={4}>
+        <SimpleGrid columns={2} columnGap="2" rowGap="4">
+          <Text>item 1</Text>
+          <Text>item 2</Text>
+          <Text>item 3</Text>
+          <Text>item 4</Text>
+        </SimpleGrid>
       </Flex>
     </Flex>
-  );
+  )
 }
