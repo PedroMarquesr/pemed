@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react"
-import { useState } from "react"
-import { GoArrowLeft } from "react-icons/go"
+import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
+import { useState } from "react";
+import { GoArrowLeft } from "react-icons/go";
 
-import Modal1 from "./Modal1"
-import MedModal2 from "./Modal2Components/MedModal2"
-import MatModal2 from "./Modal2Components/MatModal2"
-import MedModal3 from "./Modal3Components/MedModal3"
-import MatModal3 from "./Modal3Components/MatModal3"
-import MedModal4 from "./Modal4Components/MedModal4"
-import MatModal4 from "./Modal4Components/MatModal4"
+import Modal1 from "./Modal1";
+import MedModal2 from "./Modal2Components/MedModal2";
+import MatModal2 from "./Modal2Components/MatModal2";
+import MedModal3 from "./Modal3Components/MedModal3";
+import MatModal3 from "./Modal3Components/MatModal3";
+import MedModal4 from "./Modal4Components/MedModal4";
+import MatModal4 from "./Modal4Components/MatModal4";
 
 export default function Registration() {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [selectOption, setSelectOption] = useState("")
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectOption, setSelectOption] = useState("");
 
   const [data, setData] = useState({
     itemType: "",
@@ -45,7 +45,7 @@ export default function Registration() {
     isThermolabile: false,
     temperatureRange: "",
     isControlledSubstance: false,
-  })
+  });
 
   const renderModal2 = () => {
     if (currentStep === 2) {
@@ -53,27 +53,27 @@ export default function Registration() {
         <MedModal2 data={data} setData={setData} />
       ) : (
         <MatModal2 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
   const renderModal3 = () => {
     if (currentStep === 3) {
       return selectOption === "Medicamento" ? (
         <MedModal3 data={data} setData={setData} />
       ) : (
         <MatModal3 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
   const renderModal4 = () => {
     if (currentStep === 4) {
       return selectOption === "Medicamento" ? (
         <MedModal4 data={data} setData={setData} />
       ) : (
         <MatModal4 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
 
   return (
     <>
@@ -211,15 +211,15 @@ export default function Registration() {
         renderModal4(selectOption)
       ) : null}
       <Flex justifyContent={"end"} gap={3}>
-        {currentStep >= 2 && currentStep <= 3 && (
+        {currentStep >= 2 && currentStep <= 4 && (
           <Button
-            isDisabled={currentStep > 3}
+            isDisabled={currentStep > 4}
             boxShadow={"md"}
-            bg={currentStep > 3 ? "green.500" : "rgba(24,24,24,255)"}
+            bg={"rgba(24,24,24,255)"}
             onClick={() => setCurrentStep(currentStep - 1)}
             color={"rgba(223,223,223,255)"}
             _hover={
-              currentStep <= 3
+              currentStep <= 4
                 ? {
                     bg: "rgba(19,92,254,255)",
                     transform: "translateY(-3px)",
@@ -235,11 +235,11 @@ export default function Registration() {
         <Button
           isDisabled={currentStep > 3}
           boxShadow={"md"}
-          bg={currentStep > 3 ? "green.500" : "rgba(24,24,24,255)"}
+          bg={currentStep > 4 ? "green.500" : "rgba(24,24,24,255)"}
           onClick={() => setCurrentStep(currentStep + 1)}
           color={"rgba(223,223,223,255)"}
           _hover={
-            currentStep <= 3
+            currentStep <= 4
               ? {
                   bg: "rgba(19,92,254,255)",
                   transform: "translateY(-3px)",
@@ -253,5 +253,5 @@ export default function Registration() {
       </Flex>
       {JSON.stringify(data)}
     </>
-  )
+  );
 }

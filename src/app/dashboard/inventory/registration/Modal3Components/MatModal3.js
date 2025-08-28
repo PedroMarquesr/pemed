@@ -1,5 +1,5 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
 
 import {
   Flex,
@@ -9,9 +9,9 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
-import { FaSyringe } from "react-icons/fa"
+import { FaSyringe } from "react-icons/fa";
 
 export default function MatModal3({ data, setData }) {
   return (
@@ -39,7 +39,7 @@ export default function MatModal3({ data, setData }) {
               unstyled
               value={data.dimensionOrCharacteristic}
               onChange={(e) => {
-                setData({ ...data, dimensionOrCharacteristic: e.target.value })
+                setData({ ...data, dimensionOrCharacteristic: e.target.value });
               }}
               width="100%"
               bg="white"
@@ -118,7 +118,6 @@ export default function MatModal3({ data, setData }) {
                     otherDimensionOrCharacteristic: e.target.value,
                   })
                 }
-                placeholder="Insira a composição principal"
                 bg="white"
                 boxShadow="md"
                 border="1px solid #2b4d52ff"
@@ -197,5 +196,5 @@ export default function MatModal3({ data, setData }) {
         <Box flex="1"></Box>
       </Flex>
     </Flex>
-  )
+  );
 }

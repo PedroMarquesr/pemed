@@ -1,5 +1,5 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
 
 import {
   Flex,
@@ -9,9 +9,9 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
-import { FaSyringe } from "react-icons/fa"
+import { FaSyringe } from "react-icons/fa";
 
 export default function MatModal4({ data, setData }) {
   return (
@@ -26,9 +26,9 @@ export default function MatModal4({ data, setData }) {
       <Flex alignItems="center" gap={2} p={4}>
         <FaSyringe color="rgba(19,92,254,255)" size={20} />
         <Text color="black" fontWeight="bold" fontSize="lg">
-          Especificações Técnicas
+          Revisão de informações{" "}
         </Text>
       </Flex>
     </Flex>
-  )
+  );
 }

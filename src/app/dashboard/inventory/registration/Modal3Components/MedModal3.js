@@ -1,5 +1,5 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
 
 import {
   Flex,
@@ -9,11 +9,11 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react"
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
-import viaAdministracao from "@/data/inventory/viaAdministracao.js"
+} from "@chakra-ui/react";
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
+import viaAdministracao from "@/data/inventory/viaAdministracao.js";
 
-import { LuPill } from "react-icons/lu"
+import { LuPill } from "react-icons/lu";
 
 export default function MedModal3({ data, setData }) {
   return (
@@ -33,13 +33,15 @@ export default function MedModal3({ data, setData }) {
       </Flex>
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1" minW="0">
-          <Field.Label fontWeight="bold">Forma Farmacêutica</Field.Label>
+          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+            Forma Farmacêutica
+          </Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
               value={data.dosageForm}
               onChange={(e) => {
-                setData({ ...data, dosageForm: e.target.value })
+                setData({ ...data, dosageForm: e.target.value });
               }}
               width="100%"
               bg="white"
@@ -65,7 +67,9 @@ export default function MedModal3({ data, setData }) {
 
         {data.dosageForm && formasFarmaceuticas[data.dosageForm] ? (
           <Field.Root flex="1" minW="0">
-            <Field.Label fontWeight="bold">Unidade de fornecimento</Field.Label>
+            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+              Unidade de fornecimento
+            </Field.Label>
             <NativeSelect.Root>
               <NativeSelect.Field
                 unstyled
@@ -100,7 +104,9 @@ export default function MedModal3({ data, setData }) {
       </Flex>
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="1">
-          <Field.Label>Via de administração: </Field.Label>
+          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+            Via de administração:{" "}
+          </Field.Label>
           <NativeSelect.Root>
             <NativeSelect.Field
               unstyled
@@ -133,7 +139,9 @@ export default function MedModal3({ data, setData }) {
       </Flex>
       <Flex p={4} gap={4} justifyContent={"space-between"}>
         <Field.Root flex="1">
-          <Field.Label>Quantidade de unidades por embalagem</Field.Label>
+          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+            Quantidade de unidades por embalagem
+          </Field.Label>
           <Input
             value={data.packageQuantity}
             onChange={(e) =>
@@ -161,7 +169,9 @@ export default function MedModal3({ data, setData }) {
         <Flex flexDirection={"row"}>
           <Field.Root>
             <Flex alignItems="center" gap={4}>
-              <Field.Label>Medicamento controlado ?</Field.Label>
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Medicamento controlado ?
+              </Field.Label>
               <Switch.Root
                 checked={data.isControlledSubstance}
                 onCheckedChange={(e) =>
@@ -181,7 +191,9 @@ export default function MedModal3({ data, setData }) {
         <Box>
           <Field.Root>
             <Flex alignItems="center" gap={4}>
-              <Field.Label>Medicamento termolábil ?</Field.Label>
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Medicamento termolábil ?
+              </Field.Label>
               <Switch.Root
                 checked={data.isThermolabile}
                 onCheckedChange={(e) =>
@@ -228,5 +240,5 @@ export default function MedModal3({ data, setData }) {
         )}
       </Flex>
     </Flex>
-  )
+  );
 }
