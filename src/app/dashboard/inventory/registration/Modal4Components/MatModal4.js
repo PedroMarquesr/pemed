@@ -9,6 +9,8 @@ import {
   Text,
   Field,
   NativeSelect,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 
 import { FaSyringe } from "react-icons/fa";
@@ -23,11 +25,18 @@ export default function MatModal4({ data, setData }) {
       w="100%"
       boxShadow="xl"
     >
-      <Flex alignItems="center" gap={2} p={4}>
+      <Flex alignItems="center" justifyContent="center" gap={2} p={4}>
         <FaSyringe color="rgba(19,92,254,255)" size={20} />
         <Text color="black" fontWeight="bold" fontSize="lg">
           Revisão de informações{" "}
         </Text>
+      </Flex>
+      <Flex>
+        <Grid>
+          <GridItem>
+            <Text>Teste</Text>
+          </GridItem>
+        </Grid>
       </Flex>
     </Flex>
   );
