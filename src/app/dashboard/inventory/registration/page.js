@@ -1,20 +1,23 @@
-"use client"
+"use client";
 
-import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react"
-import { useState } from "react"
-import { GoArrowLeft } from "react-icons/go"
+import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
+import { use, useState, useEffect } from "react";
+import { GoArrowLeft } from "react-icons/go";
+import { setDoc, doc, collection, serverTimestamp } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
 
-import Modal1 from "./Modal1"
-import MedModal2 from "./Modal2Components/MedModal2"
-import MatModal2 from "./Modal2Components/MatModal2"
-import MedModal3 from "./Modal3Components/MedModal3"
-import MatModal3 from "./Modal3Components/MatModal3"
-import MedModal4 from "./Modal4Components/MedModal4"
-import MatModal4 from "./Modal4Components/MatModal4"
+import Modal1 from "./Modal1";
+import MedModal2 from "./Modal2Components/MedModal2";
+import MatModal2 from "./Modal2Components/MatModal2";
+import MedModal3 from "./Modal3Components/MedModal3";
+import MatModal3 from "./Modal3Components/MatModal3";
+import MedModal4 from "./Modal4Components/MedModal4";
+import MatModal4 from "./Modal4Components/MatModal4";
+import { db } from "@/components/libs/firebaseInit";
 
 export default function Registration() {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [selectOption, setSelectOption] = useState("")
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectOption, setSelectOption] = useState("");
 
   const [data, setData] = useState({
     itemType: "",
@@ -45,7 +48,7 @@ export default function Registration() {
     isThermolabile: false,
     temperatureRange: "",
     isControlledSubstance: false,
-  })
+  });
 
   const renderModal2 = () => {
     if (currentStep === 2) {
@@ -53,27 +56,43 @@ export default function Registration() {
         <MedModal2 data={data} setData={setData} />
       ) : (
         <MatModal2 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
   const renderModal3 = () => {
     if (currentStep === 3) {
       return selectOption === "Medicamento" ? (
         <MedModal3 data={data} setData={setData} />
       ) : (
         <MatModal3 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
   const renderModal4 = () => {
     if (currentStep === 4) {
       return selectOption === "Medicamento" ? (
         <MedModal4 data={data} setData={setData} />
       ) : (
         <MatModal4 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
+
+  useEffect(() => {
+    const saveData = async () => {
+      const docId = uuidv4(10);
+      const collectionRef = collection(db, "inventoryItems");
+      await setDoc(doc(db, "inventoryItems", docId), {
+        ...data,
+        id: docId,
+        createdAt: serverTimestamp(),
+      });
+    };
+    if (currentStep === 4) {
+      console.log("Entrou no if", currentStep);
+      saveData();
+    }
+  }, [currentStep, data]);
 
   return (
     <>
@@ -253,5 +272,5 @@ export default function Registration() {
       </Flex>
       {JSON.stringify(data)}
     </>
-  )
+  );
 }
