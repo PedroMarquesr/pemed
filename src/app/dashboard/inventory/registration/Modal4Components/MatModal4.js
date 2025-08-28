@@ -1,5 +1,5 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
 
 import {
   Flex,
@@ -12,9 +12,9 @@ import {
   NativeSelect,
   Grid,
   GridItem,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
-import { FaSyringe } from "react-icons/fa"
+import { FaSyringe } from "react-icons/fa";
 
 export default function MatModal4({ data, setData }) {
   return (
@@ -81,7 +81,7 @@ export default function MatModal4({ data, setData }) {
             </>
           </SimpleGrid>
         </Box>
-        <Box bg={"gray.200"} p={7} borderRadius="md">
+        <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>
           <Box textAlign={"center"} mb="3">
             <Text fontWeight="semibold" textStyle="2xl" pb={2}>
               Classificação
@@ -134,5 +134,5 @@ export default function MatModal4({ data, setData }) {
         </Box>
       </Flex>
     </Flex>
-  )
+  );
 }
