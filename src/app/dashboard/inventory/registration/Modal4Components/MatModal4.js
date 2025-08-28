@@ -32,13 +32,106 @@ export default function MatModal4({ data, setData }) {
           Revisão de informações{" "}
         </Text>
       </Flex>
-      <Flex alignItems="center" justifyContent="center" p={4}>
-        <SimpleGrid columns={2} columnGap="2" rowGap="4">
-          <Text>item 1</Text>
-          <Text>item 2</Text>
-          <Text>item 3</Text>
-          <Text>item 4</Text>
-        </SimpleGrid>
+      <Flex
+        alignItems="center"
+        justifyContent="center"
+        p={4}
+        flexDirection={"column"}
+        gap={5}
+      >
+        <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>
+          <Box textAlign={"center"} mb="3">
+            <Text fontWeight="semibold" textStyle="2xl" pb={2}>
+              Identificação básica
+            </Text>
+          </Box>
+
+          <SimpleGrid
+            columns={2}
+            rowGap={3}
+            columnGap={6}
+            justifyContent={"center"}
+          >
+            {data.brandName && (
+              <>
+                <Text fontSize="md" color="gray.600">
+                  Nome Comercial (MARCA):
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.brandName}
+                </Text>
+              </>
+            )}
+            <>
+              <Text fontSize="md" color="gray.600">
+                Nome técnico:
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {data.technicalName}
+              </Text>
+            </>
+
+            <>
+              <Text fontSize="md" color="gray.600">
+                Fabricante:
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {data.manufacturer}
+              </Text>
+            </>
+          </SimpleGrid>
+        </Box>
+        <Box bg={"gray.200"} p={7} borderRadius="md">
+          <Box textAlign={"center"} mb="3">
+            <Text fontWeight="semibold" textStyle="2xl" pb={2}>
+              Classificação
+            </Text>
+          </Box>
+
+          <SimpleGrid columns={2} rowGap={3} columnGap={6}>
+            {data.hasAnvisaRegistration ? (
+              <>
+                <Text fontSize="md" color="gray.600">
+                  Código de Registro na Anvisa:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.anvisaRegistrationCode}
+                </Text>
+              </>
+            ) : (
+              <>
+                <GridItem colSpan={2}>
+                  <Text fontSize="md" color="red.600" fontWeight="bold">
+                    Item sujeito a notificação simplificada
+                  </Text>
+                </GridItem>
+                <Text fontSize="md" color="gray.600">
+                  Normativa aplicável:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.simplifiedNotificationReference}
+                </Text>
+              </>
+            )}
+            <>
+              <Text fontSize="md" color="gray.600">
+                Nome técnico:
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {data.technicalName}
+              </Text>
+            </>
+
+            <>
+              <Text fontSize="md" color="gray.600">
+                Fabricante:
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {data.manufacturer}
+              </Text>
+            </>
+          </SimpleGrid>
+        </Box>
       </Flex>
     </Flex>
   )

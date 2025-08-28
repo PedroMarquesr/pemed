@@ -57,10 +57,12 @@ export default function MatModal2({ data, setData }) {
             </Field.Label>
             <Input
               value={data.anvisaRegistrationCode}
-              onChange={(e) => ({
-                ...data,
-                anvisaRegistrationCode: e.target.value,
-              })}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  anvisaRegistrationCode: e.target.value,
+                })
+              }
               placeholder="Digite o registro"
               maxLength={11}
               bg="white"
@@ -81,11 +83,11 @@ export default function MatModal2({ data, setData }) {
               Sujeito a notificação simplificada
             </Field.Label>
             <Switch.Root
-              checked={data.simplifiedNotificationReference}
+              checked={data.hasSimplifiedNotification}
               onCheckedChange={(e) =>
                 setData({
                   ...data,
-                  simplifiedNotificationReference: e.checked,
+                  hasSimplifiedNotification: e.checked,
                 })
               }
               colorPalette="blue"
@@ -99,13 +101,20 @@ export default function MatModal2({ data, setData }) {
           </Flex>
         </Field.Root>
       </Flex>
-      {data.simplifiedNotificationReference && (
+      {data.hasSimplifiedNotification && (
         <Flex p={4} gap={4} justifyContent="space-between">
           <Field.Root flex="1" minW="0">
             <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
               Referência normativa (RDC aplicável)
             </Field.Label>
             <Input
+              value={data.simplifiedNotificationReference}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  simplifiedNotificationReference: e.target.value,
+                })
+              }
               placeholder="RDC xx/xxxx"
               bg="white"
               boxShadow="md"
