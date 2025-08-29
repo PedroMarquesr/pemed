@@ -159,11 +159,10 @@ export default function MatModal3({ data, setData }) {
             onChange={(e) =>
               setData({
                 ...data,
-                supplyUnit: Number(e.target.value),
+                supplyUnit: e.target.value,
               })
             }
             placeholder="Ex: Rolo, Unidade"
-            maxLength={4}
             bg="white"
             boxShadow="md"
             border="1px solid #2b4d52ff"
