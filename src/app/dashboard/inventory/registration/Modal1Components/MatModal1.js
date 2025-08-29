@@ -79,7 +79,9 @@ export default function MatModal1({ data, setData }) {
             </Field.Label>
             <Input
               value={data.technicalName}
-              onChange={(e) => setData({ ...data, technicalName: e.target.value })}
+              onChange={(e) =>
+                setData({ ...data, technicalName: e.target.value })
+              }
               width="100%"
               bg="white"
               boxShadow={"md"}
@@ -108,7 +110,9 @@ export default function MatModal1({ data, setData }) {
             </Field.Label>
             <Input
               value={data.manufacturer}
-              onChange={(e) => setData({...data, manufacturer: e.target.value})}
+              onChange={(e) =>
+                setData({ ...data, manufacturer: e.target.value })
+              }
               width="100%"
               bg="white"
               boxShadow={"md"}

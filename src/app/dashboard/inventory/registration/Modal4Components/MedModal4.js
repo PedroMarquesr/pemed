@@ -3,17 +3,19 @@ import React from "react"
 
 import {
   Flex,
+  Badge,
   Input,
   Box,
   Switch,
   Text,
+  SimpleGrid,
   Field,
   NativeSelect,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react"
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
-import viaAdministracao from "@/data/inventory/viaAdministracao.js"
 
-import { LuPill } from "react-icons/lu"
+import { FaSyringe } from "react-icons/fa"
 
 export default function MedModal4({ data, setData }) {
   return (
@@ -25,72 +27,124 @@ export default function MedModal4({ data, setData }) {
       w="100%"
       boxShadow="xl"
     >
-      <Flex p={4} gap={4} justifyContent="space-between">
-        <Field.Root flex="1" minW="0">
-          <Field.Label fontWeight="bold">Forma Farmacêutica</Field.Label>
-          <NativeSelect.Root>
-            <NativeSelect.Field
-              unstyled
-              value={data.dosageForm}
-              onChange={(e) => {
-                setData({ ...data, dosageForm: e.target.value })
-              }}
-              width="100%"
-              bg="white"
-              boxShadow="md"
-              color="black"
-              borderRadius="md"
-              border="1px solid #2b4d52ff"
-              px={3}
-              py={2}
-              _hover={{
-                borderColor: "#5d8288c4",
-              }}
-            >
-              <option value={""}>Selecione</option>
-              {Object.keys(formasFarmaceuticas).map((dosageForm) => (
-                <option key={dosageForm} value={dosageForm}>
-                  {dosageForm}
-                </option>
-              ))}
-            </NativeSelect.Field>
-          </NativeSelect.Root>
-        </Field.Root>
+      <Flex alignItems="center" justifyContent="center" gap={2} p={4}>
+        <FaSyringe color="rgba(19,92,254,255)" size={20} />
+        <Text color="black" fontWeight="bold" fontSize="lg">
+          Revisão de informações{" "}
+        </Text>
+      </Flex>
+      <Flex
+        alignItems="center"
+        justifyContent="center"
+        p={4}
+        flexDirection={"column"}
+        gap={5}
+      >
+        <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>
+          <Box textAlign={"center"} mb="3">
+            <Text fontWeight="semibold" textStyle="2xl" pb={2}>
+              Identificação básica
+            </Text>
+          </Box>
 
-        {data.dosageForm && formasFarmaceuticas[data.dosageForm] ? (
-          <Field.Root flex="1" minW="0">
-            <Field.Label fontWeight="bold">Unidade de fornecimento</Field.Label>
-            <NativeSelect.Root>
-              <NativeSelect.Field
-                unstyled
-                value={data.supplyUnit}
-                onChange={(e) =>
-                  setData({ ...data, supplyUnit: e.target.value })
-                }
-                width="100%"
-                bg="white"
-                boxShadow="md"
-                color="black"
-                borderRadius="md"
-                border="1px solid #2b4d52ff"
-                px={3}
-                py={2}
-                _hover={{
-                  borderColor: "#5d8288c4",
-                }}
-              >
-                <option value="">Selecione uma forma</option>
-                {formasFarmaceuticas[data.dosageForm].map((emb) => (
-                  <option key={emb} value={emb}>
-                    {emb}
-                  </option>
-                ))}
-              </NativeSelect.Field>
-            </NativeSelect.Root>
-          </Field.Root>
-        ) : (
-          <Box flex="1" minW="0" />
-        )}
+          <SimpleGrid
+            columns={2}
+            rowGap={3}
+            columnGap={1}
+            justifyContent={"center"}
+          >
+            {data.brandName && (
+              <>
+                <Text fontSize="md" color="gray.600">
+                  Nome Comercial (MARCA):
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.brandName}
+                </Text>
+              </>
+            )}
+            <>
+              {data.activeIngredients?.map((item, index) => (
+                <React.Fragment key={index}>
+                  <Box borderTop={"1px dashed gray"}>
+                    <Text fontSize="md" color="gray.600">
+                      Princípio ativo:
+                    </Text>
+                  </Box>
+
+                  <Box borderTop={"1px dashed gray"}>
+                    <Text fontSize="md" color="black" fontWeight="semibold">
+                      {item.ingredient}
+                    </Text>
+                  </Box>
+
+                  <Box borderBottom={"1px dashed gray"}>
+                    <Text fontSize="md" color="gray.600">
+                      Dosagem/Concentração:
+                    </Text>
+                  </Box>
+                  <Box borderBottom={"1px dashed gray"}>
+                    <Text fontSize="md" color="black" fontWeight="semibold">
+                      {item.concentration}
+                    </Text>
+                  </Box>
+                </React.Fragment>
+              ))}
+            </>
+
+            <>
+              <Text fontSize="md" color="gray.600">
+                Categoria Regulatória:
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {data.regulatoryCategory}
+              </Text>
+            </>
+          </SimpleGrid>
+        </Box>
+        <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>
+          <Box textAlign={"center"} mb="3">
+            <Text fontWeight="semibold" textStyle="2xl" pb={2}>
+              Classificação
+            </Text>
+          </Box>
+
+          <SimpleGrid columns={2} rowGap={3} columnGap={6}>
+            {data.hasAnvisaRegistration ? (
+              <>
+                <Text fontSize="md" color="gray.600">
+                  Código de Registro na Anvisa:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.anvisaRegistrationCode}
+                </Text>
+                <Text fontSize="md" color="gray.600">
+                  Modelo oficial do registro:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.anvisaModel}
+                </Text>
+              </>
+            ) : (
+              <>
+                <GridItem colSpan={2}>
+                  <Flex alignItems="center" justifyContent={"center"} gap={2}>
+                    <Badge colorPalette="cyan" variant="solid">
+                      {" "}
+                      Item sujeito a notificação simplificada
+                    </Badge>
+                  </Flex>
+                </GridItem>
+                <Text fontSize="md" color="gray.600">
+                  Normativa aplicável:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.simplifiedNotificationReference}
+                </Text>
+              </>
+            )}
+          </SimpleGrid>
+        </Box>
       </Flex>
     </Flex>
   )
