@@ -87,11 +87,20 @@ export default function MatModal2({ data, setData }) {
                 <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                   Insira o modelo oficial do item (anvisa):
                 </Field.Label>
-                <Popover.Root positioning={{ placement: "right" }} size={"lg"}>
+                <Popover.Root positioning={{ placement: "right" }} size={"xs"}>
                   <Popover.Trigger asChild>
-                    <Button size="sm" variant="outline">
-                      <BsFillInfoCircleFill />
-                    </Button>
+                    <Box
+                      pl={1}
+                      as="span"
+                      cursor="pointer"
+                      display="inline-flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      color="gray.500"
+                      _hover={{ color: "blue.500" }}
+                    >
+                      <BsFillInfoCircleFill size={16} />
+                    </Box>
                   </Popover.Trigger>
                   <Portal>
                     <Popover.Positioner>
@@ -110,17 +119,15 @@ export default function MatModal2({ data, setData }) {
                   </Portal>
                 </Popover.Root>
               </Flex>
-              {/* //aqui */}
               <Input
-                value={data.officialPresentation}
+                value={data.anvisaModel}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    officialPresentation: e.target.value,
+                    anvisaModel: e.target.value,
                   })
                 }
                 placeholder=""
-                maxLength={11}
                 bg="white"
                 boxShadow="md"
                 border="1px solid #2b4d52ff"

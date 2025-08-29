@@ -98,6 +98,12 @@ export default function MatModal4({ data, setData }) {
                 <Text fontSize="md" color="black" fontWeight="semibold">
                   {data.anvisaRegistrationCode}
                 </Text>
+                <Text fontSize="md" color="gray.600">
+                  Modelo oficial do registro:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.anvisaModel}
+                </Text>
               </>
             ) : (
               <>
