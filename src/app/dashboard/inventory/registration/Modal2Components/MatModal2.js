@@ -87,7 +87,7 @@ export default function MatModal2({ data, setData }) {
                 <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                   Insira o modelo oficial do item (anvisa):
                 </Field.Label>
-                <Popover.Root>
+                <Popover.Root positioning={{ placement: "right" }} size={"lg"}>
                   <Popover.Trigger asChild>
                     <Button size="sm" variant="outline">
                       <BsFillInfoCircleFill />
@@ -95,11 +95,15 @@ export default function MatModal2({ data, setData }) {
                   </Popover.Trigger>
                   <Portal>
                     <Popover.Positioner>
-                      <Popover.Content w="400px" maxW="90vw">
-                        {" "}
+                      <Popover.Content w="50vw" maxW="90vw">
                         <Popover.Arrow />
-                        <Popover.Body>
-                          <Image src="/inventory/officialModal.jpg" />
+                        <Popover.Body w={"50vw"}>
+                          <Image
+                            src="/inventory/officialModal.jpg"
+                            w="100%"
+                            objectFit="contain"
+                            borderRadius="md"
+                          />
                         </Popover.Body>
                       </Popover.Content>
                     </Popover.Positioner>
