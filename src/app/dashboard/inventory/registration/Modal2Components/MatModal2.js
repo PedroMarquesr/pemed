@@ -5,11 +5,17 @@ import {
   Input,
   Text,
   Box,
+  Popover,
+  Portal,
+  Image,
+  Button,
   Field,
   Switch,
   NativeSelect,
 } from "@chakra-ui/react"
 import { FaSyringe } from "react-icons/fa"
+import { BsFillInfoCircleFill } from "react-icons/bs"
+import { ToggleTip } from "@/components/ui/toggle-tip"
 
 export default function MatModal2({ data, setData }) {
   return (
@@ -50,30 +56,76 @@ export default function MatModal2({ data, setData }) {
         </Field.Root>
       </Flex>
       {data.hasAnvisaRegistration && (
-        <Flex p={4} gap={4} justifyContent="space-between">
-          <Field.Root flex="1" minW="0">
-            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-              Registro ANVISA
-            </Field.Label>
-            <Input
-              value={data.anvisaRegistrationCode}
-              onChange={(e) =>
-                setData({
-                  ...data,
-                  anvisaRegistrationCode: e.target.value,
-                })
-              }
-              placeholder="Digite o registro"
-              maxLength={11}
-              bg="white"
-              boxShadow="md"
-              border="1px solid #2b4d52ff"
-              _hover={{ borderColor: "#5d8288c4" }}
-            />
-          </Field.Root>
+        <>
+          <Flex p={4} gap={4} justifyContent="space-between">
+            <Field.Root flex="1" minW="0">
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Registro ANVISA
+              </Field.Label>
+              <Input
+                value={data.anvisaRegistrationCode}
+                onChange={(e) =>
+                  setData({
+                    ...data,
+                    anvisaRegistrationCode: e.target.value,
+                  })
+                }
+                placeholder="Digite o registro"
+                maxLength={11}
+                bg="white"
+                boxShadow="md"
+                border="1px solid #2b4d52ff"
+                _hover={{ borderColor: "#5d8288c4" }}
+              />
+            </Field.Root>
 
-          <Box flex="1" minW="0"></Box>
-        </Flex>
+            <Box flex="1" minW="0"></Box>
+          </Flex>
+          <Flex p={4} gap={4} justifyContent="space-between">
+            <Field.Root flex="1" minW="0">
+              <Flex>
+                <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                  Insira o modelo oficial do item (anvisa):
+                </Field.Label>
+                <Popover.Root>
+                  <Popover.Trigger asChild>
+                    <Button size="sm" variant="outline">
+                      <BsFillInfoCircleFill />
+                    </Button>
+                  </Popover.Trigger>
+                  <Portal>
+                    <Popover.Positioner>
+                      <Popover.Content w="400px" maxW="90vw">
+                        {" "}
+                        <Popover.Arrow />
+                        <Popover.Body>
+                          <Image src="/inventory/officialModal.jpg" />
+                        </Popover.Body>
+                      </Popover.Content>
+                    </Popover.Positioner>
+                  </Portal>
+                </Popover.Root>
+              </Flex>
+              {/* //aqui */}
+              <Input
+                value={data.officialPresentation}
+                onChange={(e) =>
+                  setData({
+                    ...data,
+                    officialPresentation: e.target.value,
+                  })
+                }
+                placeholder=""
+                maxLength={11}
+                bg="white"
+                boxShadow="md"
+                border="1px solid #2b4d52ff"
+                _hover={{ borderColor: "#5d8288c4" }}
+              />
+            </Field.Root>
+            <Box flex="1" minW="0"></Box>
+          </Flex>
+        </>
       )}
 
       <Flex p={4} gap={4} alignItems={"center"} justifyContent={"center"}>
@@ -193,7 +245,7 @@ export default function MatModal2({ data, setData }) {
               <option value={"Silicone"}>Silicone</option>
               <option value={"Algodão"}>Algodão</option>
               <option value={"Aço inoxidável"}>Aço inoxidável</option>
-              <option value={"Silicone"}>Vidro</option>
+              <option value={"vidro"}>Vidro</option>
               <option value={"Outros"}>Outros</option>
             </NativeSelect.Field>
           </NativeSelect.Root>

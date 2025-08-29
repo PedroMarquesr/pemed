@@ -1,8 +1,9 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 
 import {
   Flex,
+  Badge,
   Input,
   Box,
   Switch,
@@ -12,9 +13,9 @@ import {
   NativeSelect,
   Grid,
   GridItem,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
-import { FaSyringe } from "react-icons/fa";
+import { FaSyringe } from "react-icons/fa"
 
 export default function MatModal4({ data, setData }) {
   return (
@@ -101,9 +102,12 @@ export default function MatModal4({ data, setData }) {
             ) : (
               <>
                 <GridItem colSpan={2}>
-                  <Text fontSize="md" color="red.600" fontWeight="bold">
-                    Item sujeito a notificação simplificada
-                  </Text>
+                  <Flex alignItems="center" justifyContent={"center"} gap={2}>
+                    <Badge colorPalette="cyan" variant="solid">
+                      {" "}
+                      Item sujeito a notificação simplificada
+                    </Badge>
+                  </Flex>
                 </GridItem>
                 <Text fontSize="md" color="gray.600">
                   Normativa aplicável:
@@ -115,24 +119,65 @@ export default function MatModal4({ data, setData }) {
             )}
             <>
               <Text fontSize="md" color="gray.600">
-                Nome técnico:
+                Risco de classificação:
               </Text>
               <Text fontSize="md" color="black" fontWeight="semibold">
-                {data.technicalName}
+                {data.riskClassification}
               </Text>
             </>
 
             <>
               <Text fontSize="md" color="gray.600">
-                Fabricante:
+                Composição principal:
+              </Text>
+              {data.mainComposition === "Outros" ? (
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.otherMainComposition}
+                </Text>
+              ) : (
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.mainComposition}
+                </Text>
+              )}
+            </>
+          </SimpleGrid>
+        </Box>
+        <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>
+          <Box textAlign={"center"} mb="3">
+            <Text fontWeight="semibold" textStyle="2xl" pb={2}>
+              Especificações técnicas
+            </Text>
+          </Box>
+
+          <SimpleGrid columns={2} rowGap={3} columnGap={6}>
+            <>
+              <Text fontSize="md" color="gray.600">
+                Dimensão/Característica{" "}
+              </Text>
+              {data.dimensionOrCharacteristic === "Outro" ? (
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.otherDimensionOrCharacteristic} -
+                  {data.dimensionReferenceSpecification}
+                </Text>
+              ) : (
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.dimensionOrCharacteristic} -{" "}
+                  {data.dimensionReferenceSpecification}
+                </Text>
+              )}
+            </>
+
+            <>
+              <Text fontSize="md" color="gray.600">
+                Unidade de fornecimento:
               </Text>
               <Text fontSize="md" color="black" fontWeight="semibold">
-                {data.manufacturer}
+                {`${data.supplyUnit} ( ${data.packageQuantity} por embalagem )`}
               </Text>
             </>
           </SimpleGrid>
         </Box>
       </Flex>
     </Flex>
-  );
+  )
 }
