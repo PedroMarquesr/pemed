@@ -252,11 +252,11 @@ export default function MedModal3({ data, setData }) {
             </Flex>
           </Field.Root>
         </Box>
-        {data.thermolabile && (
+        {data.isThermolabile && (
           <>
             <Flex>
               <Field.Root flex="1">
-                <Field.Label>
+                <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                   Informe a faixa de temperatura indicada
                 </Field.Label>
                 <Input
