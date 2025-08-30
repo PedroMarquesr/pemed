@@ -113,16 +113,27 @@ export default function MedModal3({ data, setData }) {
               </NativeSelect.Root>
             </Field.Root>
             <Box flex="1" minW="0">
-              {/* {data.dosageForm.some((form) => liquidForms.includes(form)) && (
-                <Text fontSize="sm" color="gray.600">
-                  Esta forma farmacêutica é líquida.
-                </Text>
-              )} */}
-
               {liquidForms.includes(data.dosageForm) && (
-                <Text fontSize="sm" color="gray.600">
-                  Esta forma farmacêutica é líquida.
-                </Text>
+                <Field.Root>
+                  <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                    Volume disponível (mL){" "}
+                  </Field.Label>
+                  <Input
+                    value={data.contentVolume}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        contentVolume: e.target.value,
+                      })
+                    }
+                    placeholder="Ex: 100ML, 200ML, 20ML"
+                    maxLength={4}
+                    bg="white"
+                    boxShadow="md"
+                    border="1px solid #2b4d52ff"
+                    _hover={{ borderColor: "#5d8288c4" }}
+                  />
+                </Field.Root>
               )}
             </Box>
           </>
