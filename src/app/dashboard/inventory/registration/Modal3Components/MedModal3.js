@@ -16,6 +16,19 @@ import viaAdministracao from "@/data/inventory/viaAdministracao.js";
 import { LuPill } from "react-icons/lu";
 
 export default function MedModal3({ data, setData }) {
+  const liquidForms = [
+    "Solução oral",
+    "Xampu",
+    "Solução injetável",
+    "Solução tópica",
+    "Colírio (solução oftálmica)",
+    "Soro fisiológico",
+    "Suspensão oral",
+    "Suspensão injetável",
+    "Xarope",
+    "Aerosol",
+    "Inalador / Nebulizador",
+  ];
   return (
     <Flex
       flexDirection="column"
@@ -32,7 +45,7 @@ export default function MedModal3({ data, setData }) {
         </Text>
       </Flex>
       <Flex p={4} gap={4} justifyContent="space-between">
-        <Field.Root flex="1" minW="0">
+        <Field.Root flex="2" minW="0">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
             Forma Farmacêutica
           </Field.Label>
@@ -66,40 +79,58 @@ export default function MedModal3({ data, setData }) {
         </Field.Root>
 
         {data.dosageForm && formasFarmaceuticas[data.dosageForm] ? (
-          <Field.Root flex="1" minW="0">
-            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-              Unidade de fornecimento
-            </Field.Label>
-            <NativeSelect.Root>
-              <NativeSelect.Field
-                unstyled
-                value={data.supplyUnit}
-                onChange={(e) =>
-                  setData({ ...data, supplyUnit: e.target.value })
-                }
-                width="100%"
-                bg="white"
-                boxShadow="md"
-                color="black"
-                borderRadius="md"
-                border="1px solid #2b4d52ff"
-                px={3}
-                py={2}
-                _hover={{
-                  borderColor: "#5d8288c4",
-                }}
-              >
-                <option value="">Selecione uma forma</option>
-                {formasFarmaceuticas[data.dosageForm].map((emb) => (
-                  <option key={emb} value={emb}>
-                    {emb}
-                  </option>
-                ))}
-              </NativeSelect.Field>
-            </NativeSelect.Root>
-          </Field.Root>
+          <>
+            <Field.Root flex="1" minW="0">
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Unidade de fornecimento
+              </Field.Label>
+              <NativeSelect.Root>
+                <NativeSelect.Field
+                  unstyled
+                  value={data.supplyUnit}
+                  onChange={(e) =>
+                    setData({ ...data, supplyUnit: e.target.value })
+                  }
+                  width="100%"
+                  bg="white"
+                  boxShadow="md"
+                  color="black"
+                  borderRadius="md"
+                  border="1px solid #2b4d52ff"
+                  px={3}
+                  py={2}
+                  _hover={{
+                    borderColor: "#5d8288c4",
+                  }}
+                >
+                  <option value="">Selecione uma forma</option>
+                  {formasFarmaceuticas[data.dosageForm].map((emb) => (
+                    <option key={emb} value={emb}>
+                      {emb}
+                    </option>
+                  ))}
+                </NativeSelect.Field>
+              </NativeSelect.Root>
+            </Field.Root>
+            <Box flex="1" minW="0">
+              {/* {data.dosageForm.some((form) => liquidForms.includes(form)) && (
+                <Text fontSize="sm" color="gray.600">
+                  Esta forma farmacêutica é líquida.
+                </Text>
+              )} */}
+
+              {liquidForms.includes(data.dosageForm) && (
+                <Text fontSize="sm" color="gray.600">
+                  Esta forma farmacêutica é líquida.
+                </Text>
+              )}
+            </Box>
+          </>
         ) : (
-          <Box flex="1" minW="0" />
+          <>
+            <Box flex="1" minW="0" />
+            <Box flex="1" minW="0" />
+          </>
         )}
       </Flex>
       <Flex p={4} gap={4} justifyContent="space-between">
