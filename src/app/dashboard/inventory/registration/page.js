@@ -36,6 +36,8 @@ export default function Registration() {
     contentVolume: "",
     dosageForm: "",
     supplyUnit: "",
+    hasAdditionalComponents: false,
+    additionalComponents: "",
     hasAnvisaRegistration: null,
     hasSimplifiedNotification: null,
     simplifiedNotificationReference: "",

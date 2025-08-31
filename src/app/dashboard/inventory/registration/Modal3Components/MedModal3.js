@@ -4,16 +4,20 @@ import React from "react";
 import {
   Flex,
   Input,
+  Button,
   Box,
   Switch,
   Text,
   Field,
   NativeSelect,
 } from "@chakra-ui/react";
+import { ToggleTip } from "@/components/ui/toggle-tip";
+
 import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
 import viaAdministracao from "@/data/inventory/viaAdministracao.js";
 
-import { LuPill } from "react-icons/lu";
+import { LuPill, LuInfo } from "react-icons/lu";
+import { BsFillInfoCircleFill } from "react-icons/bs";
 
 export default function MedModal3({ data, setData }) {
   const liquidForms = [
@@ -202,12 +206,73 @@ export default function MedModal3({ data, setData }) {
         </Field.Root>
         <Box flex="1"></Box>
       </Flex>
+
       <Flex
         p={4}
         gap={4}
         justifyContent={"flex-start"}
         flexDirection={"column"}
       >
+        <Flex flexDirection={"row"}>
+          <Field.Root>
+            <Flex alignItems="center" gap={4}>
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Contém componente adicional
+              </Field.Label>
+              <Switch.Root
+                checked={data.hasAdditionalComponents}
+                onCheckedChange={(e) =>
+                  setData({ ...data, hasAdditionalComponents: e.checked })
+                }
+                colorPalette="blue"
+                size="lg"
+              >
+                <Switch.HiddenInput />
+                <Switch.Control>
+                  <Switch.Thumb />
+                </Switch.Control>
+              </Switch.Root>
+              <ToggleTip
+                content="Informe se o medicamento acompanha algum componente adicional (ex.: diluente, solvente, seringa, agulha, bolsa ou solução com vasoconstritor)."
+                positioning={{ placement: "right" }}
+              >
+                <Box
+                  pl={1}
+                  as="span"
+                  cursor="pointer"
+                  display="inline-flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  color="gray.500"
+                  _hover={{ color: "blue.500" }}
+                >
+                  <BsFillInfoCircleFill />
+                </Box>
+              </ToggleTip>
+            </Flex>
+          </Field.Root>
+        </Flex>
+        {data.hasAdditionalComponents && (
+          <Flex>
+            <Field.Root flex="1">
+              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+                Informe o componente adicional
+              </Field.Label>
+              <Input
+                value={data.additionalComponent}
+                onChange={(e) =>
+                  setData({ ...data, additionalComponent: e.target.value })
+                }
+                placeholder="Ex: Diluente 500ml, solvente, seringa, agulha, bolsa ou solução com vasoconstritor"
+                bg="white"
+                boxShadow="md"
+                border="1px solid #2b4d52ff"
+                _hover={{ borderColor: "#5d8288c4" }}
+              />
+            </Field.Root>
+            <Box flex="1"></Box>
+          </Flex>
+        )}
         <Flex flexDirection={"row"}>
           <Field.Root>
             <Flex alignItems="center" gap={4}>
