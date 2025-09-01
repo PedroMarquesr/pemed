@@ -33,6 +33,8 @@ export default function MedModal2({ data, setData }) {
           Classificação
         </Text>
       </Flex>
+
+      {/* Switch apenas para categorias que não exigem registro obrigatório */}
       {!isRequired && (
         <Flex p={4} gap={4} alignItems="center" justifyContent="center">
           <Field.Root>
@@ -46,7 +48,9 @@ export default function MedModal2({ data, setData }) {
                   setData({
                     ...data,
                     hasSimplifiedNotification: e.checked,
-                    hasAnvisaRegistration: !e.checked,
+                    hasAnvisaRegistration: e.checked
+                      ? false
+                      : data.hasAnvisaRegistration,
                   })
                 }
                 colorPalette="blue"
@@ -61,7 +65,34 @@ export default function MedModal2({ data, setData }) {
           </Field.Root>
         </Flex>
       )}
-      {isRequired ? (
+
+      {/* Campos para notificação simplificada */}
+      {!isRequired && data.hasSimplifiedNotification && (
+        <Flex p={4} gap={4}>
+          <Field.Root flex="1">
+            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+              Referência normativa (RDC aplicável)
+            </Field.Label>
+            <Input
+              value={data.simplifiedNotificationReference}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  simplifiedNotificationReference: e.target.value,
+                })
+              }
+              placeholder="RDC xx/xxxx"
+              bg="white"
+              boxShadow="md"
+              border="1px solid #2b4d52ff"
+              _hover={{ borderColor: "#5d8288c4" }}
+            />
+          </Field.Root>
+        </Flex>
+      )}
+
+      {/* Campos para registro ANVISA (obrigatório ou quando não é notificação simplificada) */}
+      {(isRequired || !data.hasSimplifiedNotification) && (
         <>
           <Flex p={4} gap={4} justifyContent="space-between">
             <Field.Root flex="1">
@@ -79,6 +110,7 @@ export default function MedModal2({ data, setData }) {
                 boxShadow="md"
                 border="1px solid #2b4d52ff"
                 _hover={{ borderColor: "#5d8288c4" }}
+                disabled={isRequired ? false : data.hasSimplifiedNotification}
               />
             </Field.Root>
 
@@ -88,14 +120,15 @@ export default function MedModal2({ data, setData }) {
               </Field.Label>
               <Input
                 value={data.registrationValidity}
-                onChange={(e) => {
+                onChange={(e) =>
                   setData({ ...data, registrationValidity: e.target.value })
-                }}
+                }
                 type="date"
                 bg="white"
                 boxShadow="md"
                 border="1px solid #2b4d52ff"
                 _hover={{ borderColor: "#5d8288c4" }}
+                disabled={isRequired ? false : data.hasSimplifiedNotification}
               />
             </Field.Root>
           </Flex>
@@ -139,87 +172,24 @@ export default function MedModal2({ data, setData }) {
                 </Popover.Root>
               </Flex>
               <Input
-                value={data.anvisaModel}
+                value={data.anvisaPresentation}
                 onChange={(e) =>
-                  setData({ ...data, anvisaModel: e.target.value })
+                  setData({ ...data, anvisaPresentation: e.target.value })
                 }
                 placeholder=""
                 bg="white"
                 boxShadow="md"
                 border="1px solid #2b4d52ff"
                 _hover={{ borderColor: "#5d8288c4" }}
+                disabled={isRequired ? false : data.hasSimplifiedNotification}
               />
             </Field.Root>
             <Box flex="1"></Box>
           </Flex>
         </>
-      ) : data.hasSimplifiedNotification ? (
-        <>
-          {/* Notificação simplificada ativada */}
-          <Flex p={4} gap={4}>
-            <Field.Root flex="1">
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Referência normativa (RDC aplicável)
-              </Field.Label>
-              <Input
-                value={data.simplifiedNotificationReference}
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    simplifiedNotificationReference: e.target.value,
-                  })
-                }
-                placeholder="RDC xx/xxxx"
-                bg="white"
-                boxShadow="md"
-                border="1px solid #2b4d52ff"
-                _hover={{ borderColor: "#5d8288c4" }}
-              />
-            </Field.Root>
-          </Flex>
-        </>
-      ) : (
-        <>
-          {/* Registro opcional (sem notificação simplificada) */}
-          <Flex p={4} gap={4}>
-            <Field.Root flex="1">
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Registro ANVISA
-              </Field.Label>
-              <Input
-                value={data.anvisaRegistrationCode}
-                onChange={(e) =>
-                  setData({ ...data, anvisaRegistrationCode: e.target.value })
-                }
-                placeholder="Digite o registro"
-                maxLength={11}
-                bg="white"
-                boxShadow="md"
-                border="1px solid #2b4d52ff"
-                _hover={{ borderColor: "#5d8288c4" }}
-              />
-            </Field.Root>
-
-            <Field.Root flex="1">
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Validade do Registro
-              </Field.Label>
-              <Input
-                value={data.registrationValidity}
-                onChange={(e) =>
-                  setData({ ...data, registrationValidity: e.target.value })
-                }
-                type="date"
-                bg="white"
-                boxShadow="md"
-                border="1px solid #2b4d52ff"
-                _hover={{ borderColor: "#5d8288c4" }}
-              />
-            </Field.Root>
-          </Flex>
-        </>
       )}
-      {/* Campos comuns */}
+
+      {/* Campos comuns a todas as situações */}
       <Flex p={4} gap={4}>
         <Field.Root flex="1">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
@@ -254,7 +224,8 @@ export default function MedModal2({ data, setData }) {
             _hover={{ borderColor: "#5d8288c4" }}
           />
         </Field.Root>
-      </Flex>{" "}
+      </Flex>
+
       <Flex p={4}>
         <Field.Root width="100%">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">

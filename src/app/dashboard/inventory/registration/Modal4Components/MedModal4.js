@@ -127,10 +127,10 @@ export default function MedModal4({ data, setData }) {
                   {data.therapeuticClass}
                 </Text>
                 <Text fontSize="md" color="gray.600">
-                  Validade total do medicamento(Em meses):
+                  Validade total do medicamento:
                 </Text>
                 <Text fontSize="md" color="black" fontWeight="semibold">
-                  {data.therapeuticClass}
+                  {`${data.totalDrugValidity} meses`}
                 </Text>
               </>
             ) : (
@@ -172,8 +172,8 @@ export default function MedModal4({ data, setData }) {
                 <Text fontSize="md" color="gray.600">
                   Unidade de fornecimento:
                 </Text>
-                <Text fontSize="md" color="blasupplyUnit" fontWeight="semibold">
-                  {data.supplyUnit}
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {`${data.supplyUnit} ( ${data.packageQuantity} por embalagem )`}
                 </Text>
                 {data.contentVolume && (
                   <>
@@ -185,13 +185,6 @@ export default function MedModal4({ data, setData }) {
                     </Text>
                   </>
                 )}
-
-                <Text fontSize="md" color="gray.600">
-                  Validade total do medicamento(Em meses):
-                </Text>
-                <Text fontSize="md" color="black" fontWeight="semibold">
-                  {data.therapeuticClass}
-                </Text>
               </>
             ) : (
               <>
