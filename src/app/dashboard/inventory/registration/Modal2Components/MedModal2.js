@@ -1,5 +1,6 @@
 "use client"
 import React from "react"
+import { useEffect } from "react"
 import {
   Flex,
   Input,
@@ -18,6 +19,16 @@ import { BsFillInfoCircleFill } from "react-icons/bs"
 export default function MedModal2({ data, setData }) {
   const isRequired = anvisaCodeRequired.includes(data.regulatoryCategory)
 
+  useEffect(() => {
+    if (isRequired && !data.hasAnvisaRegistration) {
+      setData({
+        ...data,
+        hasAnvisaRegistration: true,
+        hasSimplifiedNotification: false,
+      })
+    }
+  }, [isRequired, data.regulatoryCategory])
+
   return (
     <Flex
       flexDirection="column"
@@ -34,7 +45,6 @@ export default function MedModal2({ data, setData }) {
         </Text>
       </Flex>
 
-      {/* Switch apenas para categorias que não exigem registro obrigatório */}
       {!isRequired && (
         <Flex p={4} gap={4} alignItems="center" justifyContent="center">
           <Field.Root>
@@ -48,9 +58,7 @@ export default function MedModal2({ data, setData }) {
                   setData({
                     ...data,
                     hasSimplifiedNotification: e.checked,
-                    hasAnvisaRegistration: e.checked
-                      ? false
-                      : data.hasAnvisaRegistration,
+                    hasAnvisaRegistration: !e.checked,
                   })
                 }
                 colorPalette="blue"
@@ -66,7 +74,6 @@ export default function MedModal2({ data, setData }) {
         </Flex>
       )}
 
-      {/* Campos para notificação simplificada */}
       {!isRequired && data.hasSimplifiedNotification && (
         <Flex p={4} gap={4}>
           <Field.Root flex="1">
@@ -88,10 +95,10 @@ export default function MedModal2({ data, setData }) {
               _hover={{ borderColor: "#5d8288c4" }}
             />
           </Field.Root>
+          <Box flex="1"></Box>
         </Flex>
       )}
 
-      {/* Campos para registro ANVISA (obrigatório ou quando não é notificação simplificada) */}
       {(isRequired || !data.hasSimplifiedNotification) && (
         <>
           <Flex p={4} gap={4} justifyContent="space-between">
@@ -189,7 +196,6 @@ export default function MedModal2({ data, setData }) {
         </>
       )}
 
-      {/* Campos comuns a todas as situações */}
       <Flex p={4} gap={4}>
         <Field.Root flex="1">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">

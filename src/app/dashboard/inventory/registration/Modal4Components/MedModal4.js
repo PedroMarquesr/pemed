@@ -120,18 +120,6 @@ export default function MedModal4({ data, setData }) {
                 <Text fontSize="md" color="black" fontWeight="semibold">
                   {formatBrazilianDate(data.registrationValidity)}
                 </Text>
-                <Text fontSize="md" color="gray.600">
-                  Classe terapêutica:
-                </Text>
-                <Text fontSize="md" color="black" fontWeight="semibold">
-                  {data.therapeuticClass}
-                </Text>
-                <Text fontSize="md" color="gray.600">
-                  Validade total do medicamento:
-                </Text>
-                <Text fontSize="md" color="black" fontWeight="semibold">
-                  {`${data.totalDrugValidity} meses`}
-                </Text>
               </>
             ) : (
               <>
@@ -151,6 +139,19 @@ export default function MedModal4({ data, setData }) {
                 </Text>
               </>
             )}
+
+            <Text fontSize="md" color="gray.600">
+              Classe terapêutica:
+            </Text>
+            <Text fontSize="md" color="black" fontWeight="semibold">
+              {data.therapeuticClass}
+            </Text>
+            <Text fontSize="md" color="gray.600">
+              Validade total do medicamento:
+            </Text>
+            <Text fontSize="md" color="black" fontWeight="semibold">
+              {`${data.totalDrugValidity} meses`}
+            </Text>
           </SimpleGrid>
         </Box>
         <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>

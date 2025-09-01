@@ -39,7 +39,7 @@ export default function Registration() {
     hasAdditionalComponents: false,
     additionalComponents: "",
     hasAnvisaRegistration: true,
-    hasSimplifiedNotification: false,
+    hasSimplifiedNotification: true,
     simplifiedNotificationReference: "",
     anvisaRegistrationCode: "",
     registrationValidity: "",
