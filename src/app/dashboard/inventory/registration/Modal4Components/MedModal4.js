@@ -2,7 +2,7 @@
 import React from "react"
 
 import { Flex, Badge, Box, Text, SimpleGrid, GridItem } from "@chakra-ui/react"
-
+import formatBrazilianDate from "@/app/dashboard/inventory/registration/utils/formatters"
 import { FaSyringe } from "react-icons/fa"
 
 export default function MedModal4({ data, setData }) {
@@ -88,6 +88,14 @@ export default function MedModal4({ data, setData }) {
                 {data.regulatoryCategory}
               </Text>
             </>
+            <>
+              <Text fontSize="md" color="gray.600">
+                Fabricante:
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {data.manufacturer}
+              </Text>
+            </>
           </SimpleGrid>
         </Box>
         <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>
@@ -107,10 +115,82 @@ export default function MedModal4({ data, setData }) {
                   {data.anvisaRegistrationCode}
                 </Text>
                 <Text fontSize="md" color="gray.600">
-                  Modelo oficial do registro:
+                  Validade do Registro:
                 </Text>
                 <Text fontSize="md" color="black" fontWeight="semibold">
-                  {data.anvisaModel}
+                  {formatBrazilianDate(data.registrationValidity)}
+                </Text>
+                <Text fontSize="md" color="gray.600">
+                  Classe terapêutica:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.therapeuticClass}
+                </Text>
+                <Text fontSize="md" color="gray.600">
+                  Validade total do medicamento(Em meses):
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.therapeuticClass}
+                </Text>
+              </>
+            ) : (
+              <>
+                <GridItem colSpan={2}>
+                  <Flex alignItems="center" justifyContent={"center"} gap={2}>
+                    <Badge colorPalette="cyan" variant="solid">
+                      {" "}
+                      Item sujeito a notificação simplificada
+                    </Badge>
+                  </Flex>
+                </GridItem>
+                <Text fontSize="md" color="gray.600">
+                  Normativa aplicável:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.simplifiedNotificationReference}
+                </Text>
+              </>
+            )}
+          </SimpleGrid>
+        </Box>
+        <Box bg={"gray.200"} p={7} borderRadius="md" w={"50%"}>
+          <Box textAlign={"center"} mb="3">
+            <Text fontWeight="semibold" textStyle="2xl" pb={2}>
+              Especificações Técnicas
+            </Text>
+          </Box>
+
+          <SimpleGrid columns={2} rowGap={3} columnGap={6}>
+            {data.hasAnvisaRegistration ? (
+              <>
+                <Text fontSize="md" color="gray.600">
+                  Forma farmacêutica{" "}
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.dosageForm}
+                </Text>
+                <Text fontSize="md" color="gray.600">
+                  Unidade de fornecimento:
+                </Text>
+                <Text fontSize="md" color="blasupplyUnit" fontWeight="semibold">
+                  {data.supplyUnit}
+                </Text>
+                {data.contentVolume && (
+                  <>
+                    <Text fontSize="md" color="gray.600">
+                      Volume disponível:
+                    </Text>
+                    <Text fontSize="md" color="black" fontWeight="semibold">
+                      {data.contentVolume}
+                    </Text>
+                  </>
+                )}
+
+                <Text fontSize="md" color="gray.600">
+                  Validade total do medicamento(Em meses):
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.therapeuticClass}
                 </Text>
               </>
             ) : (

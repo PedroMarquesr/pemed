@@ -43,7 +43,11 @@ export default function MedModal2({ data, setData }) {
               <Switch.Root
                 checked={data.hasSimplifiedNotification}
                 onCheckedChange={(e) =>
-                  setData({ ...data, hasSimplifiedNotification: e.checked })
+                  setData({
+                    ...data,
+                    hasSimplifiedNotification: e.checked,
+                    hasAnvisaRegistration: !e.checked,
+                  })
                 }
                 colorPalette="blue"
                 size="lg"
@@ -59,7 +63,6 @@ export default function MedModal2({ data, setData }) {
       )}
       {isRequired ? (
         <>
-          {/* Registro obrigatório */}
           <Flex p={4} gap={4} justifyContent="space-between">
             <Field.Root flex="1">
               <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
@@ -85,9 +88,9 @@ export default function MedModal2({ data, setData }) {
               </Field.Label>
               <Input
                 value={data.registrationValidity}
-                onChange={(e) =>
+                onChange={(e) => {
                   setData({ ...data, registrationValidity: e.target.value })
-                }
+                }}
                 type="date"
                 bg="white"
                 boxShadow="md"

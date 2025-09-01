@@ -4,7 +4,6 @@ import React from "react";
 import {
   Flex,
   Input,
-  Button,
   Box,
   Switch,
   Text,
@@ -16,7 +15,7 @@ import { ToggleTip } from "@/components/ui/toggle-tip";
 import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
 import viaAdministracao from "@/data/inventory/viaAdministracao.js";
 
-import { LuPill, LuInfo } from "react-icons/lu";
+import { LuPill } from "react-icons/lu";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 
 export default function MedModal3({ data, setData }) {
