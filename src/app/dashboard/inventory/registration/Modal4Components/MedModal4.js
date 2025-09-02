@@ -104,7 +104,13 @@ export default function MedModal4({ data, setData }) {
               Classificação
             </Text>
           </Box>
-
+          {data.isControlledSubstance && (
+            <Flex alignItems="center" justifyContent={"center"} gap={2}>
+              <Badge colorPalette="red" variant="surface">
+                Medicamento controlado{" "}
+              </Badge>
+            </Flex>
+          )}
           <SimpleGrid columns={2} rowGap={3} columnGap={6}>
             {data.hasAnvisaRegistration ? (
               <>
@@ -119,6 +125,12 @@ export default function MedModal4({ data, setData }) {
                 </Text>
                 <Text fontSize="md" color="black" fontWeight="semibold">
                   {formatBrazilianDate(data.registrationValidity)}
+                </Text>
+                <Text fontSize="md" color="gray.600">
+                  Apresentação oficial na Anvisa:
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.anvisaPresentation}
                 </Text>
               </>
             ) : (
@@ -162,46 +174,63 @@ export default function MedModal4({ data, setData }) {
           </Box>
 
           <SimpleGrid columns={2} rowGap={3} columnGap={6}>
-            {data.hasAnvisaRegistration ? (
+            <>
+              <Text fontSize="md" color="gray.600">
+                Forma farmacêutica{" "}
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {data.dosageForm}
+              </Text>
+              <Text fontSize="md" color="gray.600">
+                Unidade de fornecimento:
+              </Text>
+              <Text fontSize="md" color="black" fontWeight="semibold">
+                {`${data.supplyUnit} ( ${data.packageQuantity} por embalagem )`}
+              </Text>
+              {data.contentVolume && (
+                <>
+                  <Text fontSize="md" color="gray.600">
+                    Volume disponível:
+                  </Text>
+                  <Text fontSize="md" color="black" fontWeight="semibold">
+                    {data.contentVolume}
+                  </Text>
+                </>
+              )}
+            </>
+
+            {data.contentVolume && (
               <>
                 <Text fontSize="md" color="gray.600">
-                  Forma farmacêutica{" "}
+                  Volume disponível:
                 </Text>
                 <Text fontSize="md" color="black" fontWeight="semibold">
-                  {data.dosageForm}
+                  {data.contentVolume}
                 </Text>
-                <Text fontSize="md" color="gray.600">
-                  Unidade de fornecimento:
-                </Text>
-                <Text fontSize="md" color="black" fontWeight="semibold">
-                  {`${data.supplyUnit} ( ${data.packageQuantity} por embalagem )`}
-                </Text>
-                {data.contentVolume && (
-                  <>
-                    <Text fontSize="md" color="gray.600">
-                      Volume disponível:
-                    </Text>
-                    <Text fontSize="md" color="black" fontWeight="semibold">
-                      {data.contentVolume}
-                    </Text>
-                  </>
-                )}
               </>
-            ) : (
+            )}
+            {data.hasAdditionalComponents && (
               <>
-                <GridItem colSpan={2}>
-                  <Flex alignItems="center" justifyContent={"center"} gap={2}>
-                    <Badge colorPalette="cyan" variant="solid">
-                      {" "}
-                      Item sujeito a notificação simplificada
-                    </Badge>
-                  </Flex>
-                </GridItem>
                 <Text fontSize="md" color="gray.600">
-                  Normativa aplicável:
+                  Componente adicional:
                 </Text>
                 <Text fontSize="md" color="black" fontWeight="semibold">
-                  {data.simplifiedNotificationReference}
+                  {data.additionalComponents}
+                </Text>
+              </>
+            )}
+            {data.isThermolabile && (
+              <>
+                <Badge colorPalette="cyan" variant="solid">
+                  {" "}
+                  Medicamento termolábil
+                </Badge>
+                <Text fontSize="md" color="black" fontWeight="semibold"></Text>
+                <Text fontSize="md" color="gray.600">
+                  Faixa de temperatura indicada{" "}
+                </Text>
+                <Text fontSize="md" color="black" fontWeight="semibold">
+                  {data.temperatureRange}
                 </Text>
               </>
             )}

@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 
 import {
   Flex,
@@ -9,14 +9,14 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react";
-import { ToggleTip } from "@/components/ui/toggle-tip";
+} from "@chakra-ui/react"
+import { ToggleTip } from "@/components/ui/toggle-tip"
 
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
-import viaAdministracao from "@/data/inventory/viaAdministracao.js";
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
+import viaAdministracao from "@/data/inventory/viaAdministracao.js"
 
-import { LuPill } from "react-icons/lu";
-import { BsFillInfoCircleFill } from "react-icons/bs";
+import { LuPill } from "react-icons/lu"
+import { BsFillInfoCircleFill } from "react-icons/bs"
 
 export default function MedModal3({ data, setData }) {
   const liquidForms = [
@@ -31,7 +31,7 @@ export default function MedModal3({ data, setData }) {
     "Xarope",
     "Aerosol",
     "Inalador / Nebulizador",
-  ];
+  ]
   return (
     <Flex
       flexDirection="column"
@@ -57,7 +57,7 @@ export default function MedModal3({ data, setData }) {
               unstyled
               value={data.dosageForm}
               onChange={(e) => {
-                setData({ ...data, dosageForm: e.target.value });
+                setData({ ...data, dosageForm: e.target.value })
               }}
               width="100%"
               bg="white"
@@ -130,7 +130,6 @@ export default function MedModal3({ data, setData }) {
                       })
                     }
                     placeholder="Ex: 100ML, 200ML, 20ML"
-                    maxLength={4}
                     bg="white"
                     boxShadow="md"
                     border="1px solid #2b4d52ff"
@@ -258,9 +257,9 @@ export default function MedModal3({ data, setData }) {
                 Informe o componente adicional
               </Field.Label>
               <Input
-                value={data.additionalComponent}
+                value={data.additionalComponents}
                 onChange={(e) =>
-                  setData({ ...data, additionalComponent: e.target.value })
+                  setData({ ...data, additionalComponents: e.target.value })
                 }
                 placeholder="Ex: Diluente 500ml, solvente, seringa, agulha, bolsa ou solução com vasoconstritor"
                 bg="white"
@@ -346,5 +345,5 @@ export default function MedModal3({ data, setData }) {
         )}
       </Flex>
     </Flex>
-  );
+  )
 }

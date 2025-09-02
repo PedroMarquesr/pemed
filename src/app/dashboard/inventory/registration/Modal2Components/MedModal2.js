@@ -21,13 +21,13 @@ export default function MedModal2({ data, setData }) {
 
   useEffect(() => {
     if (isRequired && !data.hasAnvisaRegistration) {
-      setData({
-        ...data,
+      setData((prev) => ({
+        ...prev,
         hasAnvisaRegistration: true,
         hasSimplifiedNotification: false,
-      })
+      }))
     }
-  }, [isRequired, data.regulatoryCategory])
+  }, [isRequired, data.hasAnvisaRegistration])
 
   return (
     <Flex
