@@ -1,9 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import { Flex, Text, Field, NativeSelect, Box, Switch } from "@chakra-ui/react";
-import { LuPill } from "react-icons/lu";
-import MedModal1 from "./Modal1Components/MedModal1";
-import MatModal1 from "./Modal1Components/MatModal1";
+"use client"
+import React, { useState } from "react"
+import { Flex, Text, Field, NativeSelect, Box, Switch } from "@chakra-ui/react"
+import { LuPill } from "react-icons/lu"
+import MedModal1 from "./Modal1Components/MedModal1"
+import MatModal1 from "./Modal1Components/MatModal1"
 
 export default function Modal1({
   selectOption,
@@ -14,25 +14,21 @@ export default function Modal1({
   const renderSelectedScreen = () => {
     switch (selectOption) {
       case "Medicamento":
-        return <MedModal1 data={data} setData={setData} />;
+        return <MedModal1 data={data} setData={setData} />
       case "Material":
-        return <MatModal1 data={data} setData={setData} />;
-      case "Insumo":
-        return (
-          <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
-            <Text fontWeight="bold">Tela de Insumo</Text>
-          </Box>
-        );
-      case "Outros":
-        return (
-          <Box p={4} mt={4} border="1px solid #2b4d52ff" borderRadius="md">
-            <Text fontWeight="bold">Tela de Outros</Text>
-          </Box>
-        );
+        return <MatModal1 data={data} setData={setData} />
+
       default:
-        return null;
+        return null
     }
-  };
+  }
+  const requiredFields = (data) => {
+    if (!data.itemType) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   return (
     <Flex
@@ -60,9 +56,9 @@ export default function Modal1({
               unstyled
               value={data.itemType}
               onChange={(e) => {
-                const value = e.target.value;
-                setData({ ...data, itemType: e.target.value });
-                setSelectOption(value);
+                const value = e.target.value
+                setData({ ...data, itemType: e.target.value })
+                setSelectOption(value)
               }}
               width="100%"
               bg="white"
@@ -79,8 +75,6 @@ export default function Modal1({
               <option value="">Selecione</option>
               <option value="Medicamento">Medicamento</option>
               <option value="Material">Material</option>
-              <option value="Insumo">Insumo</option>
-              <option value="Outros">Outros</option>
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Field.Root>
@@ -88,5 +82,5 @@ export default function Modal1({
 
       {renderSelectedScreen()}
     </Flex>
-  );
+  )
 }

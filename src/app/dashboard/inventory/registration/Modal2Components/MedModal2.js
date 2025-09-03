@@ -232,7 +232,7 @@ export default function MedModal2({ data, setData }) {
         </Field.Root>
       </Flex>
 
-      <Flex p={4}>
+      {/* <Flex p={4}>
         <Field.Root width="100%">
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
             Código CMED (GGREM)
@@ -250,7 +250,7 @@ export default function MedModal2({ data, setData }) {
             maxWidth="500px"
           />
         </Field.Root>
-      </Flex>
+      </Flex> */}
     </Flex>
   )
 }
