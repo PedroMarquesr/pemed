@@ -4,6 +4,8 @@ import { Button } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { app, db } from "@/components/libs/firebaseInit.js";
 import { useRouter } from "next/navigation";
+import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+
 // import { useRouter } from "next/router";
 
 export default function BtnGoogle() {
