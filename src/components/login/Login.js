@@ -1,6 +1,8 @@
-"use client"
+"use client";
 
-import { Global } from "@emotion/react"
+import { Global } from "@emotion/react";
+import BtnGoogle from "../btnGoogle/BtnGoogle.js";
+
 import {
   Box,
   Flex,
@@ -10,7 +12,7 @@ import {
   Checkbox,
   Text,
   Image,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 export default function Login() {
   return (
@@ -145,19 +147,10 @@ export default function Login() {
               Entrar
             </Button>
 
-            <Button
-              w="100%"
-              mt={4}
-              leftIcon={
-                <Image src="/google_icon.png" alt="Google" boxSize="20px" />
-              }
-              _hover={{ bg: "black", color: "white" }}
-            >
-              Entrar com Google
-            </Button>
+            <BtnGoogle />
           </Flex>
         </Flex>
       </Flex>
     </>
-  )
+  );
 }
