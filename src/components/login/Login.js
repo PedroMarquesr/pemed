@@ -2,7 +2,7 @@
 
 import { Global } from "@emotion/react";
 import BtnGoogle from "../btnGoogle/BtnGoogle.js";
-
+import useStore from "../globalStates/store.js";
 import {
   Box,
   Flex,
@@ -13,8 +13,16 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 export default function Login() {
+  const { user } = useSore();
+  useEffect(() => {
+    if (user.uid) {
+      createUser();
+    }
+    const createUser = async () => {};
+  }, [user]);
   return (
     <>
       <Global
