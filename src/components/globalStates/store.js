@@ -9,19 +9,6 @@ const getUser = async (set) => {
     if (user) {
       set((state) => ({ user: user }));
       set((state) => ({ loadingLogin: true }));
-
-      if (
-        user.providerData &&
-        user.providerData[0] &&
-        user.providerData[0].providerId === "google.com"
-      ) {
-        set((state) => ({ emailAlert: false }));
-      } else {
-        if (user.emailVerified === false) {
-          set((state) => ({ emailAlert: true }));
-          set((state) => ({ loadingLogin: false }));
-        }
-      }
     } else {
       set((state) => ({ loadingLogin: false }));
     }
