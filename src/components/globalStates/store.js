@@ -21,3 +21,5 @@ const useStore = create(
     getUser: () => getUser(set),
   }))
 );
+
+export default useStore;

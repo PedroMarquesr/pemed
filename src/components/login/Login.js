@@ -16,9 +16,9 @@ import {
 import { useEffect } from "react";
 
 export default function Login() {
-  const { user } = useSore();
+  const { user } = useStore();
   useEffect(() => {
-    if (user.uid) {
+    if (user && user.uid) {
       createUser();
     }
     const createUser = async () => {};
