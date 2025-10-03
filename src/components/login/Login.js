@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import { Global } from "@emotion/react";
-import BtnGoogle from "../btnGoogle/BtnGoogle.js";
-import useStore from "../globalStates/store.js";
+import { Global } from "@emotion/react"
+import BtnGoogle from "../btnGoogle/BtnGoogle.js"
+import useStore from "../globalStates/store.js"
 import {
   Box,
   Flex,
@@ -12,17 +12,20 @@ import {
   Checkbox,
   Text,
   Image,
-} from "@chakra-ui/react";
-import { useEffect } from "react";
+} from "@chakra-ui/react"
+import { useEffect } from "react"
 
 export default function Login() {
-  const { user } = useStore();
+  const { user } = useStore()
   useEffect(() => {
-    if (user && user.uid) {
-      createUser();
+    const createUser = async () => {
+      if (user && user.uid) {
+        console.log("Usuário logado:", user)
+      }
     }
-    const createUser = async () => {};
-  }, [user]);
+
+    createUser()
+  }, [user])
   return (
     <>
       <Global
@@ -160,5 +163,5 @@ export default function Login() {
         </Flex>
       </Flex>
     </>
-  );
+  )
 }
