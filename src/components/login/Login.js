@@ -1,5 +1,5 @@
 "use client";
-
+import { db } from "../libs/firebaseInit.js";
 import { Global } from "@emotion/react";
 import BtnGoogle from "../btnGoogle/BtnGoogle.js";
 import useStore from "../globalStates/store.js";
@@ -14,14 +14,29 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-
+import { doc, setDoc } from "firebase/firestore";
 export default function Login() {
   const { user } = useStore();
   useEffect(() => {
     if (user && user.uid) {
       createUser();
     }
-    const createUser = async () => {};
+    const createUser = async () => {
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+        } else {
+          await setDoc(userRef, {
+            uid: user.uid,
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          });
+          console.log("User document created");
+        }
+      } catch (error) {}
+    };
   }, [user]);
   return (
     <>
