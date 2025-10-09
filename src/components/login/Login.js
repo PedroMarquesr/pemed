@@ -14,50 +14,50 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+
 export default function Login() {
   const { user } = useStore();
+
+  const createUser = async () => {
+    try {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+      if (!userSnap.exists()) {
+        await setDoc(userRef, {
+          uid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        });
+        console.log("User document created");
+      }
+    } catch (error) {
+      // Trate o erro se necessário
+    }
+  };
+
   useEffect(() => {
     if (user && user.uid) {
       createUser();
     }
-    const createUser = async () => {
-      try {
-        const userRef = doc(db, "users", user.uid);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-        } else {
-          await setDoc(userRef, {
-            uid: user.uid,
-            name: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-          });
-          console.log("User document created");
-        }
-      } catch (error) {}
-    };
   }, [user]);
+
   return (
     <>
       <Global
         styles={`
-          /* Travar scroll horizontal na página toda */
           html, body, #__next {
             width: 100%;
             max-width: 100%;
             overflow-x: hidden;
           }
-
           *, *::before, *::after { box-sizing: border-box; }
-
-
           img, svg, video, canvas {
             max-width: 100%;
             height: auto;
             display: block;
           }
-
         `}
       />
 
