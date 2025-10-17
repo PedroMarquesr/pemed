@@ -4,17 +4,19 @@ import { Button } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { app, db } from "@/components/libs/firebaseInit.js";
 import { useRouter } from "next/navigation";
+import useStore from "@/components/globalStates/store";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 
 // import { useRouter } from "next/router";
 
-export default function BtnGoogle() {
+export default function BtnGogle() {
   const auth = getAuth(app);
   const router = useRouter();
+  const getUser = useStore((state) => state.getUser);
 
   async function loginGoogle() {
     const provider = new GoogleAuthProvider();
-
+    console.log(`Clicou no botão`);
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -22,7 +24,9 @@ export default function BtnGoogle() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-
+        console.log(result);
+        console.log(`Objeto recebido no login`, user);
+        getUser();
         router.push("/");
         // IdP data available using getAdditionalUserInfo(result)
         // ...

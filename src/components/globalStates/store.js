@@ -9,6 +9,7 @@ const getUser = async (set) => {
     if (user) {
       set((state) => ({ user: user }));
       set((state) => ({ loadingLogin: true }));
+      console.log(user);
     } else {
       set((state) => ({ loadingLogin: false }));
     }
