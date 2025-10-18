@@ -1,10 +1,10 @@
-"use client"
-import { Box, Flex, Text, Icon } from "@chakra-ui/react"
-import { FaPills, FaPhone } from "react-icons/fa"
-import { AiFillMedicineBox, AiOutlineStock } from "react-icons/ai"
-import { IoPersonAddSharp, IoLogOutSharp } from "react-icons/io5"
-import { MdPointOfSale } from "react-icons/md"
-import { GiBuyCard } from "react-icons/gi"
+"use client";
+import { Box, Flex, Text, Icon } from "@chakra-ui/react";
+import { FaPills, FaPhone } from "react-icons/fa";
+import { AiFillMedicineBox, AiOutlineStock } from "react-icons/ai";
+import { IoPersonAddSharp, IoLogOutSharp } from "react-icons/io5";
+import { MdPointOfSale } from "react-icons/md";
+import { GiBuyCard } from "react-icons/gi";
 
 const menuItems = [
   {
@@ -24,8 +24,8 @@ const menuItems = [
   },
   {
     icon: AiOutlineStock,
-    label: "Exibição de estoque",
-    link: "@/src/app/dashboard/contato/page.js",
+    label: "Operação de estoque",
+    link: "/dashboard/InventoryControlPage",
   },
   {
     icon: MdPointOfSale,
@@ -47,7 +47,7 @@ const menuItems = [
     label: "Sair",
     link: "/",
   },
-]
+];
 
 export default function Sidebar() {
   return (
@@ -79,5 +79,5 @@ export default function Sidebar() {
         </Flex>
       ))}
     </Box>
-  )
+  );
 }
