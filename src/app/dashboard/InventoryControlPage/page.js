@@ -2,6 +2,8 @@
 
 import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
 import { use, useState, useEffect } from "react";
+// import { ChooseControl } from "@/app/dashboard/InventoryControlPage/components/ChooseControl/";
+
 import { GoArrowLeft } from "react-icons/go";
 import { FaDownload } from "react-icons/fa";
 
@@ -9,6 +11,7 @@ import { setDoc, doc, collection, serverTimestamp } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 import { db } from "@/components/libs/firebaseInit";
+import { vw } from "framer-motion";
 
 export default function IventoryControlPage() {
   return (
@@ -62,22 +65,6 @@ export default function IventoryControlPage() {
             Exportar relatório
           </Text>
         </Button>
-      </Flex>
-
-      <Flex justifyContent={"center"}>
-        <Flex
-          boxShadow={"md"}
-          justifyContent="center"
-          alignItems="center"
-          fontWeight={"bold"}
-          borderRadius="50%"
-          w="50px"
-          h="50px"
-          bg={"rgba(19,92,254,255)"}
-        >
-          {" "}
-          <Text>Fazendo teste</Text>
-        </Flex>
       </Flex>
     </>
   );
