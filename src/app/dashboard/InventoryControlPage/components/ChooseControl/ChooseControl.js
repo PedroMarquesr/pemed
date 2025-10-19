@@ -3,6 +3,7 @@ import { Flex, Text, Box, Button } from "@chakra-ui/react";
 import { use, useState, useEffect } from "react";
 
 import OverviewSection from "../OverviewSection/OverviewSection.js";
+import TagChooseControl from "@/app/dashboard/InventoryControlPage/components/TagChooseControl/TagChooseControl.js";
 
 export default function ChooseControl() {
   const [activeTab, setActiveTab] = useState("visaoGeral");
@@ -28,40 +29,32 @@ export default function ChooseControl() {
 
   return (
     <Flex flexDirection={"column"}>
-      <Flex mb="6" justifyContent="space-around" border={"1px solid red"}>
-        <Button
-          h={"6%"}
-          bg={"#F5F5F5"}
-          flex={"1"}
-          border={"1px solid red"}
+      <Flex
+        borderRadius={"md"}
+        boxShadow={"sm"}
+        mb="6"
+        justifyContent="space-around"
+      >
+        <TagChooseControl
+          active={activeTab === "visaoGeral"}
+          choose={"Visão Geral"}
           onClick={() => handleTabClick("visaoGeral")}
-        >
-          Visão Geral
-        </Button>
-        <Button
-          h={"6%"}
-          bg={"#F5F5F5"}
-          flex={"1"}
+        />
+        <TagChooseControl
+          active={activeTab === "entrada"}
+          choose={"Entrada"}
           onClick={() => handleTabClick("entrada")}
-        >
-          Entrada
-        </Button>
-        <Button
-          h={"6%"}
-          bg={"#F5F5F5"}
-          flex={"1"}
+        />
+        <TagChooseControl
+          active={activeTab === "saida"}
+          choose={"Saída"}
           onClick={() => handleTabClick("saida")}
-        >
-          Saída
-        </Button>
-        <Button
-          h={"6%"}
-          bg={"#F5F5F5"}
-          flex={"1"}
+        />
+        <TagChooseControl
+          active={activeTab === "inventario"}
+          choose={"Inventário"}
           onClick={() => handleTabClick("inventario")}
-        >
-          Inventário
-        </Button>
+        />
       </Flex>
       {renderControl()}
     </Flex>
