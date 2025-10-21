@@ -1,0 +1,26 @@
+"use client";
+import { Input, Field } from "@chakra-ui/react";
+
+export default function InputEntry({ labelName, placeholder, inputType }) {
+  return (
+    <Field.Root flex="1" p="10">
+      <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+        {labelName}{" "}
+      </Field.Label>
+      <Input
+        // value={data.anvisaRegistrationCode}
+        // onChange={(e) =>
+        //   setData({ ...data, anvisaRegistrationCode: e.target.value })
+        // }
+        placeholder={placeholder}
+        maxLength={11}
+        type={inputType}
+        bg="white"
+        boxShadow="md"
+        border="1px solid #2b4d52ff"
+        _hover={{ borderColor: "#5d8288c4" }}
+        // disabled={isRequired ? false : data.hasSimplifiedNotification}
+      />
+    </Field.Root>
+  );
+}
