@@ -1,6 +1,6 @@
-"use client";
-import { Flex, Box } from "@chakra-ui/react";
-import InputEntry from "./components/InputEntry/InputEntry";
+"use client"
+import { Flex, Box } from "@chakra-ui/react"
+import InputEntry from "./components/InputEntry/InputEntry"
 
 //import ComboBoxItem from "./components/ComboBoxItem/ComboBoxItem";
 
@@ -34,9 +34,10 @@ export default function EntrySection() {
             placeholder={"Insira o número da NFE"}
             inputType={"number"}
           />
-          <Flex>{/* <ComboBoxItem /> */}</Flex>
+
+          <Flex flex="1">{/* <ComboBoxItem /> */}</Flex>
         </Flex>
       </Flex>
     </>
-  );
+  )
 }
