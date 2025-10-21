@@ -2,7 +2,7 @@
 import { Flex, Box } from "@chakra-ui/react"
 import InputEntry from "./components/InputEntry/InputEntry"
 
-//import ComboBoxItem from "./components/ComboBoxItem/ComboBoxItem";
+import ComboBoxItem from "./components/ComboBoxItem/ComboBoxItem"
 
 export default function EntrySection() {
   return (
@@ -35,7 +35,9 @@ export default function EntrySection() {
             inputType={"number"}
           />
 
-          <Flex flex="1">{/* <ComboBoxItem /> */}</Flex>
+          <Flex flex="1">
+            <ComboBoxItem />
+          </Flex>
         </Flex>
       </Flex>
     </>
