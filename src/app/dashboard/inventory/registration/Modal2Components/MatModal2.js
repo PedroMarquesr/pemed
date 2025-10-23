@@ -67,7 +67,7 @@ export default function MatModal2({ data, setData }) {
                 onChange={(e) =>
                   setData({
                     ...data,
-                    anvisaRegistrationCode: e.target.value,
+                    anvisaRegistrationCode: e.target.value.toUpperCase(),
                   })
                 }
                 placeholder="Digite o registro"
@@ -124,7 +124,7 @@ export default function MatModal2({ data, setData }) {
                 onChange={(e) =>
                   setData({
                     ...data,
-                    anvisaModel: e.target.value,
+                    anvisaModel: e.target.value.toUpperCase(),
                   })
                 }
                 placeholder=""
@@ -175,7 +175,7 @@ export default function MatModal2({ data, setData }) {
               onChange={(e) =>
                 setData({
                   ...data,
-                  simplifiedNotificationReference: e.target.value,
+                  simplifiedNotificationReference: e.target.value.toUpperCase(),
                 })
               }
               placeholder="RDC xx/xxxx"
@@ -272,7 +272,7 @@ export default function MatModal2({ data, setData }) {
                 onChange={(e) =>
                   setData({
                     ...data,
-                    otherMainComposition: e.target.value,
+                    otherMainComposition: e.target.value.toUpperCase(),
                   })
                 }
                 placeholder="Insira a composição principal"

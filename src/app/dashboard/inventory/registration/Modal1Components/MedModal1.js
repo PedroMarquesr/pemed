@@ -98,7 +98,7 @@ export default function MedModal1({ data, setData }) {
               <Input
                 value={data.brandName}
                 onChange={(e) =>
-                  setData({ ...data, brandName: e.target.value })
+                  setData({ ...data, brandName: e.target.value.toUpperCase() })
                 }
                 width="100%"
                 boxShadow="md"
@@ -162,7 +162,10 @@ export default function MedModal1({ data, setData }) {
                     <Input
                       value={data.brandName}
                       onChange={(e) =>
-                        setData({ ...data, brandName: e.target.value })
+                        setData({
+                          ...data,
+                          brandName: e.target.value.toUpperCase(),
+                        })
                       }
                       width="100%"
                       boxShadow="md"
@@ -203,7 +206,7 @@ export default function MedModal1({ data, setData }) {
                   value={item.ingredient}
                   onChange={(e) => {
                     const updated = [...data.activeIngredients]
-                    updated[index].ingredient = e.target.value
+                    updated[index].ingredient = e.target.value.toUpperCase()
                     setData({ ...data, activeIngredients: updated })
                   }}
                   placeholder="Digite o princípio ativo"
@@ -233,7 +236,7 @@ export default function MedModal1({ data, setData }) {
                   value={item.concentration}
                   onChange={(e) => {
                     const updated = [...data.activeIngredients]
-                    updated[index].concentration = e.target.value
+                    updated[index].concentration = e.target.value.toUpperCase()
                     setData({ ...data, activeIngredients: updated })
                   }}
                   placeholder="Ex: 500mg, 5%, 100UI/ml"
@@ -304,7 +307,7 @@ export default function MedModal1({ data, setData }) {
             <Input
               value={data.manufacturer}
               onChange={(e) =>
-                setData({ ...data, manufacturer: e.target.value })
+                setData({ ...data, manufacturer: e.target.value.toUpperCase() })
               }
               width="100%"
               bg="white"

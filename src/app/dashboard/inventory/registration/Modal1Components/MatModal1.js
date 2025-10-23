@@ -49,7 +49,7 @@ export default function MatModal1({ data, setData }) {
               <Input
                 value={data.brandName}
                 onChange={(e) =>
-                  setData({ ...data, brandName: e.target.value })
+                  setData({ ...data, brandName: e.target.value.toUpperCase() })
                 }
                 width="100%"
                 boxShadow="md"
@@ -80,7 +80,10 @@ export default function MatModal1({ data, setData }) {
             <Input
               value={data.technicalName}
               onChange={(e) =>
-                setData({ ...data, technicalName: e.target.value })
+                setData({
+                  ...data,
+                  technicalName: e.target.value.toUpperCase(),
+                })
               }
               width="100%"
               bg="white"
@@ -111,7 +114,7 @@ export default function MatModal1({ data, setData }) {
             <Input
               value={data.manufacturer}
               onChange={(e) =>
-                setData({ ...data, manufacturer: e.target.value })
+                setData({ ...data, manufacturer: e.target.value.toUpperCase() })
               }
               width="100%"
               bg="white"

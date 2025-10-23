@@ -85,7 +85,7 @@ export default function MedModal2({ data, setData }) {
               onChange={(e) =>
                 setData({
                   ...data,
-                  simplifiedNotificationReference: e.target.value,
+                  simplifiedNotificationReference: e.target.value.toUpperCase(),
                 })
               }
               placeholder="RDC xx/xxxx"
@@ -128,7 +128,10 @@ export default function MedModal2({ data, setData }) {
               <Input
                 value={data.registrationValidity}
                 onChange={(e) =>
-                  setData({ ...data, registrationValidity: e.target.value })
+                  setData({
+                    ...data,
+                    registrationValidity: e.target.value.toUpperCase(),
+                  })
                 }
                 type="date"
                 bg="white"
@@ -181,7 +184,10 @@ export default function MedModal2({ data, setData }) {
               <Input
                 value={data.anvisaPresentation}
                 onChange={(e) =>
-                  setData({ ...data, anvisaPresentation: e.target.value })
+                  setData({
+                    ...data,
+                    anvisaPresentation: e.target.value.toUpperCase(),
+                  })
                 }
                 placeholder=""
                 bg="white"
@@ -204,7 +210,10 @@ export default function MedModal2({ data, setData }) {
           <Input
             value={data.therapeuticClass}
             onChange={(e) =>
-              setData({ ...data, therapeuticClass: e.target.value })
+              setData({
+                ...data,
+                therapeuticClass: e.target.value.toUpperCase(),
+              })
             }
             placeholder="Insira a classe"
             bg="white"
@@ -221,7 +230,10 @@ export default function MedModal2({ data, setData }) {
           <Input
             value={data.totalDrugValidity}
             onChange={(e) =>
-              setData({ ...data, totalDrugValidity: e.target.value })
+              setData({
+                ...data,
+                totalDrugValidity: e.target.value.toUpperCase(),
+              })
             }
             type="number"
             bg="white"
