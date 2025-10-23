@@ -42,10 +42,12 @@ export default function ComboBoxItem({ onSelect }) {
     initialItems: items,
     filter: contains,
   });
+
   collection.items = items;
 
   console.log("Itens carregados:", items);
   console.log("Itens na collection:", collection.items);
+  // Não está dinâmico - Preciso selecionar com o mouse - totalmente diferente da pré visualisação da documentação do Chackra
 
   return (
     <Combobox.Root
@@ -65,8 +67,14 @@ export default function ComboBoxItem({ onSelect }) {
         <Combobox.Positioner>
           <Combobox.Content>
             <Combobox.Empty>No items found</Combobox.Empty>
-            {collection.items.map((item) => (
+            {/* {collection.items.map((item) => (
               <Combobox.Item item={item} key={item.value}>
+                {item.label}
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))} */}
+            {collection.items.map((item) => (
+              <Combobox.Item item={item} key={item.id}>
                 {item.label}
                 <Combobox.ItemIndicator />
               </Combobox.Item>
