@@ -55,7 +55,45 @@ export default function Registration() {
     temperatureRange: "",
     isControlledSubstance: false,
   })
+  useEffect(() => {
+    const activeIngredientsText = data.activeIngredients
+      .map((item) => item.ingredient)
+      .join(", ")
+    const concentrationText = data.activeIngredients
+      .map((item) => item.concentration)
+      .join(", ")
 
+    let newDisplayName = ""
+
+    if (data.brandName !== "") {
+      newDisplayName = `${
+        data.brandName
+      } - ${activeIngredientsText} - ${concentrationText} ${
+        data.dimensionOrCharacteristic ||
+        data.packageQuantity + ` UND/EMB ` ||
+        ""
+      } - ${data.manufacturer}`
+    } else {
+      newDisplayName = `${activeIngredientsText} - ${concentrationText} - ${
+        data.dimensionOrCharacteristic ||
+        data.packageQuantity + ` UND/EMB ` ||
+        ""
+      } - ${data.manufacturer}`
+    }
+
+    if (newDisplayName && newDisplayName !== data.displayName) {
+      setData((prevData) => ({
+        ...prevData,
+        displayName: newDisplayName,
+      }))
+    }
+  }, [
+    data.brandName,
+    data.activeIngredients,
+    data.dimensionOrCharacteristic,
+    data.packageQuantity,
+    data.manufacturer,
+  ])
   const renderModal2 = () => {
     if (currentStep === 2) {
       return selectOption === "Medicamento" ? (
@@ -95,7 +133,6 @@ export default function Registration() {
       })
     }
     if (currentStep === 4) {
-      console.log("Entrou no if", currentStep)
       saveData()
     }
   }, [currentStep, data])

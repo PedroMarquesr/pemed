@@ -1,19 +1,7 @@
 "use client"
 import React from "react"
 
-import {
-  Flex,
-  Badge,
-  Input,
-  Box,
-  Switch,
-  Text,
-  SimpleGrid,
-  Field,
-  NativeSelect,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react"
+import { Flex, Badge, Box, Text, SimpleGrid, GridItem } from "@chakra-ui/react"
 
 import { FaSyringe } from "react-icons/fa"
 
