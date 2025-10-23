@@ -32,7 +32,7 @@ export default function ComboBoxItem() {
           const d = doc.data()
           return {
             id: doc.id,
-            label: d.brandName || "item sem nome",
+            label: d.displayName,
             value: d.brandName,
             ...d,
           }

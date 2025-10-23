@@ -88,7 +88,7 @@ export default function Registration() {
     let newDisplayName = ""
 
     if (data.brandName !== "") {
-      newDisplayName = `${
+      newDisplayName = ` ${data.idItemForUser} - ${
         data.brandName
       } - ${activeIngredientsText} - ${concentrationText} ${
         data.dimensionOrCharacteristic ||
@@ -96,7 +96,9 @@ export default function Registration() {
         ""
       } - ${data.manufacturer}`
     } else {
-      newDisplayName = `${activeIngredientsText} - ${concentrationText} - ${
+      newDisplayName = `${
+        data.idItemForUser
+      } - ${activeIngredientsText} - ${concentrationText} - ${
         data.dimensionOrCharacteristic ||
         data.packageQuantity + ` UND/EMB ` ||
         ""
@@ -147,9 +149,13 @@ export default function Registration() {
   useEffect(() => {
     const saveData = async () => {
       const docId = uuidv4(10)
+      const idItemForUser =
+      itemCount === 0 ? "0001" : String(itemCount + 1).padStart(4, "0")
+      setData((prev) => ({ ...prev, idItemForUser }))
+
       await setDoc(doc(db, "inventoryItems", docId), {
         ...data,
-        idItemForUser: "000" + itemCount,
+        idItemForUser,
         id: docId,
         createdAt: serverTimestamp(),
       })
