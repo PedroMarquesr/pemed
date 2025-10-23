@@ -67,12 +67,7 @@ export default function ComboBoxItem({ onSelect }) {
         <Combobox.Positioner>
           <Combobox.Content>
             <Combobox.Empty>No items found</Combobox.Empty>
-            {/* {collection.items.map((item) => (
-              <Combobox.Item item={item} key={item.value}>
-                {item.label}
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
-            ))} */}
+
             {collection.items.map((item) => (
               <Combobox.Item item={item} key={item.id}>
                 {item.label}
