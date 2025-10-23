@@ -1,5 +1,5 @@
 "use client"
-import { Flex, Box } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import InputEntry from "./components/InputEntry/InputEntry"
 
 import ComboBoxItem from "./components/ComboBoxItem/ComboBoxItem"

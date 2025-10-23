@@ -12,8 +12,6 @@ import {
 } from "@chakra-ui/react"
 
 export default function MatModal1({ data, setData }) {
-  let codItem = "MAT12345"
-
   return (
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
@@ -151,7 +149,7 @@ export default function MatModal1({ data, setData }) {
           boxShadow={"md"}
           borderRadius="md"
         >
-          {codItem}
+          {data.idItemForUser}
         </Text>
       </Flex>
     </Flex>

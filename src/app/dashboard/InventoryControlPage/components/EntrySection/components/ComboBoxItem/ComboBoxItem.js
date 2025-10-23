@@ -1,6 +1,7 @@
 "use client"
 
 import { collection as firestoreCollection, getDocs } from "firebase/firestore"
+
 import { db } from "@/components/libs/firebaseInit"
 import { useState, useEffect } from "react"
 import {
@@ -12,21 +13,31 @@ import {
   useListCollection,
 } from "@chakra-ui/react"
 
-export default function ComboBoxItem({ onSelect }) {
-  const [items, setItems] = useState([])
+export default function ComboBoxItem() {
+  const { contains } = useFilter({ sensitivity: "base" })
+
+  const { collection, filter, set } = useListCollection({
+    initialItems: [],
+    itemToString: (item) => item.label,
+    itemToValue: (item) => item.value,
+    filter: contains,
+  })
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const querySnapshot = await getDocs(
           firestoreCollection(db, "inventoryItems")
         )
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          label: doc.data().brandName,
-          value: doc.data().brandName,
-          ...doc.data(),
-        }))
-        setItems(data)
+        const data = querySnapshot.docs.map((doc) => {
+          const d = doc.data()
+          return {
+            id: doc.id,
+            label: d.brandName || "item sem nome",
+            value: d.brandName,
+            ...d,
+          }
+        })
+        set(data)
       } catch (error) {
         console.error("Erro ao buscar itens do Firestore:", error)
         alert(`Erro ao buscar itens: ${error.message}`)
@@ -34,19 +45,7 @@ export default function ComboBoxItem({ onSelect }) {
     }
 
     fetchItems()
-  }, [])
-
-  const collectionItems = items
-  const { contains } = useFilter({ sensitivity: "base" })
-  console.log(collectionItems)
-  const { collection, filter } = useListCollection({
-    initialItems: collectionItems,
-    filter: contains,
-  })
-  console.log("Itens da const collection", collectionItems)
-
-  console.log("Itens carregados:", items)
-  // Não está dinâmico - Preciso selecionar com o mouse - totalmente diferente da pré visualisação da documentação do Chackra
+  }, [set])
 
   return (
     <Combobox.Root
@@ -54,9 +53,9 @@ export default function ComboBoxItem({ onSelect }) {
       onInputValueChange={(e) => filter(e.inputValue)}
       width="320px"
     >
-      <Combobox.Label>Select framework</Combobox.Label>
+      <Combobox.Label>Insira o item:</Combobox.Label>
       <Combobox.Control>
-        <Combobox.Input placeholder="Type to search" />
+        <Combobox.Input placeholder="Digite para filtrar" />
         <Combobox.IndicatorGroup>
           <Combobox.ClearTrigger />
           <Combobox.Trigger />
