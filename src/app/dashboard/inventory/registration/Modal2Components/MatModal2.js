@@ -71,7 +71,7 @@ export default function MatModal2({ data, setData }) {
                   })
                 }
                 placeholder="Digite o registro"
-                maxLength={11}
+                maxLength={13}
                 bg="white"
                 boxShadow="md"
                 border="1px solid #2b4d52ff"

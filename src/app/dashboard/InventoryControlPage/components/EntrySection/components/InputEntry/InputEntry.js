@@ -1,18 +1,20 @@
 "use client"
 import { Input, Field } from "@chakra-ui/react"
 
-export default function InputEntry({ labelName, placeholder, inputType }) {
+export default function InputEntry({
+  labelName,
+  placeholder,
+  inputType,
+  width,
+}) {
   return (
     <Field.Root flex="1" p="10">
       <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
         {labelName}{" "}
       </Field.Label>
       <Input
-        // value={data.anvisaRegistrationCode}
-        // onChange={(e) =>
-        //   setData({ ...data, anvisaRegistrationCode: e.target.value })
-        // }
         placeholder={placeholder}
+        w={width}
         maxLength={11}
         type={inputType}
         bg="white"

@@ -24,9 +24,9 @@ export default function Modal1({
   }
   const requiredFields = (data) => {
     if (!data.itemType) {
-      return false;
+      return false
     } else {
-      return true;
+      return true
     }
   }
 

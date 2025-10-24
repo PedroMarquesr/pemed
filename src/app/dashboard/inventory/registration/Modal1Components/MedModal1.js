@@ -98,7 +98,11 @@ export default function MedModal1({ data, setData }) {
               <Input
                 value={data.brandName}
                 onChange={(e) =>
-                  setData({ ...data, brandName: e.target.value.toUpperCase() })
+                  setData({
+                    ...data,
+                    hasBrandName: true,
+                    brandName: e.target.value.toUpperCase(),
+                  })
                 }
                 width="100%"
                 boxShadow="md"

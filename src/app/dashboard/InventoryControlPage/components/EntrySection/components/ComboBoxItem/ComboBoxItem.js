@@ -6,6 +6,7 @@ import { db } from "@/components/libs/firebaseInit"
 import { useState, useEffect } from "react"
 import {
   Flex,
+  Box,
   Text,
   Combobox,
   Portal,
@@ -13,7 +14,7 @@ import {
   useListCollection,
 } from "@chakra-ui/react"
 
-export default function ComboBoxItem() {
+export default function ComboBoxItem({ placeholder }) {
   const { contains } = useFilter({ sensitivity: "base" })
 
   const { collection, filter, set } = useListCollection({
@@ -40,7 +41,6 @@ export default function ComboBoxItem() {
         set(data)
       } catch (error) {
         console.error("Erro ao buscar itens do Firestore:", error)
-        alert(`Erro ao buscar itens: ${error.message}`)
       }
     }
 
@@ -51,20 +51,37 @@ export default function ComboBoxItem() {
     <Combobox.Root
       collection={collection}
       onInputValueChange={(e) => filter(e.inputValue)}
-      width="320px"
+      width="80%"
     >
-      <Combobox.Label>Insira o item:</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Digite para filtrar" />
-        <Combobox.IndicatorGroup>
-          <Combobox.ClearTrigger />
-          <Combobox.Trigger />
-        </Combobox.IndicatorGroup>
+      <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
+        Insira o item:
+      </Combobox.Label>
+      <Combobox.Control
+        display="flex"
+        alignItems="center"
+        _hover={{ borderColor: "#5d8288c4" }}
+        border="1px solid #2b4d52ff"
+        boxShadow="md"
+      >
+        <Box width={"100%"}>
+          <Combobox.Input
+            width="90%"
+            placeholder={placeholder}
+            bg="white"
+            border={"none"}
+          />
+        </Box>
+        <Box>
+          <Combobox.IndicatorGroup>
+            <Combobox.ClearTrigger />
+            <Combobox.Trigger />
+          </Combobox.IndicatorGroup>
+        </Box>
       </Combobox.Control>
-      <Portal>
+      <Portal p={"80%"}>
         <Combobox.Positioner>
           <Combobox.Content>
-            <Combobox.Empty>No items found</Combobox.Empty>
+            <Combobox.Empty>Item não encontrado</Combobox.Empty>
 
             {collection.items.map((item) => (
               <Combobox.Item item={item} key={item.id}>

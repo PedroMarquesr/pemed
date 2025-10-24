@@ -1,5 +1,5 @@
 "use client"
-import { Flex } from "@chakra-ui/react"
+import { Flex, Text } from "@chakra-ui/react"
 import InputEntry from "./components/InputEntry/InputEntry"
 
 import ComboBoxItem from "./components/ComboBoxItem/ComboBoxItem"
@@ -10,8 +10,9 @@ export default function EntrySection() {
       <Flex bg="white" borderRadius="md" my={5} w="100%" boxShadow="xl">
         {" "}
         <Flex flexDirection={"column"} flex={"1"}>
-          <InputEntry labelName={"Item:"} placeholder={"Insira o item"} />
+          <ComboBoxItem />
           <InputEntry
+            width={"75%"}
             labelName={"Lote"}
             placeholder={"Insira o lote do item"}
           />
@@ -36,7 +37,7 @@ export default function EntrySection() {
           />
 
           <Flex flex="1">
-            <ComboBoxItem />
+            <Text>teste</Text>
           </Flex>
         </Flex>
       </Flex>
