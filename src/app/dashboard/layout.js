@@ -1,11 +1,15 @@
-"use client"
+"use client";
 
-import { Flex, Box } from "@chakra-ui/react"
-import { Global } from "@emotion/react"
+import { Flex, Box } from "@chakra-ui/react";
+import { Global } from "@emotion/react";
 
-import { Provider } from "@/components/ui/provider"
-import Sidebar from "@/app/dashboard/components/Sidebar/Sidebar"
+import { Provider } from "@/components/ui/provider";
+import Sidebar from "@/app/dashboard/components/Sidebar/Sidebar";
+import { useAuthCheck } from "@/hooks/useAuthCheck";
+
 export default function DashboardLayout({ children }) {
+  useAuthCheck();
+
   return (
     <>
       <Global
@@ -53,5 +57,5 @@ export default function DashboardLayout({ children }) {
         </Flex>
       </Provider>
     </>
-  )
+  );
 }

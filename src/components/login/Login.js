@@ -33,7 +33,7 @@ export default function Login() {
         console.log("User document created");
       }
     } catch (error) {
-      // Trate o erro se necessário
+      console.log(error);
     }
   };
 
