@@ -1,6 +1,6 @@
-"use client"
-import React from "react"
-import { useEffect } from "react"
+"use client";
+import React from "react";
+import { useEffect } from "react";
 import {
   Flex,
   Input,
@@ -11,13 +11,13 @@ import {
   Box,
   Popover,
   Portal,
-} from "@chakra-ui/react"
-import { LuPill } from "react-icons/lu"
-import { anvisaCodeRequired } from "@/app/dashboard/inventory/registration/utils/constants.js"
-import { BsFillInfoCircleFill } from "react-icons/bs"
+} from "@chakra-ui/react";
+import { LuPill } from "react-icons/lu";
+import { anvisaCodeRequired } from "@/app/dashboard/inventory/registration/utils/constants.js";
+import { BsFillInfoCircleFill } from "react-icons/bs";
 
 export default function MedModal2({ data, setData }) {
-  const isRequired = anvisaCodeRequired.includes(data.regulatoryCategory)
+  const isRequired = anvisaCodeRequired.includes(data.regulatoryCategory);
 
   useEffect(() => {
     if (isRequired && !data.hasAnvisaRegistration) {
@@ -25,9 +25,9 @@ export default function MedModal2({ data, setData }) {
         ...prev,
         hasAnvisaRegistration: true,
         hasSimplifiedNotification: false,
-      }))
+      }));
     }
-  }, [isRequired, data.hasAnvisaRegistration])
+  }, [isRequired, data.hasAnvisaRegistration]);
 
   return (
     <Flex
@@ -243,26 +243,6 @@ export default function MedModal2({ data, setData }) {
           />
         </Field.Root>
       </Flex>
-
-      {/* <Flex p={4}>
-        <Field.Root width="100%">
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Código CMED (GGREM)
-          </Field.Label>
-          <Input
-            value={data.cmedGgremCode}
-            onChange={(e) =>
-              setData({ ...data, cmedGgremCode: e.target.value })
-            }
-            placeholder="Número do medicamento no banco de preços da ANVISA/CMED"
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
-            maxWidth="500px"
-          />
-        </Field.Root>
-      </Flex> */}
     </Flex>
-  )
+  );
 }

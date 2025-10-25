@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { collection as firestoreCollection, getDocs } from "firebase/firestore"
+import { collection as firestoreCollection, getDocs } from "firebase/firestore";
 
-import { db } from "@/components/libs/firebaseInit"
-import { useState, useEffect } from "react"
+import { db } from "@/components/libs/firebaseInit";
+import { useState, useEffect } from "react";
 import {
   Flex,
   Box,
@@ -12,46 +12,48 @@ import {
   Portal,
   useFilter,
   useListCollection,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 export default function ComboBoxItem({ placeholder }) {
-  const { contains } = useFilter({ sensitivity: "base" })
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const { collection, filter, set } = useListCollection({
     initialItems: [],
     itemToString: (item) => item.label,
     itemToValue: (item) => item.value,
     filter: contains,
-  })
+  });
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const querySnapshot = await getDocs(
           firestoreCollection(db, "inventoryItems")
-        )
+        );
         const data = querySnapshot.docs.map((doc) => {
-          const d = doc.data()
+          const d = doc.data();
           return {
             id: doc.id,
             label: d.displayName,
-            value: d.brandName,
+            value: d.id,
             ...d,
-          }
-        })
-        set(data)
+          };
+        });
+        set(data);
       } catch (error) {
-        console.error("Erro ao buscar itens do Firestore:", error)
+        console.error("Erro ao buscar itens do Firestore:", error);
       }
-    }
+    };
 
-    fetchItems()
-  }, [set])
+    fetchItems();
+  }, [set]);
 
   return (
     <Combobox.Root
       collection={collection}
       onInputValueChange={(e) => filter(e.inputValue)}
-      width="80%"
+      width="100%"
+      flex="1"
+      p="10"
     >
       <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
         Insira o item:
@@ -93,5 +95,5 @@ export default function ComboBoxItem({ placeholder }) {
         </Combobox.Positioner>
       </Portal>
     </Combobox.Root>
-  )
+  );
 }
