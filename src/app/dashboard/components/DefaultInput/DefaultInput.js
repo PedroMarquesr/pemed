@@ -10,6 +10,8 @@ export default function DefaultInput({
   display,
   setData,
   maxLength,
+  onBlur,
+  value,
 }) {
   return (
     <Field.Root flex="1" pl="10" pb={"8"} pr={"10"}>
@@ -28,6 +30,8 @@ export default function DefaultInput({
         _hover={{ borderColor: "#5d8288c4" }}
         display={display}
         onChange={setData}
+        onBlur={onBlur}
+        value={value}
       />
     </Field.Root>
   );

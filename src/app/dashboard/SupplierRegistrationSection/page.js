@@ -7,6 +7,8 @@ import TitleGroupLabel from "../components/TitleGroupLabel/TitleGroupLabel";
 import ContextHeader from "../components/ContextHeader/ContextHeader";
 import DefaultInput from "../components/DefaultInput/DefaultInput";
 
+import { fetchAddressByCep } from "@/utils/fetchAddressByCep";
+
 import {
   setDoc,
   doc,
@@ -39,6 +41,7 @@ export default function SupplierRegistrationSection() {
     address: {
       postalCode: "",
       street: "",
+      neighborhood: "",
       number: "",
       complement: "",
 
@@ -49,6 +52,22 @@ export default function SupplierRegistrationSection() {
     additionalInfo: "",
     isActive: true,
   });
+
+  const handleCepBlur = async () => {
+    try {
+      const result = await fetchAddressByCep(data.address.postalCode);
+      console.log("Cep digitado:", result);
+      setData((prevData) => ({
+        ...prevData,
+        address: {
+          ...prevData.address,
+          ...result,
+        },
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const saveData = async () => {
     try {
@@ -126,32 +145,140 @@ export default function SupplierRegistrationSection() {
         </Flex>
         <TitleGroupLabel title={"Contato"} />
         <Flex>
-          <DefaultInput labelName={"E-mail *"} inputType={"mail"} />
-          <DefaultInput labelName={"Telefone *"} inputType={"number"} />
+          <DefaultInput
+            labelName={"E-mail *"}
+            inputType={"mail"}
+            setData={(e) =>
+              setData({
+                ...data,
+                email: e.target.value,
+              })
+            }
+          />
+          <DefaultInput
+            labelName={"Telefone *"}
+            inputType={"text"}
+            setData={(e) =>
+              setData({
+                ...data,
+                phone: e.target.value,
+              })
+            }
+          />
           <DefaultInput labelName={"Responsável"} />
         </Flex>
         <TitleGroupLabel title={"Endereço"} />
 
         <Flex>
-          <DefaultInput labelName={"CEP *"} inputType={"number"} />
-          <DefaultInput labelName={"Logradouro"} inputType={"number"} />
-          <DefaultInput labelName={"Número"} inputType={"number"} />
+          <DefaultInput
+            labelName={"CEP *"}
+            inputType={"number"}
+            onBlur={handleCepBlur}
+            setData={(e) =>
+              setData({
+                ...data,
+                address: {
+                  ...data.address,
+                  postalCode: e.target.value,
+                },
+              })
+            }
+          />
+          <DefaultInput
+            labelName={"Logradouro"}
+            inputType={"text"}
+            value={data.address.street}
+            setData={(e) =>
+              setData({
+                ...data,
+                address: {
+                  ...data.address,
+                  street: e.target.value,
+                },
+              })
+            }
+          />
+          <DefaultInput
+            labelName={"Número"}
+            inputType={"number"}
+            setData={(e) =>
+              setData({
+                ...data,
+                address: {
+                  ...data.address,
+                  number: e.target.value,
+                },
+              })
+            }
+          />
         </Flex>
 
         <Flex>
-          <DefaultInput labelName={"Complemento"} inputType={"text"} />
-          <DefaultInput labelName={"Bairro *"} inputType={"text"} />
-          <DefaultInput labelName={"Cidade *"} inputType={"text"} />
+          <DefaultInput
+            labelName={"Complemento"}
+            inputType={"text"}
+            value={data.address.complement}
+            setData={(e) =>
+              setData({
+                ...data,
+                address: {
+                  ...data.address,
+                  complement: e.target.value,
+                },
+              })
+            }
+          />
+          <DefaultInput
+            labelName={"Bairro *"}
+            inputType={"text"}
+            value={data.address.neighborhood}
+            setData={(e) =>
+              setData({
+                ...data,
+                address: {
+                  ...data.address,
+                  neighborhood: e.target.value,
+                },
+              })
+            }
+          />
+          <DefaultInput
+            labelName={"Cidade *"}
+            inputType={"text"}
+            value={data.address.city}
+            setData={(e) =>
+              setData({
+                ...data,
+                address: {
+                  ...data.address,
+                  city: e.target.value,
+                },
+              })
+            }
+          />
         </Flex>
 
         <Flex>
-          <DefaultInput labelName={"Estado *"} inputType={"text"} />
+          <DefaultInput
+            labelName={"Estado *"}
+            inputType={"text"}
+            value={data.address.state}
+            setData={(e) =>
+              setData({
+                ...data,
+                address: {
+                  ...data.address,
+                  state: e.target.value.toUpperCase(),
+                },
+              })
+            }
+          />
           <DefaultInput display={"none"} />
           <DefaultInput display={"none"} />
         </Flex>
         <TitleGroupLabel title={"Informações Adicionais"} />
         <Flex>
-          <DefaultInput labelName={"Estado *"} inputType={"text"} />
+          <DefaultInput labelName={"Tipo de fornecedor*"} inputType={"text"} />
           <DefaultInput
             labelName={"Obersavações"}
             inputType={"textarea"}
