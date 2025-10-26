@@ -4,7 +4,8 @@ import { use, useState, useEffect } from "react";
 
 import OverviewSection from "../OverviewSection/OverviewSection.js";
 import TagChooseControl from "@/app/dashboard/InventoryControlPage/components/TagChooseControl/TagChooseControl.js";
-import EntrySection from "../EntrySection/EntrySection.js";
+import EntrySection from "../MovingSection/EntrySection/EntrySection.js";
+import StockOutSection from "../MovingSection/StockOutSection/StockOutSection.js";
 
 export default function ChooseControl() {
   const [activeTab, setActiveTab] = useState("visaoGeral");
@@ -20,7 +21,7 @@ export default function ChooseControl() {
       case "entrada":
         return <EntrySection />;
       case "saida":
-        return <Text>Saída</Text>;
+        return <StockOutSection />;
       case "inventario":
         return <Text>Inventário</Text>;
       default:

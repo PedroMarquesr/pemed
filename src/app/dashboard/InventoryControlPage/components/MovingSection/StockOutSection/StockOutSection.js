@@ -1,12 +1,11 @@
 "use client";
-import { Flex, Text, Box } from "@chakra-ui/react";
-import InputEntry from "./components/InputEntry/InputEntry";
-import TransactionItemTitle from "../TransactionItemTitle/TransactionItemTitle";
-import { FaPlus } from "react-icons/fa6";
+import { Flex } from "@chakra-ui/react";
+import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle";
+import InputEntry from "../components/InputEntry/InputEntry";
+import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem";
+import { FaMinus } from "react-icons/fa6";
 
-import ComboBoxItem from "./components/ComboBoxItem/ComboBoxItem";
-
-export default function EntrySection() {
+export default function StockOutSection() {
   return (
     <>
       <Flex
@@ -19,10 +18,10 @@ export default function EntrySection() {
       >
         <Flex>
           <TransactionItemTitle
-            icon={<FaPlus />}
-            iconColor={"#4da071"}
-            title={"Registrar Entrada"}
-            subTitle={"Registre a entrada de item no estoque"}
+            icon={<FaMinus />}
+            iconColor={"#BD2E40"}
+            title={"Registrar Saída"}
+            subTitle={"Registre a saída de item no estoque"}
           />{" "}
         </Flex>
         <Flex alignItems={"stretch"}>

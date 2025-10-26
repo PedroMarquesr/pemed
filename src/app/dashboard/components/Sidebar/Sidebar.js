@@ -22,7 +22,7 @@ const menuItems = [
   {
     icon: AiFillMedicineBox,
     label: "Cadastro de fornecedor",
-    link: "@/src/app/dashboard/insumos/page.js",
+    link: "/dashboard/SupplierRegistrationSection",
   },
   {
     icon: AiOutlineStock,

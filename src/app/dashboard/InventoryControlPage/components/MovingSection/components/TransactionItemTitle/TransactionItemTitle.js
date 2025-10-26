@@ -1,7 +1,6 @@
 "use client";
 
 import { Flex, Text } from "@chakra-ui/react";
-import { FaPlus } from "react-icons/fa6";
 
 export default function TransactionItemTitle({
   title,
