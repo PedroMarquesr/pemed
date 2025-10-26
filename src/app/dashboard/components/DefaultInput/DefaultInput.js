@@ -19,6 +19,7 @@ export default function DefaultInput({
         {labelName}{" "}
       </Field.Label>
       <Input
+        _focus={{ border: "1px solid rgba(19,92,254,255)" }}
         placeholder={placeholder}
         w={width}
         h={height}
@@ -27,7 +28,7 @@ export default function DefaultInput({
         bg="white"
         boxShadow="md"
         border="1px solid #2b4d52ff"
-        _hover={{ borderColor: "#5d8288c4" }}
+        _hover={{ borderColor: "rgba(19,92,254,255)" }}
         display={display}
         onChange={setData}
         onBlur={onBlur}

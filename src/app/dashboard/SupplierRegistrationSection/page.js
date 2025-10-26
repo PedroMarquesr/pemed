@@ -6,6 +6,8 @@ import SectionContainer from "../components/SectionContainer/SectionContainer";
 import TitleGroupLabel from "../components/TitleGroupLabel/TitleGroupLabel";
 import ContextHeader from "../components/ContextHeader/ContextHeader";
 import DefaultInput from "../components/DefaultInput/DefaultInput";
+import DefaultCombobox from "../components/DefaultCombobox/DefaultCombobox";
+import SaveButton from "../components/SaveButton/SaveButton";
 
 import { fetchAddressByCep } from "@/utils/fetchAddressByCep";
 
@@ -48,10 +50,15 @@ export default function SupplierRegistrationSection() {
       city: "",
       state: "",
     },
-
+    suplierType: "",
     additionalInfo: "",
     isActive: true,
   });
+
+  const suppliersType = [
+    { label: "Distribuidora", value: "distribuidora" },
+    { label: "Laboratório", value: "laboratorio" },
+  ];
 
   const handleCepBlur = async () => {
     try {
@@ -278,16 +285,28 @@ export default function SupplierRegistrationSection() {
         </Flex>
         <TitleGroupLabel title={"Informações Adicionais"} />
         <Flex>
-          <DefaultInput labelName={"Tipo de fornecedor*"} inputType={"text"} />
+          <DefaultCombobox
+            list={suppliersType}
+            setData={(value) => {
+              setData({
+                ...data,
+                suplierType: value,
+              });
+            }}
+          />
           <DefaultInput
-            labelName={"Obersavações"}
+            labelName={"Observações"}
             inputType={"textarea"}
             height={"20"}
+            setData={(e) =>
+              setData({
+                ...data,
+                additionalInfo: e.target.value,
+              })
+            }
           />
         </Flex>
-        <Button onClick={() => saveData()}>
-          <Text>Salvar</Text>
-        </Button>
+        <SaveButton onclick={saveData} />
         {JSON.stringify(data)}
       </SectionContainer>
     </>

@@ -1,61 +1,34 @@
 "use client";
 
-import { collection as firestoreCollection, getDocs } from "firebase/firestore";
-
-import { db } from "@/components/libs/firebaseInit";
-import { useState, useEffect } from "react";
 import {
-  Box,
   Combobox,
   Portal,
   useFilter,
   useListCollection,
+  Box,
 } from "@chakra-ui/react";
 
-export default function ComboBoxItem({ placeholder }) {
+export default function DefaultCombobox({ list, setData }) {
   const { contains } = useFilter({ sensitivity: "base" });
 
-  const { collection, filter, set } = useListCollection({
-    initialItems: [],
-    itemToString: (item) => item.label,
-    itemToValue: (item) => item.value,
+  const { collection, filter } = useListCollection({
+    initialItems: list,
     filter: contains,
   });
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const querySnapshot = await getDocs(
-          firestoreCollection(db, "inventoryItems")
-        );
-        const data = querySnapshot.docs.map((doc) => {
-          const d = doc.data();
-          return {
-            id: doc.id,
-            label: d.displayName,
-            value: d.id,
-            ...d,
-          };
-        });
-        set(data);
-      } catch (error) {
-        console.error("Erro ao buscar itens do Firestore:", error);
-      }
-    };
-
-    fetchItems();
-  }, [set]);
 
   return (
     <Combobox.Root
       collection={collection}
       onInputValueChange={(e) => filter(e.inputValue)}
+      onValueChange={(details) => setData(details.value)}
       width="100%"
       flex="1"
       p="10"
     >
       <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
-        Insira o item:
+        Tipo de fornecedor:
       </Combobox.Label>
+
       <Combobox.Control
         display="flex"
         alignItems="center"
@@ -63,12 +36,12 @@ export default function ComboBoxItem({ placeholder }) {
         border="1px solid #2b4d52ff"
         boxShadow="md"
       >
-        <Box width={"100%"}>
+        <Box width="100%">
           <Combobox.Input
             width="90%"
-            placeholder={placeholder}
+            placeholder={"Selecione"}
             bg="white"
-            border={"none"}
+            border="none"
           />
         </Box>
         <Box>
@@ -78,13 +51,13 @@ export default function ComboBoxItem({ placeholder }) {
           </Combobox.IndicatorGroup>
         </Box>
       </Combobox.Control>
-      <Portal p={"80%"}>
+
+      <Portal>
         <Combobox.Positioner>
           <Combobox.Content>
-            <Combobox.Empty>Item não encontrado</Combobox.Empty>
-
+            <Combobox.Empty>Nenhum item encontrado</Combobox.Empty>
             {collection.items.map((item) => (
-              <Combobox.Item item={item} key={item.id}>
+              <Combobox.Item item={item} key={item.value}>
                 {item.label}
                 <Combobox.ItemIndicator />
               </Combobox.Item>
