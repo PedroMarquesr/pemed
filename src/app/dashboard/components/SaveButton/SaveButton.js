@@ -3,17 +3,23 @@
 import {
   Flex,
   Text,
-  Box,
   Button,
+  Badge,
   CloseButton,
   Dialog,
   Portal,
+  Clipboard,
+  IconButton,
 } from "@chakra-ui/react"
 import { useState } from "react"
 
-export default function SaveButton({ onclick, onReset }) {
-  const [isOpen, setIsOpen] = useState(false)
-
+export default function SaveButton({
+  onclick,
+  id,
+  isRequired,
+  children,
+  ...props
+}) {
   return (
     <Flex textAlign={"center"} justifyContent={"center"}>
       <Dialog.Root>
@@ -32,11 +38,9 @@ export default function SaveButton({ onclick, onReset }) {
             _hover={{
               color: "white",
               bg: "rgba(19,92,254,255)",
-              // transform: "translateY(-3px)",
-              // transition: "transform 0.2s ease",
             }}
           >
-            Confirmar{" "}
+            Confirmar
           </Button>
         </Dialog.Trigger>
         <Portal>
@@ -44,11 +48,27 @@ export default function SaveButton({ onclick, onReset }) {
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header>
-                <Dialog.Title>Confirmar</Dialog.Title>
+                <Dialog.Title>
+                  Confira os dados cadastrados
+                  <Flex alignItems={"center"}>
+                    <Text pr={2}>Código: </Text>
+                    <Text fontSize={"xl"}>
+                      {" "}
+                      <Badge size="lg" colorPalette="green">
+                        {id}
+                      </Badge>{" "}
+                    </Text>
+                    <Clipboard.Root value={id}>
+                      <Clipboard.Trigger asChild>
+                        <IconButton variant="surface" size="md" ml={3}>
+                          <Clipboard.Indicator />
+                        </IconButton>
+                      </Clipboard.Trigger>
+                    </Clipboard.Root>
+                  </Flex>
+                </Dialog.Title>
               </Dialog.Header>
-              <Dialog.Body>
-                <p>Confira os dados cadastrados.</p>
-              </Dialog.Body>
+              <Dialog.Body>{children}</Dialog.Body>
               <Dialog.Footer>
                 <Dialog.ActionTrigger asChild>
                   <Button
@@ -64,8 +84,6 @@ export default function SaveButton({ onclick, onReset }) {
                     _hover={{
                       color: "white",
                       bg: "red.800",
-                      // transform: "translateY(-3px)",
-                      // transition: "transform 0.2s ease",
                     }}
                   >
                     Cancelar
@@ -81,16 +99,15 @@ export default function SaveButton({ onclick, onReset }) {
                   fontSize={"md"}
                   boxShadow={"md"}
                   onClick={onclick}
+                  disabled={isRequired}
                   color={"white"}
                   _hover={{
                     color: "white",
                     bg: "rgba(19,92,254,255)",
-                    // transform: "translateY(-3px)",
-                    // transition: "transform 0.2s ease",
                   }}
                 >
-                  Salvar{" "}
-                </Button>{" "}
+                  Salvar
+                </Button>
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />
