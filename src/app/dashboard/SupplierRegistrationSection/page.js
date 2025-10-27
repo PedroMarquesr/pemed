@@ -1,15 +1,23 @@
-"use client";
-import { Flex, Text, Box, Button } from "@chakra-ui/react";
+"use client"
+import {
+  Flex,
+  Text,
+  Box,
+  Button,
+  CloseButton,
+  Dialog,
+  Portal,
+} from "@chakra-ui/react"
 
-import PageHeader from "../components/PageHeader/PageHeader";
-import SectionContainer from "../components/SectionContainer/SectionContainer";
-import TitleGroupLabel from "../components/TitleGroupLabel/TitleGroupLabel";
-import ContextHeader from "../components/ContextHeader/ContextHeader";
-import DefaultInput from "../components/DefaultInput/DefaultInput";
-import DefaultCombobox from "../components/DefaultCombobox/DefaultCombobox";
-import SaveButton from "../components/SaveButton/SaveButton";
+import PageHeader from "../components/PageHeader/PageHeader"
+import SectionContainer from "../components/SectionContainer/SectionContainer"
+import TitleGroupLabel from "../components/TitleGroupLabel/TitleGroupLabel"
+import ContextHeader from "../components/ContextHeader/ContextHeader"
+import DefaultInput from "../components/DefaultInput/DefaultInput"
+import DefaultCombobox from "../components/DefaultCombobox/DefaultCombobox"
+import SaveButton from "../components/SaveButton/SaveButton"
 
-import { fetchAddressByCep } from "@/utils/fetchAddressByCep";
+import { fetchAddressByCep } from "@/utils/fetchAddressByCep"
 
 import {
   setDoc,
@@ -19,14 +27,14 @@ import {
   getCountFromServer,
   getDoc,
   getDocs,
-} from "firebase/firestore";
-import { db } from "@/components/libs/firebaseInit";
+} from "firebase/firestore"
+import { db } from "@/components/libs/firebaseInit"
 
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 
-import { IoPersonAddOutline } from "react-icons/io5";
+import { IoPersonAddOutline } from "react-icons/io5"
 
 export default function SupplierRegistrationSection() {
   const [data, setData] = useState({
@@ -53,45 +61,70 @@ export default function SupplierRegistrationSection() {
     suplierType: "",
     additionalInfo: "",
     isActive: true,
-  });
+  })
+  const [count, setCount] = useState(0)
 
   const suppliersType = [
     { label: "Distribuidora", value: "distribuidora" },
     { label: "Laboratório", value: "laboratorio" },
-  ];
+  ]
 
   const handleCepBlur = async () => {
     try {
-      const result = await fetchAddressByCep(data.address.postalCode);
-      console.log("Cep digitado:", result);
+      const result = await fetchAddressByCep(data.address.postalCode)
+      console.log("Cep digitado:", result)
       setData((prevData) => ({
         ...prevData,
         address: {
           ...prevData.address,
           ...result,
         },
-      }));
+      }))
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const coll = collection(db, "suppliers")
+        const snapshot = await getCountFromServer(coll)
+
+        const count = snapshot.data().count
+        const newId = "FORN-" + (count + 1).toString().padStart(4, "0")
+
+        setCount(count)
+        console.log(snapshot.data().count)
+
+        setData((prev) => ({
+          ...prev,
+          idSupplierForUser: newId,
+        }))
+      } catch (error) {
+        console.log("Erro ao buscar contagem de fornecedores:", error)
+      }
+    }
+    fetchItems()
+  }, [])
 
   const saveData = async () => {
     try {
-      const docId = uuidv4();
+      const docId = uuidv4()
       await setDoc(doc(db, "suppliers", docId), {
         ...data,
         id: docId,
         createdAt: serverTimestamp(),
-      });
+      })
       alert(
-        `Fornecedor ${data.legalName || "sem nome"} cadastrado com sucesso!`
-      );
+        `Fornecedor ${
+          data.legalName || "sem nome"
+        } cadastrado com sucesso! - Cod: ${data.idSupplierForUser}`
+      )
     } catch (error) {
-      console.error("Erro ao salvar fornecedor:", error);
-      alert("Erro ao salvar fornecedor. Tente novamente.");
+      console.error("Erro ao salvar fornecedor:", error)
+      alert("Erro ao salvar fornecedor. Tente novamente.")
     }
-  };
+  }
 
   return (
     <>
@@ -291,7 +324,7 @@ export default function SupplierRegistrationSection() {
               setData({
                 ...data,
                 suplierType: value,
-              });
+              })
             }}
           />
           <DefaultInput
@@ -307,8 +340,9 @@ export default function SupplierRegistrationSection() {
           />
         </Flex>
         <SaveButton onclick={saveData} />
+
         {JSON.stringify(data)}
       </SectionContainer>
     </>
-  );
+  )
 }
