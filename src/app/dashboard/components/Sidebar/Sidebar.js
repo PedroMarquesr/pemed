@@ -1,12 +1,12 @@
-"use client";
-import { Box, Flex, Text, Icon } from "@chakra-ui/react";
-import { FaPills, FaPhone } from "react-icons/fa";
-import { AiFillMedicineBox, AiOutlineStock } from "react-icons/ai";
-import { IoPersonAddSharp, IoLogOutSharp } from "react-icons/io5";
-import { MdPointOfSale } from "react-icons/md";
-import { GiBuyCard } from "react-icons/gi";
-import { useEffect, useState } from "react";
-import { useAuthCheck } from "@/hooks/useAuthCheck";
+"use client"
+import { Box, Flex, Text, Icon } from "@chakra-ui/react"
+import { FaPills, FaPhone } from "react-icons/fa"
+import { AiFillMedicineBox, AiOutlineStock } from "react-icons/ai"
+import { IoPersonAddSharp, IoLogOutSharp } from "react-icons/io5"
+import { MdPointOfSale } from "react-icons/md"
+import { GiBuyCard } from "react-icons/gi"
+import { useEffect, useState } from "react"
+import { useAuthCheck } from "@/hooks/useAuthCheck"
 
 const menuItems = [
   {
@@ -17,7 +17,7 @@ const menuItems = [
   {
     icon: IoPersonAddSharp,
     label: "Cadastro de cliente",
-    link: "@/src/app/dashboard/medicamentos",
+    link: "/dashboard/ClientRegistrationSection",
   },
   {
     icon: AiFillMedicineBox,
@@ -49,10 +49,10 @@ const menuItems = [
     label: "Sair",
     link: "/",
   },
-];
+]
 
 export default function Sidebar() {
-  useAuthCheck();
+  useAuthCheck()
   return (
     <Box
       as="nav"
@@ -82,5 +82,5 @@ export default function Sidebar() {
         </Flex>
       ))}
     </Box>
-  );
+  )
 }
