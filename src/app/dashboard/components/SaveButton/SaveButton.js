@@ -21,7 +21,7 @@ export default function SaveButton({
   ...props
 }) {
   return (
-    <Flex textAlign={"center"} justifyContent={"center"}>
+    <Flex textAlign={"center"} justifyContent={"center"} mb={9}>
       <Dialog.Root>
         <Dialog.Trigger asChild>
           <Button

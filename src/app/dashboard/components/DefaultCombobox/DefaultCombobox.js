@@ -8,13 +8,13 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-export default function DefaultCombobox({ list, setData }) {
-  const { contains } = useFilter({ sensitivity: "base" });
+export default function DefaultCombobox({ list, setData, comboboxLabel }) {
+  const { contains } = useFilter({ sensitivity: "base" })
 
   const { collection, filter } = useListCollection({
     initialItems: list,
     filter: contains,
-  });
+  })
 
   return (
     <Combobox.Root
@@ -26,7 +26,7 @@ export default function DefaultCombobox({ list, setData }) {
       p="10"
     >
       <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
-        Tipo de fornecedor:
+        {comboboxLabel}
       </Combobox.Label>
 
       <Combobox.Control
@@ -66,5 +66,5 @@ export default function DefaultCombobox({ list, setData }) {
         </Combobox.Positioner>
       </Portal>
     </Combobox.Root>
-  );
+  )
 }

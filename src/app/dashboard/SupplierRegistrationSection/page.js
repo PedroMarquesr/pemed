@@ -328,6 +328,7 @@ export default function SupplierRegistrationSection({ checkInputRequired }) {
         <TitleGroupLabel title={"Informações Adicionais"} />
         <Flex>
           <DefaultCombobox
+            comboboxLabel={"Tipo de fornecedor *"}
             list={suppliersType}
             setData={(value) => {
               setData({
