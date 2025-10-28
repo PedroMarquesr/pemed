@@ -1,7 +1,10 @@
 "use client"
 
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
+import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch"
+import { collection as firestoreCollection, getDocs } from "firebase/firestore"
+import { db } from "@/components/libs/firebaseInit"
 
 import {
   Box,
@@ -297,9 +300,9 @@ export default function MedModal1({ data, setData }) {
             <FaPlus />
           </Button>
         </Flex>
-
-        <Box p={4}>
-          <Field.Root>
+        <ComboboxForFetch collectionName="suppliers" labelForList="tradeName" />
+        {/* <Box p={4}> */}
+        {/* <Field.Root>
             <Field.Label
               fontSize="sm"
               fontWeight="bold"
@@ -307,8 +310,9 @@ export default function MedModal1({ data, setData }) {
               mb={2}
             >
               Fabricante:
-            </Field.Label>
-            <Input
+            </Field.Label> */}
+
+        {/* <Input
               value={data.manufacturer}
               onChange={(e) =>
                 setData({ ...data, manufacturer: e.target.value.toUpperCase() })
@@ -325,9 +329,9 @@ export default function MedModal1({ data, setData }) {
                 borderColor: "#5d8288c4",
               }}
               placeholder="Digite o nome do fabricante"
-            />
-          </Field.Root>
-        </Box>
+            /> */}
+        {/* </Field.Root> */}
+        {/* </Box> */}
       </Box>
 
       <Flex
