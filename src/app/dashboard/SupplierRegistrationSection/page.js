@@ -1,5 +1,14 @@
 "use client";
-import { Flex, Text, Box, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Box,
+  Button,
+  CloseButton,
+  Dialog,
+  Portal,
+  Separator,
+} from "@chakra-ui/react";
 
 import PageHeader from "../components/PageHeader/PageHeader";
 import SectionContainer from "../components/SectionContainer/SectionContainer";
@@ -8,6 +17,7 @@ import ContextHeader from "../components/ContextHeader/ContextHeader";
 import DefaultInput from "../components/DefaultInput/DefaultInput";
 import DefaultCombobox from "../components/DefaultCombobox/DefaultCombobox";
 import SaveButton from "../components/SaveButton/SaveButton";
+import DetailText from "./components/DetailText/DetailText";
 
 import { fetchAddressByCep } from "@/utils/fetchAddressByCep";
 
@@ -28,7 +38,7 @@ import { useState, useEffect } from "react";
 
 import { IoPersonAddOutline } from "react-icons/io5";
 
-export default function SupplierRegistrationSection() {
+export default function SupplierRegistrationSection({ checkInputRequired }) {
   const [data, setData] = useState({
     idSupplierForUser: "",
     legalName: "", //Nome/Razão Social
@@ -55,6 +65,8 @@ export default function SupplierRegistrationSection() {
     isActive: true,
   });
 
+  const [count, setCount] = useState(0);
+
   const suppliersType = [
     { label: "Distribuidora", value: "distribuidora" },
     { label: "Laboratório", value: "laboratorio" },
@@ -75,6 +87,28 @@ export default function SupplierRegistrationSection() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const coll = collection(db, "suppliers");
+        const snapshot = await getCountFromServer(coll);
+
+        const count = snapshot.data().count;
+        const newId = "FORN-" + (count + 1).toString().padStart(4, "0");
+
+        setCount(count);
+        console.log(snapshot.data().count);
+
+        setData((prev) => ({
+          ...prev,
+          idSupplierForUser: newId,
+        }));
+      } catch (error) {
+        console.log("Erro ao buscar contagem de fornecedores:", error);
+      }
+    };
+    fetchItems();
+  }, []);
 
   const saveData = async () => {
     try {
@@ -85,8 +119,11 @@ export default function SupplierRegistrationSection() {
         createdAt: serverTimestamp(),
       });
       alert(
-        `Fornecedor ${data.legalName || "sem nome"} cadastrado com sucesso!`
+        `Fornecedor ${
+          data.legalName || "sem nome"
+        } cadastrado com sucesso! - Cod: ${data.idSupplierForUser}`
       );
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao salvar fornecedor:", error);
       alert("Erro ao salvar fornecedor. Tente novamente.");
@@ -172,7 +209,12 @@ export default function SupplierRegistrationSection() {
               })
             }
           />
-          <DefaultInput labelName={"Responsável"} />
+          <DefaultInput
+            labelName={"Responsável"}
+            setData={(e) =>
+              setData({ ...data, contactPerson: e.target.value.toUpperCase() })
+            }
+          />
         </Flex>
         <TitleGroupLabel title={"Endereço"} />
 
@@ -306,7 +348,64 @@ export default function SupplierRegistrationSection() {
             }
           />
         </Flex>
-        <SaveButton onclick={saveData} />
+        <SaveButton
+          onclick={saveData}
+          id={data.idSupplierForUser}
+          isRequired={
+            !data.legalName ||
+            !data.cnpj ||
+            !data.stateResgistration ||
+            !data.email ||
+            !data.phone ||
+            !data.contactPerson ||
+            !data.address.postalCode ||
+            !data.address.state ||
+            !data.address.city ||
+            !data.address.neighborhood ||
+            !data.address.number ||
+            !data.address.street ||
+            !data.suplierType
+          }
+        >
+          <DetailText title={"Razão Social:"} detailText={data.legalName} />
+          <DetailText title={"CNPJ:"} detailText={data.cnpj} />
+          <DetailText
+            title={"Inscrição estadual:"}
+            detailText={data.stateResgistration}
+            isRequired
+          />
+          <Separator mb={4} />
+          <DetailText title={"E-mail:"} detailText={data.email} />
+          <DetailText title={"Telefone:"} detailText={data.phone} />
+          <DetailText title={"Responsável:"} detailText={data.contactPerson} />
+          <Separator mb={4} />
+          <DetailText title={"CEP:"} detailText={data.address.postalCode} />
+          <DetailText title={"Logradouro:"} detailText={data.address.street} />
+          <DetailText title={"Número:"} detailText={data.address.number} />
+          <DetailText
+            title={"Complemento:"}
+            detailText={data.address.complement}
+            optionalField
+          />
+          <DetailText
+            title={"Bairro:"}
+            detailText={data.address.neighborhood}
+          />
+          <DetailText title={"Cidade:"} detailText={data.address.city} />
+          <DetailText title={"Estado:"} detailText={data.address.state} />
+          <Separator mb={4} />
+
+          <DetailText
+            title={"Tipo de fornecedor:"}
+            detailText={data.suplierType}
+          />
+          <DetailText
+            title={"Observações:"}
+            detailText={data.additionalInfo}
+            optionalField
+          />
+        </SaveButton>
+
         {JSON.stringify(data)}
       </SectionContainer>
     </>

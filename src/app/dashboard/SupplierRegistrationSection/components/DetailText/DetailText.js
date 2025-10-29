@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Flex, Text } from "@chakra-ui/react"
+import { Flex, Text } from "@chakra-ui/react";
 
 export default function DetailText({
   title,
@@ -33,5 +33,5 @@ export default function DetailText({
           : detailText}
       </Text>
     </Flex>
-  )
+  );
 }
