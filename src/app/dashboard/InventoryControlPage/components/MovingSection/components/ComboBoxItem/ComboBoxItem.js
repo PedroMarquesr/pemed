@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react"
 
 export default function ComboBoxItem({ placeholder, onSelect }) {
-  
   const { contains } = useFilter({ sensitivity: "base" })
   const { collection, filter, set } = useListCollection({
     initialItems: [],

@@ -27,7 +27,7 @@ export default function EntrySection() {
       return // Para a execução
     }
     // 2 - Validação de campos obrigatórios
-    if (!entryData.bratch || !entryData.quantity || !entryData.unitCost) {
+    if (!entryData.batch || !entryData.quantity || !entryData.unitCost) {
       alert("Lote, quantidade e custo unitário são obrigatoirios.")
       return
     }
@@ -153,6 +153,13 @@ export default function EntrySection() {
           {selectedItem.name ||
             selectedItem.label ||
             JSON.stringify(selectedItem)}
+        </Text>
+      )}
+
+      {entryData.batch && (
+        <Text mt={2} p={2} bg="gray.50" borderRadius="md">
+          {" "}
+          {entryData.batch}{" "}
         </Text>
       )}
     </Flex>
