@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import React, { useEffect } from "react"
-import { useState } from "react"
-import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch"
-import { collection as firestoreCollection, getDocs } from "firebase/firestore"
-import { db } from "@/components/libs/firebaseInit"
+import React, { useEffect } from "react";
+import { useState } from "react";
+import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch";
+import { collection as firestoreCollection, getDocs } from "firebase/firestore";
+import { db } from "@/components/libs/firebaseInit";
 
 import {
   Box,
@@ -16,8 +16,8 @@ import {
   Field,
   NativeSelect,
   Switch,
-} from "@chakra-ui/react"
-import { FaPlus } from "react-icons/fa"
+} from "@chakra-ui/react";
+import { FaPlus } from "react-icons/fa";
 
 export default function MedModal1({ data, setData }) {
   const addInputForNewActiveIngredient = () => {
@@ -27,10 +27,10 @@ export default function MedModal1({ data, setData }) {
         ...data.activeIngredients,
         { ingredient: "", concentration: "" },
       ],
-    })
-  }
+    });
+  };
 
-  let codItem = "MED12345"
+  let codItem = "MED12345";
 
   return (
     <Flex w={"100%"}>
@@ -82,7 +82,6 @@ export default function MedModal1({ data, setData }) {
             </NativeSelect.Root>
           </Field.Root>
         </Box>
-
         {data.regulatoryCategory === "novo" ||
         data.regulatoryCategory === "similar" ||
         data.regulatoryCategory === "biologico" ||
@@ -212,9 +211,9 @@ export default function MedModal1({ data, setData }) {
                 <Input
                   value={item.ingredient}
                   onChange={(e) => {
-                    const updated = [...data.activeIngredients]
-                    updated[index].ingredient = e.target.value.toUpperCase()
-                    setData({ ...data, activeIngredients: updated })
+                    const updated = [...data.activeIngredients];
+                    updated[index].ingredient = e.target.value.toUpperCase();
+                    setData({ ...data, activeIngredients: updated });
                   }}
                   placeholder="Digite o princípio ativo"
                   width="100%"
@@ -242,9 +241,9 @@ export default function MedModal1({ data, setData }) {
                 <Input
                   value={item.concentration}
                   onChange={(e) => {
-                    const updated = [...data.activeIngredients]
-                    updated[index].concentration = e.target.value.toUpperCase()
-                    setData({ ...data, activeIngredients: updated })
+                    const updated = [...data.activeIngredients];
+                    updated[index].concentration = e.target.value.toUpperCase();
+                    setData({ ...data, activeIngredients: updated });
                   }}
                   placeholder="Ex: 500mg, 5%, 100UI/ml"
                   width="100%"
@@ -268,8 +267,8 @@ export default function MedModal1({ data, setData }) {
                 onClick={() => {
                   const updated = data.activeIngredients.filter(
                     (_, i) => i !== index
-                  )
-                  setData({ ...data, activeIngredients: updated })
+                  );
+                  setData({ ...data, activeIngredients: updated });
                 }}
                 _hover={{
                   opacity: "100%",
@@ -300,7 +299,14 @@ export default function MedModal1({ data, setData }) {
             <FaPlus />
           </Button>
         </Flex>
-        <ComboboxForFetch collectionName="suppliers" labelForList="tradeName" />
+        <ComboboxForFetch
+          collectionName="suppliers"
+          labelForList="tradeName"
+          placeholder="Selecione o fabricante"
+          onSelectItem={(item) => {
+            setData({ ...data, manufacturer: item.label });
+          }}
+        />
         {/* <Box p={4}> */}
         {/* <Field.Root>
             <Field.Label
@@ -311,7 +317,6 @@ export default function MedModal1({ data, setData }) {
             >
               Fabricante:
             </Field.Label> */}
-
         {/* <Input
               value={data.manufacturer}
               onChange={(e) =>
@@ -356,5 +361,5 @@ export default function MedModal1({ data, setData }) {
         </Text>
       </Flex>
     </Flex>
-  )
+  );
 }

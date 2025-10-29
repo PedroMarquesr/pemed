@@ -28,7 +28,7 @@ export default function DefaultInput({
         bg="white"
         boxShadow="md"
         border="1px solid #2b4d52ff"
-        _hover={{ borderColor: "rgba(19,92,254,255)" }}
+        _hover={{ borderColor: "#5d8288c4" }}
         display={display}
         onChange={setData}
         onBlur={onBlur}

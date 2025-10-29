@@ -1,54 +1,54 @@
-"use client"
+"use client";
 
-import { collection as firestoreCollection, getDocs } from "firebase/firestore"
-
-import { db } from "@/components/libs/firebaseInit"
-import { useState, useEffect } from "react"
+import { collection as firestoreCollection, getDocs } from "firebase/firestore";
+import { db } from "@/components/libs/firebaseInit";
+import { useEffect } from "react";
 import {
   Box,
   Combobox,
   Portal,
   useFilter,
   useListCollection,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
-export default function ComboBoxItem({
+export default function ComboBoxForFetch({
   placeholder,
   collectionName,
   labelForList,
+  onSelectItem, // opcional
 }) {
-  const { contains } = useFilter({ sensitivity: "base" })
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const { collection, filter, set } = useListCollection({
     initialItems: [],
     itemToString: (item) => item.label,
     itemToValue: (item) => item.value,
     filter: contains,
-  })
+  });
+
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const querySnapshot = await getDocs(
           firestoreCollection(db, collectionName)
-        )
-
+        );
         const data = querySnapshot.docs.map((doc) => {
-          const d = doc.data()
+          const d = doc.data();
           return {
             id: doc.id,
             label: d[labelForList],
-            value: d.id,
+            value: doc.id,
             ...d,
-          }
-        })
-        set(data)
+          };
+        });
+        set(data);
       } catch (error) {
-        console.error("Erro ao buscar itens do Firestore:", error)
+        console.error("Erro ao buscar itens do Firestore:", error);
       }
-    }
+    };
 
-    fetchItems()
-  }, [set])
+    fetchItems();
+  }, [collectionName, labelForList, set]);
 
   return (
     <Combobox.Root
@@ -83,13 +83,17 @@ export default function ComboBoxItem({
           </Combobox.IndicatorGroup>
         </Box>
       </Combobox.Control>
-      <Portal p={"80%"}>
+      <Portal>
         <Combobox.Positioner>
           <Combobox.Content>
             <Combobox.Empty>Item não encontrado</Combobox.Empty>
 
             {collection.items.map((item) => (
-              <Combobox.Item item={item} key={item.id}>
+              <Combobox.Item
+                item={item}
+                key={item.id}
+                onClick={() => onSelectItem && onSelectItem(item)} // 👈 aqui a mágica
+              >
                 {item.label}
                 <Combobox.ItemIndicator />
               </Combobox.Item>
@@ -98,5 +102,5 @@ export default function ComboBoxItem({
         </Combobox.Positioner>
       </Portal>
     </Combobox.Root>
-  )
+  );
 }
