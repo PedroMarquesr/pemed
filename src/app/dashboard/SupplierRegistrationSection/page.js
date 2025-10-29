@@ -41,6 +41,9 @@ import { IoPersonAddOutline } from "react-icons/io5";
 export default function SupplierRegistrationSection({ checkInputRequired }) {
   const [data, setData] = useState({
     idSupplierForUser: "",
+
+    displayName: "",
+
     legalName: "", //Nome/Razão Social
     tradeName: "", // Nome Fantasia
     cnpj: "",
