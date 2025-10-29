@@ -64,6 +64,16 @@ export default function Registration() {
     isThermolabile: false,
     temperatureRange: "",
     isControlledSubstance: false,
+
+    batches: [
+      {
+        batchNumber: "",
+        expirationDate: "",
+        quantity: 0,
+        purchasePrice: 0,
+        purchaseDate: "",
+      },
+    ],
   })
 
   useEffect(() => {

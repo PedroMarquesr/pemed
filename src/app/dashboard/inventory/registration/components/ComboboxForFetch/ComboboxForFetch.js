@@ -1,54 +1,55 @@
-"use client";
+"use client"
 
-import { collection as firestoreCollection, getDocs } from "firebase/firestore";
-import { db } from "@/components/libs/firebaseInit";
-import { useEffect } from "react";
+import { collection as firestoreCollection, getDocs } from "firebase/firestore"
+import { db } from "@/components/libs/firebaseInit"
+import { useEffect } from "react"
 import {
   Box,
   Combobox,
   Portal,
   useFilter,
   useListCollection,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
 export default function ComboBoxForFetch({
   placeholder,
   collectionName,
   labelForList,
-  onSelectItem, // opcional
+  onSelectItem,
+  labelName,
 }) {
-  const { contains } = useFilter({ sensitivity: "base" });
+  const { contains } = useFilter({ sensitivity: "base" })
 
   const { collection, filter, set } = useListCollection({
     initialItems: [],
     itemToString: (item) => item.label,
     itemToValue: (item) => item.value,
     filter: contains,
-  });
+  })
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const querySnapshot = await getDocs(
           firestoreCollection(db, collectionName)
-        );
+        )
         const data = querySnapshot.docs.map((doc) => {
-          const d = doc.data();
+          const d = doc.data()
           return {
             id: doc.id,
             label: d[labelForList],
             value: doc.id,
             ...d,
-          };
-        });
-        set(data);
+          }
+        })
+        set(data)
       } catch (error) {
-        console.error("Erro ao buscar itens do Firestore:", error);
+        console.error("Erro ao buscar itens do Firestore:", error)
       }
-    };
+    }
 
-    fetchItems();
-  }, [collectionName, labelForList, set]);
+    fetchItems()
+  }, [collectionName, labelForList, set])
 
   return (
     <Combobox.Root
@@ -59,7 +60,7 @@ export default function ComboBoxForFetch({
       p="10"
     >
       <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
-        Insira o item:
+        {labelName}
       </Combobox.Label>
       <Combobox.Control
         display="flex"
@@ -102,5 +103,5 @@ export default function ComboBoxForFetch({
         </Combobox.Positioner>
       </Portal>
     </Combobox.Root>
-  );
+  )
 }

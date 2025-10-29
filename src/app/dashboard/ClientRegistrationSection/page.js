@@ -37,11 +37,12 @@ export default function ClientRegistrationSection() {
     legalName: "", //Nome/Razão Social
     tradeName: "", // Nome Fantasia
     cnpj: "",
-
-    email: "",
-    phone: "",
-    contactPerson: "",
-
+    contact: {
+      department: "",
+      email: "",
+      phone: "",
+      contactPerson: "",
+    },
     address: {
       postalCode: "",
       street: "",
@@ -172,24 +173,38 @@ export default function ClientRegistrationSection() {
             setData={(e) =>
               setData({
                 ...data,
-                email: e.target.value,
+                contact: {
+                  ...data.contact,
+                  email: e.target.value,
+                },
               })
             }
           />
+
           <DefaultInput
             labelName={"Telefone *"}
             inputType={"text"}
             setData={(e) =>
               setData({
                 ...data,
-                phone: e.target.value,
+                contact: {
+                  ...data.contact,
+                  phone: e.target.value,
+                },
               })
             }
           />
+
           <DefaultInput
             labelName={"Responsável"}
             setData={(e) =>
-              setData({ ...data, contactPerson: e.target.value.toUpperCase() })
+              setData({
+                ...data,
+                contact: {
+                  ...data.contact,
+                  contactPerson: e.target.value.toUpperCase(),
+                },
+              })
             }
           />
         </Flex>
