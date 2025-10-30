@@ -1,13 +1,17 @@
 "use client"
 import { Flex, Text, Box } from "@chakra-ui/react"
-import { useState } from "react"
+
 import InputEntry from "../components/InputEntry/InputEntry"
 import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle"
 import UpdateButton from "../components/UpdateButton/UpdateButton"
-import { FaPlus } from "react-icons/fa6"
 import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem"
+
+import { FaPlus } from "react-icons/fa6"
+
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "@/components/libs/firebaseInit"
+
+import { useState } from "react"
 
 export default function EntrySection() {
   const [selectedItem, setSelectedItem] = useState(null)
@@ -76,6 +80,7 @@ export default function EntrySection() {
         invoiceNumber: "",
       })
       setSelectedItem(null)
+      window.location.reload()
 
       alert("Entrada registrada com sucesso!")
     } catch (error) {
@@ -105,7 +110,7 @@ export default function EntrySection() {
         <Flex flexDirection={"column"} flex={"1"}>
           <ComboBoxItem
             placeholder="Selecione o item"
-            onSelect={handleSelectItem} // ✅ Usa a função com debug
+            onSelect={handleSelectItem}
           />
           <InputEntry
             labelName={"Lote"}
