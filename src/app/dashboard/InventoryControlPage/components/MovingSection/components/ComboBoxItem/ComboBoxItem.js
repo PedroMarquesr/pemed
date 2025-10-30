@@ -1,7 +1,5 @@
 "use client"
-
 import { collection as firestoreCollection, getDocs } from "firebase/firestore"
-
 import { db } from "@/components/libs/firebaseInit"
 import { useState, useEffect } from "react"
 import {
@@ -40,11 +38,40 @@ export default function ComboBoxItem({ placeholder, onSelect }) {
     fetchItems()
   }, [set])
 
+  // ✅ CORREÇÃO: Lida com a estrutura complexa do Chakra UI
+  const handleValueChange = (selectedValue) => {
+    console.log("🎯 Valor selecionado (RAW):", selectedValue)
+
+    if (selectedValue && onSelect) {
+      // O Chakra UI passa um objeto complexo, precisamos extrair o valor
+      const selectedValueArray = selectedValue.value // Isso é um array
+      console.log("🎯 Array de valores:", selectedValueArray)
+
+      if (selectedValueArray && selectedValueArray.length > 0) {
+        const actualValue = selectedValueArray[0] // Pega o primeiro item do array
+        console.log("🎯 Valor real:", actualValue)
+
+        // Encontra o item COMPLETO na collection
+        const selectedItem = collection.items.find(
+          (item) => item.value === actualValue
+        )
+        console.log("🎯 Item completo encontrado:", selectedItem)
+
+        if (selectedItem) {
+          onSelect(selectedItem) // ✅ Passa o objeto completo
+        } else {
+          console.error("❌ Item não encontrado para o valor:", actualValue)
+          console.log("❌ Itens disponíveis:", collection.items)
+        }
+      }
+    }
+  }
+
   return (
     <Combobox.Root
       collection={collection}
       onInputValueChange={(e) => filter(e.inputValue)}
-      onValueChange={(value) => onSelect && onSelect(value)}
+      onValueChange={handleValueChange} // ✅ Usa a função corrigida
       width="100%"
       flex="1"
       p="10"

@@ -1,16 +1,16 @@
 "use client"
-import { Flex, Text } from "@chakra-ui/react"
+import { Flex, Text, Box } from "@chakra-ui/react"
 import { useState } from "react"
 import InputEntry from "../components/InputEntry/InputEntry"
 import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle"
-import SaveButton from "@/app/dashboard/components/SaveButton/SaveButton"
+import UpdateButton from "../components/UpdateButton/UpdateButton"
 import { FaPlus } from "react-icons/fa6"
 import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem"
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "@/components/libs/firebaseInit"
 
 export default function EntrySection() {
-  const [selectedItem, setSelectedItem] = useState(null) // item selecionado
+  const [selectedItem, setSelectedItem] = useState(null)
   const [entryData, setEntryData] = useState({
     batch: "",
     supplier: "",
@@ -19,40 +19,54 @@ export default function EntrySection() {
     expirationDate: "",
     invoiceNumber: "",
   })
+  const handleSelectItem = (item) => {
+    console.log("🎯 Item recebido do ComboBox:", item)
+    console.log("🎯 ID do item:", item?.id)
+    console.log("🎯 Label do item:", item?.label)
+    setSelectedItem(item)
+  }
 
   const handleSave = async () => {
-    // 1 - Validação inicial - Verifica se há item selecionado.
+    console.log("🔍 DEBUG - selectedItem:", selectedItem)
+    console.log("🔍 DEBUG - entryData:", entryData)
+
+    // 1 - Validação inicial
     if (!selectedItem) {
       alert("Selecione um item antes de salvar.")
-      return // Para a execução
-    }
-    // 2 - Validação de campos obrigatórios
-    if (!entryData.batch || !entryData.quantity || !entryData.unitCost) {
-      alert("Lote, quantidade e custo unitário são obrigatoirios.")
       return
     }
-    // 3 - TRY-CATCH - Tratamento de erros
-    try {
-      // 4 Preparação dos dados - Formata para o firebase
 
+    // 2 - Validação de campos obrigatórios
+    if (!entryData.batch || !entryData.quantity || !entryData.unitCost) {
+      alert("Lote, quantidade e custo unitário são obrigatórios.") // ✅ Corrigido
+      return
+    }
+
+    try {
+      // 3 - Preparação dos dados
       const batchData = {
-        itemId: selectedItem.id, // ID do item pai
-        itemName: selectedItem.name || selectedItem.label, // Nome para facilitar consultas
-        batch: entryData.batch.trim(), // Remove espaços desnecessários
+        itemId: selectedItem.id,
+        itemName: selectedItem.name || selectedItem.label,
+        batch: entryData.batch.trim(),
         supplier: entryData.supplier.trim(),
-        unitCost: parseFloat(entryData.unitCost), // Converte para número
-        quantity: parseInt(entryData.quantity), // Converte para número inteiro
-        currentQuantity: parseInt(entryData.quantity), // Estoque inicial
+        unitCost: parseFloat(entryData.unitCost),
+        quantity: parseInt(entryData.quantity),
+        currentQuantity: parseInt(entryData.quantity),
         expirationDate: entryData.expirationDate,
         invoiceNumber: entryData.invoiceNumber.trim(),
-        entryDate: new Date().toISOString(), // Data/hora no formato ISO
-        status: "active", // Controle de estado
+        entryDate: new Date().toISOString(),
+        status: "active",
       }
-      // 5 Comunicação com o banco
+
+      console.log("🔥 Enviando para Firebase:", batchData)
+
+      // 4 - Comunicação com o banco
       await addDoc(collection(db, "inventoryBatches"), batchData)
-      // 6 FEEDBACK de sucesso
-      console.log("Entrada registrada com sucesso!", batchData)
-      // 7 Limpeza do form
+
+      // 5 - Feedback de sucesso
+      console.log("✅ Entrada registrada com sucesso!", batchData)
+
+      // 6 - Limpeza do formulário
       setEntryData({
         batch: "",
         supplier: "",
@@ -61,11 +75,13 @@ export default function EntrySection() {
         expirationDate: "",
         invoiceNumber: "",
       })
-      setSelectedItem(null) // Reseta a seleção também
+      setSelectedItem(null)
+
       alert("Entrada registrada com sucesso!")
     } catch (error) {
-      // 8 - Tratamento de erros
-      console.error("Erro ao registrar a entrada:", error)
+      // 7 - Tratamento de erros
+      console.error("❌ Erro ao registrar entrada:", error)
+      alert("Erro ao salvar os dados. Tente novamente.")
     }
   }
 
@@ -89,8 +105,8 @@ export default function EntrySection() {
         <Flex flexDirection={"column"} flex={"1"}>
           <ComboBoxItem
             placeholder="Selecione o item"
-            onSelect={setSelectedItem}
-          />{" "}
+            onSelect={handleSelectItem} // ✅ Usa a função com debug
+          />
           <InputEntry
             labelName={"Lote"}
             placeholder={"Insira o lote do item"}
@@ -144,23 +160,20 @@ export default function EntrySection() {
         </Flex>
       </Flex>
 
-      <SaveButton onClick={handleSave}>
-        <Text>Salvar Entrada</Text>
-      </SaveButton>
-      {selectedItem && (
-        <Text mt={2} p={2} bg="gray.50" borderRadius="md">
-          Item selecionado:{" "}
-          {selectedItem.name ||
-            selectedItem.label ||
-            JSON.stringify(selectedItem)}
-        </Text>
-      )}
+      <UpdateButton onClick={handleSave} />
 
-      {entryData.batch && (
-        <Text mt={2} p={2} bg="gray.50" borderRadius="md">
-          {" "}
-          {entryData.batch}{" "}
-        </Text>
+      {selectedItem && (
+        <Box>
+          <Text>
+            Item selecionado: {selectedItem?.label || selectedItem?.name}{" "}
+          </Text>
+          <Text> Lote: {entryData.batch} </Text>
+          <Text> Fornecedor: {entryData.supplier} </Text>
+          <Text> Custo Unitário: {entryData.unitCost} </Text>
+          <Text> Quantidade adicionada: {entryData.quantity} </Text>
+          <Text> Data de validade: {entryData.expirationDate} </Text>
+          <Text> Nota fiscal: {entryData.invoiceNumber}</Text>
+        </Box>
       )}
     </Flex>
   )
