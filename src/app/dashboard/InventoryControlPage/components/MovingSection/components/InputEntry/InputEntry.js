@@ -29,7 +29,6 @@ export default function InputEntry({
       <Input
         placeholder={placeholder}
         w={width}
-        maxLength={11}
         type={inputType}
         value={data} // ✅ Agora usa 'data' em vez de 'value'
         onChange={handleChange}
