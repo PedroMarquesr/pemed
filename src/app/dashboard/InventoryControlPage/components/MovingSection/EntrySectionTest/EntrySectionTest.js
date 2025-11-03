@@ -1,12 +1,19 @@
-"use client"
-import { Flex } from "@chakra-ui/react"
+"use client";
+import {
+  Flex,
+  Combobox,
+  Portal,
+  useFilter,
+  useListCollection,
+  Button,
+} from "@chakra-ui/react";
 
-import InputEntry from "../components/InputEntry/InputEntry"
-import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle"
-import UpdateButton from "../components/UpdateButton/UpdateButton"
-import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem"
+import InputEntry from "../components/InputEntry/InputEntry";
+import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle";
+import UpdateButton from "../components/UpdateButton/UpdateButton";
+import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 import {
   collection,
@@ -15,46 +22,57 @@ import {
   getDocs,
   doc,
   updateDoc,
-} from "firebase/firestore"
-import { db } from "@/components/libs/firebaseInit"
+  arrayUnion,
+} from "firebase/firestore";
+import { db } from "@/components/libs/firebaseInit";
 
 //ICON
-import { FaPlus } from "react-icons/fa6"
+import { FaPlus } from "react-icons/fa6";
 
 export default function EntrySectionTest() {
-  const [displayName, setDisplayName] = useState("")
+  const [displayName, setDisplayName] = useState("");
   const [updateData, setUpDateData] = useState({
-    lote: "",
-    fornecedor: "",
-    custoUnitario: 0,
-    quantidade: 0,
-    dataValidade: "",
-    nfe: "",
-  })
+    batchNumber: "",
+    expirationDate: "",
+    quantity: 0,
+    purchasePrice: 0,
+    purchaseDate: "",
+    invoiceNumber: "",
+    supplier: "",
+  });
 
-  const handleUpDateDoc = async () => {
-    // vou buscar o item pelo nome (displayName)
+  const handleChange = async () => {
+    //validação básica
+
+    if (!displayName) {
+      alert("Por favor, selecione um item antes de continuar");
+      return;
+    }
+
     try {
       const q = query(
-        collection(db, "iventoryItems"),
+        collection(db, "inventoryItems"),
         where("displayName", "==", displayName)
-      )
-      const querySnapshot = await getDocs(q)
-      if (querySnapchot.empty) {
-        alert("Item não encontrado!")
-        return
-      }
-      // Vou pegar o primeiro doc que encontrar
-      const docFound = querySnapshot.docs[0]
-      const docRef = doc(db, "iventoryItems", docFound.id)
+      );
 
-      // Atualizo o documento com os novos dados
-      await updateDoc(docRef, udpdateData)
-      alert("Documento atualizado com sucesso!")
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        alert("Item não encontrado !");
+      }
+
+      //Pego o primeiro doc que encontrar
+
+      const docFound = querySnapshot.docs[0];
+      const docRef = doc(db, "inventoryItems", docFound.id);
+
+      await updateDoc(docRef, { batches: arrayUnion(updateData) });
+
+      alert("Entrada registrada com sucesso !!");
     } catch (error) {
-      alert("Erro ao atualizado o documento:", error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <Flex
@@ -74,19 +92,109 @@ export default function EntrySectionTest() {
 
       <Flex alignItems={"stretch"}>
         <Flex flexDirection={"column"} flex={"1"}>
-          <InputEntry labelName={"Selecione o item"} hand />
-          <InputEntry labelName={"Lote"} />
-          <InputEntry labelName={"Fornecedor"} />
-          <InputEntry labelName={"Custo Unitário"} />
+          <ComboBoxItem
+            placeholder={"Selecione o item"}
+            onSelect={(e) => setDisplayName(e.label)}
+          />
+
+          <InputEntry
+            labelName={"Lote"}
+            placeholder={"Digite o lote"}
+            inputType={"Text"}
+            setData={(e) =>
+              setUpDateData({
+                ...updateData,
+                batchNumber: e.target.value,
+              })
+            }
+          />
+          <InputEntry
+            labelName={"Fornecedor"}
+            placeholder={"Digite o fornecedor"}
+            inputType={"Text"}
+            setData={(e) =>
+              setUpDateData({
+                ...updateData,
+                supplier: e.target.value,
+              })
+            }
+          />
+          <InputEntry
+            labelName={"Custo Unitário"}
+            placeholder={"Digite o custo unitário"}
+            inputType={"Number"}
+            setData={(e) =>
+              setUpDateData({
+                ...updateData,
+                purchasePrice: e.target.value,
+                purchaseDate: new Date().toISOString().split("T")[0],
+              })
+            }
+          />
         </Flex>
         <Flex flexDirection={"column"} flex={"1"}>
-          <InputEntry labelName={"Quantidade"} />
-          <InputEntry labelName={"Data de validade"} />
-          <InputEntry labelName={"N° NFE"} />
+          <InputEntry
+            labelName={"Quantidade"}
+            placeholder={"Digite a quantidade"}
+            inputType={"Number"}
+            setData={(e) =>
+              setUpDateData({
+                ...updateData,
+                quantity: e.target.value,
+              })
+            }
+          />
+          <InputEntry
+            labelName={"Data de validade"}
+            placeholder={"Digite a data de validade"}
+            inputType={"Date"}
+            setData={(e) =>
+              setUpDateData({
+                ...updateData,
+                expirationDate: e.target.value,
+              })
+            }
+          />
+          <InputEntry
+            labelName={"N° NFE"}
+            placeholder={"Digite o número da NFE"}
+            inputType={"Text"}
+            setData={(e) =>
+              setUpDateData({
+                ...updateData,
+                invoiceNumber: e.target.value,
+              })
+            }
+          />
           <InputEntry labelName={"Custo Unitário"} display={"none"} />
         </Flex>
       </Flex>
+
+      <Flex textAlign={"center"} justifyContent={"center"} mb={9}>
+        <Button
+          p={"6"}
+          mr={"2"}
+          width={"10%"}
+          bg={"#181818"}
+          variant="outline"
+          size="sm"
+          fontWeight={"semibold"}
+          fontSize={"md"}
+          boxShadow={"md"}
+          w={"15%"}
+          onClick={handleChange}
+          color={"white"}
+          _hover={{
+            color: "white",
+            bg: "rgba(19,92,254,255)",
+          }}
+        >
+          Salvar
+        </Button>
+      </Flex>
+
+      {JSON.stringify(displayName)}
       {JSON.stringify(updateData)}
     </Flex>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react"
-import { use, useState, useEffect } from "react"
-import { GoArrowLeft } from "react-icons/go"
+import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
+import { use, useState, useEffect } from "react";
+import { GoArrowLeft } from "react-icons/go";
 import {
   setDoc,
   doc,
@@ -11,23 +11,23 @@ import {
   getCountFromServer,
   getDoc,
   getDocs,
-} from "firebase/firestore"
-import { db } from "@/components/libs/firebaseInit"
+} from "firebase/firestore";
+import { db } from "@/components/libs/firebaseInit";
 
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
 
-import Modal1 from "./Modal1"
-import MedModal2 from "./Modal2Components/MedModal2"
-import MatModal2 from "./Modal2Components/MatModal2"
-import MedModal3 from "./Modal3Components/MedModal3"
-import MatModal3 from "./Modal3Components/MatModal3"
-import MedModal4 from "./Modal4Components/MedModal4"
-import MatModal4 from "./Modal4Components/MatModal4"
+import Modal1 from "./Modal1";
+import MedModal2 from "./Modal2Components/MedModal2";
+import MatModal2 from "./Modal2Components/MatModal2";
+import MedModal3 from "./Modal3Components/MedModal3";
+import MatModal3 from "./Modal3Components/MatModal3";
+import MedModal4 from "./Modal4Components/MedModal4";
+import MatModal4 from "./Modal4Components/MatModal4";
 
 export default function Registration() {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [selectOption, setSelectOption] = useState("")
-  const [itemCount, setItemCount] = useState(0)
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectOption, setSelectOption] = useState("");
+  const [itemCount, setItemCount] = useState(0);
   const [data, setData] = useState({
     idItemForUser: "",
     itemType: "",
@@ -74,38 +74,38 @@ export default function Registration() {
         purchaseDate: "",
       },
     ],
-  })
+  });
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const coll = await collection(db, "inventoryItems")
-        const snapshot = await getCountFromServer(coll)
+        const coll = await collection(db, "inventoryItems");
+        const snapshot = await getCountFromServer(coll);
 
-        const count = snapshot.data().count
-        const newId = "i" + (count + 1).toString().padStart(4, "0")
+        const count = snapshot.data().count;
+        const newId = "i" + (count + 1).toString().padStart(4, "0");
 
-        setItemCount(count)
+        setItemCount(count);
         setData((prev) => ({
           ...prev,
           idItemForUser: newId,
-        }))
+        }));
       } catch (error) {
-        console.log(`Erro ao buscar itens`)
+        console.log(`Erro ao buscar itens`);
       }
-    }
-    fetchItems()
-  }, [])
+    };
+    fetchItems();
+  }, []);
 
   useEffect(() => {
     const activeIngredientsText = data.activeIngredients
       .map((item) => item.ingredient)
-      .join(", ")
+      .join(", ");
     const concentrationText = data.activeIngredients
       .map((item) => item.concentration)
-      .join(", ")
+      .join(", ");
 
-    let newDisplayName = ""
+    let newDisplayName = "";
 
     if (data.brandName !== "") {
       newDisplayName = ` ${data.idItemForUser} - ${
@@ -114,7 +114,7 @@ export default function Registration() {
         data.dimensionOrCharacteristic ||
         data.packageQuantity + ` UND/EMB ` ||
         ""
-      } - ${data.manufacturer}`
+      } - ${data.manufacturer}`;
     } else {
       newDisplayName = `${
         data.idItemForUser
@@ -122,11 +122,11 @@ export default function Registration() {
         data.dimensionOrCharacteristic ||
         data.packageQuantity + ` UND/EMB ` ||
         ""
-      } - ${data.manufacturer}`
+      } - ${data.manufacturer}`;
     }
 
     if (newDisplayName !== data.displayName) {
-      setData({ ...data, displayName: newDisplayName })
+      setData({ ...data, displayName: newDisplayName });
     }
   }, [
     data.brandName,
@@ -136,58 +136,58 @@ export default function Registration() {
     data.manufacturer,
     data.displayName,
     data.idItemForUser,
-  ])
+  ]);
   const renderModal2 = () => {
     if (currentStep === 2) {
       return selectOption === "Medicamento" ? (
         <MedModal2 data={data} setData={setData} />
       ) : (
         <MatModal2 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
   const renderModal3 = () => {
     if (currentStep === 3) {
       return selectOption === "Medicamento" ? (
         <MedModal3 data={data} setData={setData} />
       ) : (
         <MatModal3 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
   const renderModal4 = () => {
     if (currentStep === 4) {
       return selectOption === "Medicamento" ? (
         <MedModal4 data={data} setData={setData} />
       ) : (
         <MatModal4 data={data} setData={setData} />
-      )
+      );
     }
-  }
+  };
 
   useEffect(() => {
     const saveData = async () => {
-      const docId = uuidv4(10)
+      const docId = uuidv4(10);
 
       await setDoc(doc(db, "inventoryItems", docId), {
         ...data,
         id: docId,
         createdAt: serverTimestamp(),
-      })
-    }
+      });
+    };
     if (currentStep === 4) {
-      saveData()
+      saveData();
       if (data.hasBrandName) {
         alert(
           `Item ${data.brandName} cadastrado com sucesso - Cod: ${data.idItemForUser}`
-        )
+        );
       } else {
         alert(
           `Item ${data.activeIngredients} cadastrado com sucesso - Cod: ${data.idItemForUser}`
-        )
+        );
       }
     }
-  }, [currentStep])
+  }, [currentStep]);
   return (
     <>
       <Flex mb={"9"}>
@@ -360,5 +360,5 @@ export default function Registration() {
       </Flex>
       {JSON.stringify(data)}
     </>
-  )
+  );
 }
