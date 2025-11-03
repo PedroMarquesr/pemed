@@ -1,36 +1,33 @@
-"use client"
-import { Flex, Text, Box, Button } from "@chakra-ui/react"
-import { use, useState, useEffect } from "react"
+"use client";
+import { Flex, Text, Box, Button } from "@chakra-ui/react";
+import { use, useState, useEffect } from "react";
 
-import OverviewSection from "../OverviewSection/OverviewSection.js"
-import TagChooseControl from "@/app/dashboard/InventoryControlPage/components/TagChooseControl/TagChooseControl.js"
-import EntrySection from "../MovingSection/EntrySection/EntrySection.js"
-import StockOutSection from "../MovingSection/StockOutSection/StockOutSection.js"
-
-// COMPONENTE DE TESTE PARA EntrySection
-import EntrySectionTest from "../MovingSection/EntrySectionTest/EntrySectionTest.js"
+import OverviewSection from "../OverviewSection/OverviewSection.js";
+import TagChooseControl from "@/app/dashboard/InventoryControlPage/components/TagChooseControl/TagChooseControl.js";
+import EntrySection from "../MovingSection/EntrySection/EntrySection.js";
+import StockOutSection from "../MovingSection/StockOutSection/StockOutSection.js";
 
 export default function ChooseControl() {
-  const [activeTab, setActiveTab] = useState("visaoGeral")
+  const [activeTab, setActiveTab] = useState("visaoGeral");
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab)
-  }
+    setActiveTab(tab);
+  };
 
   const renderControl = () => {
     switch (activeTab) {
       case "visaoGeral":
-        return <OverviewSection />
+        return <OverviewSection />;
       case "entrada":
-        return <EntrySection />
+        return <EntrySection />;
       case "saida":
-        return <StockOutSection />
+        return <StockOutSection />;
       case "inventario":
-        return <EntrySectionTest />
+        return <EntrySection />;
       default:
-        return <Text>Default</Text>
+        return <Text>Default</Text>;
     }
-  }
+  };
 
   return (
     <Flex flexDirection={"column"}>
@@ -63,5 +60,5 @@ export default function ChooseControl() {
       </Flex>
       {renderControl()}
     </Flex>
-  )
+  );
 }
