@@ -38,27 +38,24 @@ export default function ComboBoxItem({ placeholder, onSelect }) {
     fetchItems();
   }, [set]);
 
-  // ✅ CORREÇÃO: Lida com a estrutura complexa do Chakra UI
   const handleValueChange = (selectedValue) => {
     console.log("🎯 Valor selecionado (RAW):", selectedValue);
 
     if (selectedValue && onSelect) {
-      // O Chakra UI passa um objeto complexo, precisamos extrair o valor
-      const selectedValueArray = selectedValue.value; // Isso é um array
+      const selectedValueArray = selectedValue.value;
       console.log("🎯 Array de valores:", selectedValueArray);
 
       if (selectedValueArray && selectedValueArray.length > 0) {
-        const actualValue = selectedValueArray[0]; // Pega o primeiro item do array
+        const actualValue = selectedValueArray[0];
         console.log("🎯 Valor real:", actualValue);
 
-        // Encontra o item COMPLETO na collection
         const selectedItem = collection.items.find(
           (item) => item.value === actualValue
         );
         console.log("🎯 Item completo encontrado:", selectedItem);
 
         if (selectedItem) {
-          onSelect(selectedItem); // ✅ Passa o objeto completo
+          onSelect(selectedItem);
         } else {
           console.error("❌ Item não encontrado para o valor:", actualValue);
           console.log("❌ Itens disponíveis:", collection.items);
@@ -71,13 +68,13 @@ export default function ComboBoxItem({ placeholder, onSelect }) {
     <Combobox.Root
       collection={collection}
       onInputValueChange={(e) => filter(e.inputValue)}
-      onValueChange={handleValueChange} // ✅ Usa a função corrigida
+      onValueChange={handleValueChange}
       width="100%"
       flex="1"
       p="10"
     >
       <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
-        Insira o item:
+        Insira o item: *
       </Combobox.Label>
       <Combobox.Control
         display="flex"

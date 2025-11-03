@@ -1,20 +1,9 @@
 "use client";
-import {
-  Flex,
-  Combobox,
-  Portal,
-  useFilter,
-  useListCollection,
-  Button,
-} from "@chakra-ui/react";
-
+import { Flex, Button, Text } from "@chakra-ui/react";
 import InputEntry from "../components/InputEntry/InputEntry";
 import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle";
-import UpdateButton from "../components/UpdateButton/UpdateButton";
 import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem";
-
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 import {
   collection,
   query,
@@ -23,15 +12,14 @@ import {
   doc,
   updateDoc,
   arrayUnion,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "@/components/libs/firebaseInit";
-
-//ICON
 import { FaPlus } from "react-icons/fa6";
 
 export default function EntrySectionTest() {
   const [displayName, setDisplayName] = useState("");
-  const [updateData, setUpDateData] = useState({
+  const [updateData, setUpdateData] = useState({
     batchNumber: "",
     expirationDate: "",
     quantity: 0,
@@ -42,8 +30,6 @@ export default function EntrySectionTest() {
   });
 
   const handleChange = async () => {
-    //validação básica
-
     if (!displayName) {
       alert("Por favor, selecione um item antes de continuar");
       return;
@@ -58,19 +44,54 @@ export default function EntrySectionTest() {
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
-        alert("Item não encontrado !");
+        alert("Item não encontrado!");
+        return;
       }
 
-      //Pego o primeiro doc que encontrar
-
+      // Pego o primeiro doc que encontrar
       const docFound = querySnapshot.docs[0];
       const docRef = doc(db, "inventoryItems", docFound.id);
 
-      await updateDoc(docRef, { batches: arrayUnion(updateData) });
+      // : Usar getDoc em vez de getDocs
+      const docSnap = await getDoc(docRef);
+
+      if (!docSnap.exists()) {
+        alert("Documento não encontrado!");
+        return;
+      }
+
+      const docData = docSnap.data();
+
+      // Acessar os dados corretamente
+      const currentTotal = Number(docData?.quantity?.totalQuantity || 0);
+      const newQuantity = Number(updateData.quantity);
+      const newTotal = currentTotal + newQuantity;
+
+      console.log("🔢 Cálculo do estoque:", {
+        currentTotal,
+        newQuantity,
+        newTotal,
+      });
+
+      //  Atualizar o documento
+      await updateDoc(docRef, {
+        batches: arrayUnion({
+          ...updateData,
+          quantity: newQuantity,
+          purchasePrice: Number(updateData.purchasePrice) || 0,
+          createdAt: new Date().toISOString(),
+        }),
+        quantity: {
+          totalQuantity: newTotal,
+          lastUpdated: new Date().toISOString(),
+        },
+      });
+      window.location.reload();
 
       alert("Entrada registrada com sucesso !!");
     } catch (error) {
-      console.log(error);
+      console.error("❌ Erro ao registrar entrada:", error);
+      alert("Erro ao registrar entrada: " + error.message);
     }
   };
 
@@ -94,39 +115,39 @@ export default function EntrySectionTest() {
         <Flex flexDirection={"column"} flex={"1"}>
           <ComboBoxItem
             placeholder={"Selecione o item"}
-            onSelect={(e) => setDisplayName(e.label)}
+            onSelect={(item) => setDisplayName(item?.label)}
           />
 
           <InputEntry
-            labelName={"Lote"}
+            labelName={"Lote *"}
             placeholder={"Digite o lote"}
-            inputType={"Text"}
+            inputType={"text"}
             setData={(e) =>
-              setUpDateData({
+              setUpdateData({
                 ...updateData,
                 batchNumber: e.target.value,
               })
             }
           />
           <InputEntry
-            labelName={"Fornecedor"}
+            labelName={"Fornecedor *"}
             placeholder={"Digite o fornecedor"}
-            inputType={"Text"}
+            inputType={"text"}
             setData={(e) =>
-              setUpDateData({
+              setUpdateData({
                 ...updateData,
                 supplier: e.target.value,
               })
             }
           />
           <InputEntry
-            labelName={"Custo Unitário"}
+            labelName={"Custo Unitário *"}
             placeholder={"Digite o custo unitário"}
-            inputType={"Number"}
+            inputType={"number"}
             setData={(e) =>
-              setUpDateData({
+              setUpdateData({
                 ...updateData,
-                purchasePrice: e.target.value,
+                purchasePrice: parseFloat(e.target.value) || 0,
                 purchaseDate: new Date().toISOString().split("T")[0],
               })
             }
@@ -134,39 +155,38 @@ export default function EntrySectionTest() {
         </Flex>
         <Flex flexDirection={"column"} flex={"1"}>
           <InputEntry
-            labelName={"Quantidade"}
+            labelName={"Quantidade *"}
             placeholder={"Digite a quantidade"}
-            inputType={"Number"}
+            inputType={"number"}
             setData={(e) =>
-              setUpDateData({
+              setUpdateData({
                 ...updateData,
-                quantity: e.target.value,
+                quantity: parseInt(e.target.value) || 0,
               })
             }
           />
           <InputEntry
-            labelName={"Data de validade"}
+            labelName={"Data de validade *"}
             placeholder={"Digite a data de validade"}
-            inputType={"Date"}
+            inputType={"date"}
             setData={(e) =>
-              setUpDateData({
+              setUpdateData({
                 ...updateData,
                 expirationDate: e.target.value,
               })
             }
           />
           <InputEntry
-            labelName={"N° NFE"}
+            labelName={"N° NFE *"}
             placeholder={"Digite o número da NFE"}
-            inputType={"Text"}
+            inputType={"text"}
             setData={(e) =>
-              setUpDateData({
+              setUpdateData({
                 ...updateData,
                 invoiceNumber: e.target.value,
               })
             }
           />
-          <InputEntry labelName={"Custo Unitário"} display={"none"} />
         </Flex>
       </Flex>
 
@@ -174,14 +194,21 @@ export default function EntrySectionTest() {
         <Button
           p={"6"}
           mr={"2"}
-          width={"10%"}
+          width={"15%"}
           bg={"#181818"}
           variant="outline"
           size="sm"
           fontWeight={"semibold"}
           fontSize={"md"}
           boxShadow={"md"}
-          w={"15%"}
+          disabled={
+            !updateData.batchNumber ||
+            !updateData.quantity ||
+            !updateData.expirationDate ||
+            !updateData.purchasePrice ||
+            !updateData.invoiceNumber ||
+            !updateData.supplier
+          }
           onClick={handleChange}
           color={"white"}
           _hover={{
@@ -193,8 +220,12 @@ export default function EntrySectionTest() {
         </Button>
       </Flex>
 
-      {JSON.stringify(displayName)}
-      {JSON.stringify(updateData)}
+      {/* Debug */}
+      <Flex p={2} bg="gray.50" borderRadius="md" flexDirection="column" mt={2}>
+        <Text fontWeight="bold">Debug:</Text>
+        <Text>Item selecionado: {displayName}</Text>
+        <Text>Quantidade a adicionar: {updateData.quantity}</Text>
+      </Flex>
     </Flex>
   );
 }

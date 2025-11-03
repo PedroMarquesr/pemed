@@ -64,6 +64,12 @@ export default function Registration() {
     isThermolabile: false,
     temperatureRange: "",
     isControlledSubstance: false,
+    quantity: [
+      {
+        totalQuantity: 0,
+        reservedQuantity: 0,
+      },
+    ],
 
     batches: [
       {
