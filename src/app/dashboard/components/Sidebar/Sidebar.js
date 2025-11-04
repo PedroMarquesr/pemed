@@ -1,86 +1,98 @@
-"use client"
-import { Box, Flex, Text, Icon } from "@chakra-ui/react"
-import { FaPills, FaPhone } from "react-icons/fa"
-import { AiFillMedicineBox, AiOutlineStock } from "react-icons/ai"
-import { IoPersonAddSharp, IoLogOutSharp } from "react-icons/io5"
-import { MdPointOfSale } from "react-icons/md"
-import { GiBuyCard } from "react-icons/gi"
-import { useEffect, useState } from "react"
-import { useAuthCheck } from "@/hooks/useAuthCheck"
-
-const menuItems = [
-  {
-    icon: FaPills,
-    label: "Cadastro de item",
-    link: "/dashboard/inventory/registration",
-  },
-  {
-    icon: IoPersonAddSharp,
-    label: "Cadastro de cliente",
-    link: "/dashboard/ClientRegistrationSection",
-  },
-  {
-    icon: AiFillMedicineBox,
-    label: "Cadastro de fornecedor",
-    link: "/dashboard/SupplierRegistrationSection",
-  },
-  {
-    icon: AiOutlineStock,
-    label: "Operação de estoque",
-    link: "/dashboard/InventoryControlPage",
-  },
-  {
-    icon: MdPointOfSale,
-    label: "Saída/Venda",
-    link: "@/src/app/dashboard/contato/page.js",
-  },
-  {
-    icon: GiBuyCard,
-    label: "Entrada/Compra",
-    link: "@/src/app/dashboard/contato/page.js",
-  },
-  {
-    icon: FaPhone,
-    label: "Contato",
-    link: "@/src/app/dashboard/contato/page.js",
-  },
-  {
-    icon: IoLogOutSharp,
-    label: "Sair",
-    link: "/",
-  },
-]
+"use client";
+import { Box, Flex, Text, Icon, Button } from "@chakra-ui/react";
+import { FaPills, FaPhone } from "react-icons/fa";
+import { AiFillMedicineBox, AiOutlineStock } from "react-icons/ai";
+import { IoPersonAddSharp, IoLogOutSharp } from "react-icons/io5";
+import { MdPointOfSale } from "react-icons/md";
+import { GiBuyCard } from "react-icons/gi";
+import { useAuthCheck } from "@/hooks/useAuthCheck";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import useStore from "@/components/globalStates/store";
 
 export default function Sidebar() {
-  useAuthCheck()
+  const { user, signOutUser } = useStore();
+
+  const menuItems = [
+    {
+      icon: FaPills,
+      label: "Cadastro de item",
+      link: "/dashboard/inventory/registration",
+    },
+    {
+      icon: IoPersonAddSharp,
+      label: "Cadastro de cliente",
+      link: "/dashboard/ClientRegistrationSection",
+    },
+    {
+      icon: AiFillMedicineBox,
+      label: "Cadastro de fornecedor",
+      link: "/dashboard/SupplierRegistrationSection",
+    },
+    {
+      icon: AiOutlineStock,
+      label: "Operação de estoque",
+      link: "/dashboard/InventoryControlPage",
+    },
+    {
+      icon: MdPointOfSale,
+      label: "Saída/Venda",
+      link: "@/src/app/dashboard/contato/page.js",
+    },
+    {
+      icon: GiBuyCard,
+      label: "Entrada/Compra",
+      link: "@/src/app/dashboard/contato/page.js",
+    },
+    {
+      icon: FaPhone,
+      label: "Contato",
+      link: "@/src/app/dashboard/contato/page.js",
+    },
+  ];
+  useAuthCheck();
   return (
-    <Box
-      as="nav"
-      position="fixed"
-      left="0"
-      top="0"
-      h="100vh"
-      bg="gray.800"
-      color="white"
-      w="45px"
-      _hover={{ w: "225px" }}
-      transition="width 0.3s"
-      overflow="hidden"
-      zIndex="1000"
-    >
-      {menuItems.map((item, index) => (
-        <Flex
-          key={index}
-          as="a"
-          href={item.link}
-          align="center"
-          p="3"
-          _hover={{ bg: "gray.700" }}
+    <>
+      {user?.uid && (
+        <Box
+          as="nav"
+          position="fixed"
+          left="0"
+          top="0"
+          h="100vh"
+          bg="gray.800"
+          color="white"
+          w="45px"
+          _hover={{ w: "225px" }}
+          transition="width 0.3s"
+          overflow="hidden"
+          zIndex="1000"
+          flexDirection={"column"}
         >
-          <Icon as={item.icon} boxSize="5" mr="5" alignItems={"center"} />
-          <Text whiteSpace="nowrap">{item.label}</Text>
-        </Flex>
-      ))}
-    </Box>
-  )
+          {menuItems.map((item, index) => (
+            <Flex
+              key={index}
+              as="a"
+              href={item.link}
+              align="center"
+              p="3"
+              _hover={{ bg: "gray.700" }}
+            >
+              <Icon as={item.icon} boxSize="5" mr="5" alignItems={"center"} />
+              <Text whiteSpace="nowrap">{item.label}</Text>
+            </Flex>
+          ))}
+
+          <Button
+            onClick={signOutUser}
+            align="center"
+            p="3"
+            _hover={{ bg: "gray.700" }}
+          >
+            <Icon as={IoLogOutSharp} boxSize="5" mr="5" alignItems={"center"} />
+            <Text whiteSpace="nowrap">Sair</Text>
+          </Button>
+        </Box>
+      )}
+    </>
+  );
 }
