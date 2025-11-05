@@ -82,15 +82,21 @@ export default function Sidebar() {
             </Flex>
           ))}
 
-          <Button
+          <Flex
+            as="button"
             onClick={signOutUser}
             align="center"
             p="3"
             _hover={{ bg: "gray.700" }}
+            w="100%"
+            border="none"
+            bg="transparent"
+            color="white"
+            cursor="pointer"
           >
-            <Icon as={IoLogOutSharp} boxSize="5" mr="5" alignItems={"center"} />
+            <Icon as={IoLogOutSharp} boxSize="5" mr="5" />
             <Text whiteSpace="nowrap">Sair</Text>
-          </Button>
+          </Flex>
         </Box>
       )}
     </>
