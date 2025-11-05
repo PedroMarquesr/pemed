@@ -47,7 +47,8 @@ export default function BtnGogle() {
     <Box>
       <Button
         onClick={loginGoogle}
-        background="#d50d0d"
+        _hover={{ bg: "#d50d0d", color: "white" }}
+        bg={"blackAlpha.800"}
         color="white"
         fontWeight="600"
         padding="5px 40px 5px 10px"

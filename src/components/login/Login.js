@@ -162,10 +162,13 @@ export default function Login() {
             </Flex>
 
             <Button
-              w="100%"
+              width="200px"
               mt={6}
+              mb={2}
               colorScheme="blue"
-              _hover={{ bg: "blue.600" }}
+              _hover={{ bg: "blue.600", color: "white" }}
+              bg={"#7ec6c5"}
+              fontWeight="600"
             >
               Entrar
             </Button>
