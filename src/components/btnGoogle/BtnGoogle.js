@@ -52,7 +52,7 @@ export default function BtnGogle() {
         color="white"
         fontWeight="600"
         padding="5px 40px 5px 10px"
-        width="200px"
+        width="220px"
         justifyContent="space-between"
       >
         <Flex
