@@ -1,11 +1,17 @@
 "use client";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Text, Grid, Box } from "@chakra-ui/react";
 import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle";
 import InputEntry from "../components/InputEntry/InputEntry";
+import SwitchStockOut from "./components/SwitchStockOut/SwitchStockOut";
 import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem";
 import { FaMinus } from "react-icons/fa6";
+import useStore from "@/components/globalStates/store";
+import { useState } from "react";
 
 export default function StockOutSection() {
+  const { user } = useStore();
+  const [isDelivery, setIsDelivery] = useState(false);
+
   return (
     <>
       <Flex
@@ -16,51 +22,51 @@ export default function StockOutSection() {
         boxShadow="xl"
         flexDirection={"column"}
       >
-        <Flex>
+        <Flex justifyContent={"space-between"}>
           <TransactionItemTitle
             icon={<FaMinus />}
             iconColor={"#BD2E40"}
             title={"Registrar Saída"}
             subTitle={"Registre a saída de item no estoque"}
           />{" "}
+          <TransactionItemTitle
+            title={"Vendedor"}
+            subTitle={user?.displayName}
+          />
         </Flex>
-        <Flex alignItems={"stretch"}>
-          <Flex flexDirection={"column"} flex={"1"}>
-            <ComboBoxItem flex={"1"} />
-            <InputEntry
-              labelName={"Lote"}
-              placeholder={"Insira o lote do item"}
-            />
-            <InputEntry labelName={"Fornecedor"} />
-            <InputEntry labelName={"Custo Unitário"} inputType={"number"} />
-          </Flex>
-          <Flex flexDirection={"column"} flex={"1"}>
-            <InputEntry
-              labelName={"Quantidade:"}
-              placeholder={"Insira a quantidade"}
-              inputType={"number"}
-              width={"50%"}
-            />
-            <InputEntry
-              labelName={"Data de validade"}
-              placeholder={"Insira o lote do item"}
-              inputType={"date"}
-              width={"50%"}
-            />
-            <InputEntry
-              labelName={"Nº NFE"}
-              placeholder={"Insira o número da NFE"}
-              inputType={"Text"}
-              width={"50%"}
+        <Flex justifyContent={"center"}>
+          <InputEntry labelName={"Cliente"} />
+          <InputEntry labelName={"Tipo de saída"} />
+          <Flex flexDirection={"column"}>
+            <SwitchStockOut
+              set={(e) => setIsDelivery(e.checked)}
+              label={"Inserir endereço de entrega"}
             />
 
-            <InputEntry
-              labelName={"Nº NFE"}
-              placeholder={"Insira o número da NFE"}
-              inputType={"number"}
-              display={"none"}
-            />
+            <Text>isDelivey: {JSON.stringify(isDelivery)}</Text>
           </Flex>
+        </Flex>
+        <Flex alignItems={"stretch"}>
+          <Grid templateColumns="repeat(3, 2fr)" gap="6">
+            <Box>
+              <Text>teste</Text>
+            </Box>
+            <Box>
+              <Text>teste</Text>
+            </Box>
+            <Box>
+              <Text>teste</Text>
+            </Box>
+            <Box>
+              <Text>teste</Text>
+            </Box>
+            <Box>
+              <Text>teste</Text>
+            </Box>
+            <Box>
+              <Text>teste</Text>
+            </Box>
+          </Grid>
         </Flex>
       </Flex>
     </>

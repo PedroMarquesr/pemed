@@ -30,7 +30,6 @@ export default function Home() {
             bgSize="cover"
             h={"40vh"}
             w={"100vw"}
-            position="absolute"
             data-state="open"
             animationDuration="slow"
             animationStyle={{
@@ -38,7 +37,6 @@ export default function Home() {
               _closed: "slide-fade-out",
             }}
           >
-            <Text>Teste</Text>
             <NavbarHome />
           </Box>
         </Flex>
