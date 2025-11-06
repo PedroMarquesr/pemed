@@ -27,14 +27,18 @@ export default function Home() {
             bgImage={"url('/bg-container-medications.png')"}
             bgColor={"rgba(126,198,197)"}
             backgroundPosition="center 20%"
-            bgSize="auto"
+            bgSize="cover"
             h={"40vh"}
             w={"100vw"}
             position="absolute"
-            _hover={{ bg: "white" }}
-            animation="linear"
-            animationDuration="fast"
+            data-state="open"
+            animationDuration="slow"
+            animationStyle={{
+              _open: "slide-fade-in",
+              _closed: "slide-fade-out",
+            }}
           >
+            <Text>Teste</Text>
             <NavbarHome />
           </Box>
         </Flex>
