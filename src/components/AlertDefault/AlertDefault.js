@@ -1,14 +1,31 @@
 "use client";
 
-import { Flex, Alert, Text, CloseButton } from "@chakra-ui/react";
+import { Flex, Alert, Text, CloseButton, Stack } from "@chakra-ui/react";
 
-export default function AlertDefault({ message, alertTitle, alertInfo }) {
+export default function AlertDefault({
+  message,
+  alertTitle,
+  alertInfo,
+  size,
+  width,
+  padding,
+  height,
+}) {
   return (
     <>
-      <Alert.Root status={alertInfo} title={alertTitle}>
+      <Alert.Root
+        status={alertInfo}
+        variant="solid"
+        size={size}
+        w={width}
+        m={"7px"}
+        h={height}
+      >
         <Alert.Indicator />
-        <Alert.Title>{message}</Alert.Title>
-        <CloseButton pos="relative" top="-2" insetEnd="-2" />
+        <Flex flexDirection={"column"}>
+          <Alert.Title>{alertTitle}</Alert.Title>
+          <Alert.Description>{message}</Alert.Description>
+        </Flex>
       </Alert.Root>
     </>
   );

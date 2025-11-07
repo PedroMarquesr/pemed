@@ -5,6 +5,7 @@ import {
   Text,
   Dialog,
   CloseButton,
+  Box,
   Portal,
 } from "@chakra-ui/react";
 
@@ -30,8 +31,7 @@ import { db } from "@/components/libs/firebaseInit";
 import { FaPlus } from "react-icons/fa6";
 
 export default function EntrySection() {
-  const [showDialog, setShowDialog] = useState(false);
-  const [dialogMessage, setDialogMessage] = useState("");
+  const [showSucessAlert, setShowSucessAlert] = useState(false);
   const { items, loading, error } = useInventoryItems();
   const [selectedItem, setSelectedItem] = useState(null);
   const [updateData, setUpdateData] = useState({
@@ -44,26 +44,11 @@ export default function EntrySection() {
     supplier: "",
   });
 
-  const openDialog = (message) => {
-    setDialogMessage(message);
-    setShowDialog(true);
-  };
-
-  const closeDialog = () => {
-    setShowDialog(false);
-  };
-
   const handleItemSelect = (item) => {
     setSelectedItem(item);
   };
 
   const handleChange = async () => {
-    if (!selectedItem) {
-      openDialog("Por favor, selecione um item antes de continuar");
-      // alert("Por favor, selecione um item antes de continuar");
-      return;
-    }
-
     try {
       const q = query(
         collection(db, "inventoryItems"),
@@ -72,31 +57,14 @@ export default function EntrySection() {
 
       const querySnapshot = await getDocs(q);
 
-      if (querySnapshot.empty) {
-        alert("Item não encontrado!");
-        return;
-      }
-
       const docFound = querySnapshot.docs[0];
       const docRef = doc(db, "inventoryItems", docFound.id);
       const docSnap = await getDoc(docRef);
-
-      if (!docSnap.exists()) {
-        alert("Documento não encontrado!");
-        return;
-      }
 
       const docData = docSnap.data();
       const currentTotal = Number(docData?.quantity?.totalQuantity || 0);
       const newQuantity = Number(updateData.quantity);
 
-      console.log("🔢 Cálculo do estoque:", {
-        currentTotal,
-        newQuantity,
-        newTotal: currentTotal + newQuantity,
-      });
-
-      // ✅ CORREÇÃO: Usar increment para atualizar o total
       await updateDoc(docRef, {
         batches: arrayUnion({
           ...updateData,
@@ -104,15 +72,16 @@ export default function EntrySection() {
           purchasePrice: Number(updateData.purchasePrice) || 0,
           createdAt: new Date().toISOString(),
         }),
-        // ✅ Usando increment para garantir a atomicidade
+
         "quantity.totalQuantity": increment(newQuantity),
         "quantity.lastUpdated": new Date().toISOString(),
       });
 
-      console.log("✅ Entrada registrada com sucesso!");
-      alert("Entrada registrada com sucesso !!");
+      setShowSucessAlert(true);
 
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       alert("Erro ao registrar entrada: " + error.message);
     }
@@ -144,13 +113,33 @@ export default function EntrySection() {
       boxShadow="xl"
       flexDirection={"column"}
     >
-      <TransactionItemTitle
-        icon={<FaPlus />}
-        iconColor={"#4da071"}
-        title={"Registrar Entrada"}
-        subTitle={"Registre a entrada de item no estoque"}
-      />
-
+      <Flex justifyContent={"space-between"}>
+        <TransactionItemTitle
+          icon={<FaPlus />}
+          iconColor={"#4da071"}
+          title={"Registrar Entrada"}
+          subTitle={"Registre a entrada de item no estoque"}
+        />
+        <Portal>
+          <Box
+            position="fixed"
+            top="4"
+            left="50%"
+            transform="translateX(-50%)"
+            zIndex="modal"
+            width="auto"
+          >
+            {showSucessAlert && (
+              <AlertDefault
+                alertTitle={"Entrada registrada com sucesso!"}
+                alertInfo={"success"}
+                width="400px"
+                onClose={() => setShowSucessAlert(false)}
+              />
+            )}
+          </Box>
+        </Portal>
+      </Flex>
       <Flex alignItems={"stretch"}>
         <Flex flexDirection={"column"} flex={"1"}>
           <ComboBoxItem
@@ -234,6 +223,7 @@ export default function EntrySection() {
               })
             }
           />
+          <InputEntry display={"none"} />
         </Flex>
       </Flex>
 
@@ -258,30 +248,6 @@ export default function EntrySection() {
         >
           Salvar
         </Button>
-        <Dialog.Root size={{ mdDown: "full", md: "lg" }} open={showDialog}>
-          <Portal>
-            <Dialog.Backdrop />
-            <Dialog.Positioner>
-              <Dialog.Content>
-                <Dialog.Header>
-                  <Dialog.Title>Atenção</Dialog.Title>
-                </Dialog.Header>
-                <Dialog.Body>
-                  <p>Item não encontrado!</p>
-                </Dialog.Body>
-                <Dialog.Footer>
-                  <Dialog.ActionTrigger asChild>
-                    <Button variant="outline">Cancel</Button>
-                  </Dialog.ActionTrigger>
-                  <Button>Save</Button>
-                </Dialog.Footer>
-                <Dialog.CloseTrigger asChild>
-                  <CloseButton size="sm" />
-                </Dialog.CloseTrigger>
-              </Dialog.Content>
-            </Dialog.Positioner>
-          </Portal>
-        </Dialog.Root>
       </Flex>
     </Flex>
   );
