@@ -3,6 +3,7 @@ import { Flex, Button, Text } from "@chakra-ui/react";
 import InputEntry from "../components/InputEntry/InputEntry";
 import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle";
 import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem";
+import { useInventoryItems } from "@/hooks/useInventoryItems";
 import { useState } from "react";
 import {
   collection,
@@ -18,7 +19,8 @@ import { db } from "@/components/libs/firebaseInit";
 import { FaPlus } from "react-icons/fa6";
 
 export default function EntrySection() {
-  const [displayName, setDisplayName] = useState("");
+  const { items, loading, error } = useInventoryItems();
+  const [selectedItem, setSelectedItem] = useState(null);
   const [updateData, setUpdateData] = useState({
     batchNumber: "",
     expirationDate: "",
@@ -29,8 +31,13 @@ export default function EntrySection() {
     supplier: "",
   });
 
+  const handleItemSelect = (item) => {
+    console.log("📦 Item selecionado no EntrySection:", item);
+    setSelectedItem(item);
+  };
+
   const handleChange = async () => {
-    if (!displayName) {
+    if (!selectedItem) {
       alert("Por favor, selecione um item antes de continuar");
       return;
     }
@@ -38,7 +45,7 @@ export default function EntrySection() {
     try {
       const q = query(
         collection(db, "inventoryItems"),
-        where("displayName", "==", displayName)
+        where("displayName", "==", selectedItem.label)
       );
 
       const querySnapshot = await getDocs(q);
@@ -48,11 +55,8 @@ export default function EntrySection() {
         return;
       }
 
-      // Pego o primeiro doc que encontrar
       const docFound = querySnapshot.docs[0];
       const docRef = doc(db, "inventoryItems", docFound.id);
-
-      // : Usar getDoc em vez de getDocs
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
@@ -61,8 +65,6 @@ export default function EntrySection() {
       }
 
       const docData = docSnap.data();
-
-      // Acessar os dados corretamente
       const currentTotal = Number(docData?.quantity?.totalQuantity || 0);
       const newQuantity = Number(updateData.quantity);
       const newTotal = currentTotal + newQuantity;
@@ -73,7 +75,6 @@ export default function EntrySection() {
         newTotal,
       });
 
-      //  Atualizar o documento
       await updateDoc(docRef, {
         batches: arrayUnion({
           ...updateData,
@@ -86,13 +87,30 @@ export default function EntrySection() {
           lastUpdated: new Date().toISOString(),
         },
       });
-      window.location.reload();
 
       alert("Entrada registrada com sucesso !!");
+
+      window.location.reload();
     } catch (error) {
-      console.error("❌ Erro ao registrar entrada:", error);
       alert("Erro ao registrar entrada: " + error.message);
     }
+  };
+
+  if (loading) return <Text>Carregando itens...</Text>;
+  if (error) return <Text>Erro ao carregar itens: {error.message}</Text>;
+
+  const checkRequiredFields = () => {
+    return (
+      !selectedItem ||
+      !updateData.batchNumber ||
+      !updateData.expirationDate ||
+      !updateData.invoiceNumber ||
+      !updateData.supplier ||
+      !updateData.quantity ||
+      updateData.quantity <= 0 ||
+      !updateData.purchasePrice ||
+      updateData.purchasePrice <= 0
+    );
   };
 
   return (
@@ -114,14 +132,16 @@ export default function EntrySection() {
       <Flex alignItems={"stretch"}>
         <Flex flexDirection={"column"} flex={"1"}>
           <ComboBoxItem
-            placeholder={"Selecione o item"}
-            onSelect={(item) => setDisplayName(item?.label)}
+            placeholder="Selecione o item"
+            listItems={items}
+            onSelect={handleItemSelect}
           />
 
           <InputEntry
             labelName={"Lote *"}
             placeholder={"Digite o lote"}
             inputType={"text"}
+            value={updateData.batchNumber}
             setData={(e) =>
               setUpdateData({
                 ...updateData,
@@ -133,6 +153,7 @@ export default function EntrySection() {
             labelName={"Fornecedor *"}
             placeholder={"Digite o fornecedor"}
             inputType={"text"}
+            value={updateData.supplier}
             setData={(e) =>
               setUpdateData({
                 ...updateData,
@@ -144,6 +165,7 @@ export default function EntrySection() {
             labelName={"Custo Unitário *"}
             placeholder={"Digite o custo unitário"}
             inputType={"number"}
+            value={updateData.purchasePrice}
             setData={(e) =>
               setUpdateData({
                 ...updateData,
@@ -158,6 +180,7 @@ export default function EntrySection() {
             labelName={"Quantidade *"}
             placeholder={"Digite a quantidade"}
             inputType={"number"}
+            value={updateData.quantity}
             setData={(e) =>
               setUpdateData({
                 ...updateData,
@@ -169,6 +192,7 @@ export default function EntrySection() {
             labelName={"Data de validade *"}
             placeholder={"Digite a data de validade"}
             inputType={"date"}
+            value={updateData.expirationDate}
             setData={(e) =>
               setUpdateData({
                 ...updateData,
@@ -180,6 +204,7 @@ export default function EntrySection() {
             labelName={"N° NFE *"}
             placeholder={"Digite o número da NFE"}
             inputType={"text"}
+            value={updateData.invoiceNumber}
             setData={(e) =>
               setUpdateData({
                 ...updateData,
@@ -201,14 +226,7 @@ export default function EntrySection() {
           fontWeight={"semibold"}
           fontSize={"md"}
           boxShadow={"md"}
-          disabled={
-            !updateData.batchNumber ||
-            !updateData.quantity ||
-            !updateData.expirationDate ||
-            !updateData.purchasePrice ||
-            !updateData.invoiceNumber ||
-            !updateData.supplier
-          }
+          disabled={checkRequiredFields()}
           onClick={handleChange}
           color={"white"}
           _hover={{
@@ -220,11 +238,14 @@ export default function EntrySection() {
         </Button>
       </Flex>
 
-      {/* Debug */}
+      {/* ✅ DEBUG PARA VERIFICAR O ESTADO */}
       <Flex p={2} bg="gray.50" borderRadius="md" flexDirection="column" mt={2}>
         <Text fontWeight="bold">Debug:</Text>
-        <Text>Item selecionado: {displayName}</Text>
-        <Text>Quantidade a adicionar: {updateData.quantity}</Text>
+        <Text>
+          Item selecionado: {selectedItem ? selectedItem.label : "Nenhum"}
+        </Text>
+        <Text>Botão desabilitado: {checkRequiredFields() ? "Sim" : "Não"}</Text>
+        <Text>selectedItem existe: {selectedItem ? "Sim" : "Não"}</Text>
       </Flex>
     </Flex>
   );

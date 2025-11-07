@@ -6,7 +6,6 @@ import { db } from "@/components/libs/firebaseInit";
 import { BsBoxSeam } from "react-icons/bs";
 import { IoIosTrendingDown } from "react-icons/io";
 import { MdOutlineDateRange } from "react-icons/md";
-import { vh } from "framer-motion";
 
 export default function CardsOverview({ titleCard, icon, cardColor }) {
   const [itemCount, setItemCount] = useState(0);

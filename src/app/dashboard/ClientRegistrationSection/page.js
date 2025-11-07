@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { Flex, Separator, Switch } from "@chakra-ui/react"
-import PageHeader from "../components/PageHeader/PageHeader"
-import ContextHeader from "../components/ContextHeader/ContextHeader"
-import SectionContainer from "../components/SectionContainer/SectionContainer"
-import TitleGroupLabel from "../components/TitleGroupLabel/TitleGroupLabel"
-import DefaultInput from "../components/DefaultInput/DefaultInput"
-import DefaultCombobox from "../components/DefaultCombobox/DefaultCombobox"
-import SaveButton from "../components/SaveButton/SaveButton"
-import DetailText from "../SupplierRegistrationSection/components/DetailText/DetailText"
+import { Flex, Separator, Switch } from "@chakra-ui/react";
+import PageHeader from "../components/PageHeader/PageHeader";
+import ContextHeader from "../components/ContextHeader/ContextHeader";
+import SectionContainer from "../components/SectionContainer/SectionContainer";
+import TitleGroupLabel from "../components/TitleGroupLabel/TitleGroupLabel";
+import DefaultInput from "../components/DefaultInput/DefaultInput";
+import DefaultCombobox from "../components/DefaultCombobox/DefaultCombobox";
+import SaveButton from "../components/SaveButton/SaveButton";
+import DetailText from "../SupplierRegistrationSection/components/DetailText/DetailText";
 
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
 
-import { fetchAddressByCep } from "@/utils/fetchAddressByCep"
+import { fetchAddressByCep } from "@/utils/fetchAddressByCep";
 
 import {
   setDoc,
@@ -22,15 +22,15 @@ import {
   getCountFromServer,
   getDoc,
   getDocs,
-} from "firebase/firestore"
-import { db } from "@/components/libs/firebaseInit"
-import { useState, useEffect } from "react"
+} from "firebase/firestore";
+import { db } from "@/components/libs/firebaseInit";
+import { useState, useEffect } from "react";
 
 //ICON
-import { IoPersonAddOutline } from "react-icons/io5"
+import { IoPersonAddOutline } from "react-icons/io5";
 
 export default function ClientRegistrationSection() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   const [data, setData] = useState({
     idClientForUser: "",
@@ -56,7 +56,7 @@ export default function ClientRegistrationSection() {
     clientType: "",
     additionalInfo: "",
     isActive: true,
-  })
+  });
 
   const clientsType = [
     { label: "Pessoa física", value: "Pessoa física" },
@@ -65,62 +65,85 @@ export default function ClientRegistrationSection() {
     { label: "Laboratório", value: "Laboratório" },
     { label: "Consultório", value: "Consultório" },
     { label: "Outro", value: "Outro" },
-  ]
+  ];
 
   const handleCepBlur = async () => {
     try {
-      const result = await fetchAddressByCep(data.address.postalCode)
-      console.log("Cep digitado:", result)
+      const result = await fetchAddressByCep(data.address.postalCode);
+      console.log("Cep digitado:", result);
       setData((prevData) => ({
         ...prevData,
         address: {
           ...prevData.address,
           ...result,
         },
-      }))
+      }));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const coll = collection(db, "clients")
-        const snapshot = await getCountFromServer(coll)
+        const coll = collection(db, "clients");
+        const snapshot = await getCountFromServer(coll);
 
-        const count = snapshot.data().count
-        const newId = "CLI-" + (count + 1).toString().padStart(4, "0")
+        const count = snapshot.data().count;
+        const newId = "CLI-" + (count + 1).toString().padStart(4, "0");
 
-        setCount(count)
-        console.log(snapshot.data().count)
+        setCount(count);
+        console.log(snapshot.data().count);
 
         setData((prev) => ({
           ...prev,
           idClientForUser: newId,
-        }))
+        }));
       } catch (error) {
-        console.log("Erro ao buscar contagem de clientes:", error)
+        console.log("Erro ao buscar contagem de clientes:", error);
       }
-    }
-    fetchItems()
-  }, [])
+    };
+    fetchItems();
+  }, []);
   const saveData = async () => {
     try {
-      const docId = uuidv4()
+      const docId = uuidv4();
       await setDoc(doc(db, "clients", docId), {
         ...data,
         id: docId,
         createAt: serverTimestamp(),
-      })
+      });
       alert(
         `Cliente ${data.legalName} cadastrado com sucesso! - Cod: ${data.idClientForUser}`
-      )
-      window.location.reload()
+      );
+      window.location.reload();
     } catch (error) {
-      console.error("Erro ao salvar cliente", error)
-      alert("Erro ao salvar cliente. Por favor, tente novamente.")
+      console.error("Erro ao salvar cliente", error);
+      alert("Erro ao salvar cliente. Por favor, tente novamente.");
     }
-  }
+  };
+  const checkRequiredFields = () => {
+    let isRequired = false;
+    if (
+      !data.legalName ||
+      !data.cnpj ||
+      !data.email ||
+      !data.phone ||
+      !data.contactPerson ||
+      !data.address.postalCode ||
+      !data.address.state ||
+      !data.address.city ||
+      !data.address.neighborhood ||
+      !data.address.number ||
+      !data.address.street ||
+      !data.clientType
+    ) {
+      isRequired = true;
+      dialog(" falta o objeto");
+      return isRequired;
+    } else {
+      return;
+    }
+  };
   return (
     <>
       <PageHeader
@@ -326,7 +349,7 @@ export default function ClientRegistrationSection() {
               setData({
                 ...data,
                 clientType: value,
-              })
+              });
             }}
           />
           <DefaultInput
@@ -344,22 +367,10 @@ export default function ClientRegistrationSection() {
         <SaveButton
           onclick={saveData}
           id={data.idClientForUser}
-          isRequired={
-            !data.legalName ||
-            !data.cnpj ||
-            !data.email ||
-            !data.phone ||
-            !data.contactPerson ||
-            !data.address.postalCode ||
-            !data.address.state ||
-            !data.address.city ||
-            !data.address.neighborhood ||
-            !data.address.number ||
-            !data.address.street ||
-            !data.clientType
-          }
+          isRequired={checkRequiredFields}
         >
           <DetailText title={"Razão Social:"} detailText={data.legalName} />
+          <DetailText title={"Nome fantasia:"} detailText={data.tradeName} />
           <DetailText title={"CNPJ:"} detailText={data.cnpj} />
 
           <Separator mb={4} />
@@ -391,7 +402,6 @@ export default function ClientRegistrationSection() {
           />
         </SaveButton>
       </SectionContainer>
-      {JSON.stringify(data)}
     </>
-  )
+  );
 }
