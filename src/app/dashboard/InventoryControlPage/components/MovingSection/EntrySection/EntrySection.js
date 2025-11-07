@@ -1,8 +1,18 @@
 "use client";
-import { Flex, Button, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Text,
+  Dialog,
+  CloseButton,
+  Portal,
+} from "@chakra-ui/react";
+
 import InputEntry from "../components/InputEntry/InputEntry";
 import TransactionItemTitle from "../components/TransactionItemTitle/TransactionItemTitle";
 import ComboBoxItem from "../components/ComboBoxItem/ComboBoxItem";
+import AlertDefault from "@/components/AlertDefault/AlertDefault";
+
 import { useInventoryItems } from "@/hooks/useInventoryItems";
 import { useState } from "react";
 import {
@@ -20,6 +30,8 @@ import { db } from "@/components/libs/firebaseInit";
 import { FaPlus } from "react-icons/fa6";
 
 export default function EntrySection() {
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
   const { items, loading, error } = useInventoryItems();
   const [selectedItem, setSelectedItem] = useState(null);
   const [updateData, setUpdateData] = useState({
@@ -32,13 +44,23 @@ export default function EntrySection() {
     supplier: "",
   });
 
+  const openDialog = (message) => {
+    setDialogMessage(message);
+    setShowDialog(true);
+  };
+
+  const closeDialog = () => {
+    setShowDialog(false);
+  };
+
   const handleItemSelect = (item) => {
     setSelectedItem(item);
   };
 
   const handleChange = async () => {
     if (!selectedItem) {
-      alert("Por favor, selecione um item antes de continuar");
+      openDialog("Por favor, selecione um item antes de continuar");
+      // alert("Por favor, selecione um item antes de continuar");
       return;
     }
 
@@ -236,6 +258,30 @@ export default function EntrySection() {
         >
           Salvar
         </Button>
+        <Dialog.Root size={{ mdDown: "full", md: "lg" }} open={showDialog}>
+          <Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.Header>
+                  <Dialog.Title>Atenção</Dialog.Title>
+                </Dialog.Header>
+                <Dialog.Body>
+                  <p>Item não encontrado!</p>
+                </Dialog.Body>
+                <Dialog.Footer>
+                  <Dialog.ActionTrigger asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </Dialog.ActionTrigger>
+                  <Button>Save</Button>
+                </Dialog.Footer>
+                <Dialog.CloseTrigger asChild>
+                  <CloseButton size="sm" />
+                </Dialog.CloseTrigger>
+              </Dialog.Content>
+            </Dialog.Positioner>
+          </Portal>
+        </Dialog.Root>
       </Flex>
     </Flex>
   );

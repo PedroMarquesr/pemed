@@ -9,14 +9,15 @@ export default function RootLayout({ children }) {
   const isLoged = true;
 
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <body>
-        <Provider>
-          {isLoged ? <Sidebar /> : null}
-          {children}
-          {/*{isLoged ? <Footer /> : null}*/}
-        </Provider>
-      </body>
-    </html>
+    <>
+      <html lang="pt-BR">
+        <body>
+          <Provider>
+            {isLoged ? <Sidebar /> : null}
+            {children}
+          </Provider>
+        </body>
+      </html>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Separator, Switch } from "@chakra-ui/react";
+import { Flex, Separator } from "@chakra-ui/react";
 import PageHeader from "../components/PageHeader/PageHeader";
 import ContextHeader from "../components/ContextHeader/ContextHeader";
 import SectionContainer from "../components/SectionContainer/SectionContainer";
@@ -9,6 +9,7 @@ import DefaultInput from "../components/DefaultInput/DefaultInput";
 import DefaultCombobox from "../components/DefaultCombobox/DefaultCombobox";
 import SaveButton from "../components/SaveButton/SaveButton";
 import DetailText from "../SupplierRegistrationSection/components/DetailText/DetailText";
+import AlertDefault from "@/components/AlertDefault/AlertDefault";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -30,8 +31,8 @@ import { useState, useEffect } from "react";
 import { IoPersonAddOutline } from "react-icons/io5";
 
 export default function ClientRegistrationSection() {
+  const [showSucessAlert, setShowSucessAlert] = useState(false);
   const [count, setCount] = useState(0);
-
   const [data, setData] = useState({
     idClientForUser: "",
     legalName: "", //Nome/Razão Social
@@ -104,6 +105,7 @@ export default function ClientRegistrationSection() {
     };
     fetchItems();
   }, []);
+
   const saveData = async () => {
     try {
       const docId = uuidv4();
@@ -112,23 +114,25 @@ export default function ClientRegistrationSection() {
         id: docId,
         createAt: serverTimestamp(),
       });
-      alert(
-        `Cliente ${data.legalName} cadastrado com sucesso! - Cod: ${data.idClientForUser}`
-      );
-      window.location.reload();
+
+      setShowSucessAlert(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       console.error("Erro ao salvar cliente", error);
       alert("Erro ao salvar cliente. Por favor, tente novamente.");
     }
   };
+
   const checkRequiredFields = () => {
     let isRequired = false;
     if (
       !data.legalName ||
       !data.cnpj ||
-      !data.email ||
-      !data.phone ||
-      !data.contactPerson ||
+      !data.contact.email ||
+      !data.contact.phone ||
+      !data.contact.contactPerson ||
       !data.address.postalCode ||
       !data.address.state ||
       !data.address.city ||
@@ -138,7 +142,7 @@ export default function ClientRegistrationSection() {
       !data.clientType
     ) {
       isRequired = true;
-      dialog(" falta o objeto");
+      console.log(" falta o objeto");
       return isRequired;
     } else {
       return;
@@ -367,16 +371,28 @@ export default function ClientRegistrationSection() {
         <SaveButton
           onclick={saveData}
           id={data.idClientForUser}
-          isRequired={checkRequiredFields}
+          isRequired={checkRequiredFields()}
         >
+          {showSucessAlert && (
+            <Flex p={5}>
+              <AlertDefault
+                message={`Cliente ${data.legalName} cadastrado com sucesso! - Cod: ${data.idClientForUser}`}
+                alertTitle={"Sucesso"}
+                alertInfo={"success"}
+              />
+            </Flex>
+          )}
           <DetailText title={"Razão Social:"} detailText={data.legalName} />
           <DetailText title={"Nome fantasia:"} detailText={data.tradeName} />
           <DetailText title={"CNPJ:"} detailText={data.cnpj} />
 
           <Separator mb={4} />
-          <DetailText title={"E-mail:"} detailText={data.email} />
-          <DetailText title={"Telefone:"} detailText={data.phone} />
-          <DetailText title={"Responsável:"} detailText={data.contactPerson} />
+          <DetailText title={"E-mail:"} detailText={data.contact.email} />
+          <DetailText title={"Telefone:"} detailText={data.contact.phone} />
+          <DetailText
+            title={"Responsável:"}
+            detailText={data.contact.contactPerson}
+          />
           <Separator mb={4} />
           <DetailText title={"CEP:"} detailText={data.address.postalCode} />
           <DetailText title={"Logradouro:"} detailText={data.address.street} />
@@ -402,6 +418,7 @@ export default function ClientRegistrationSection() {
           />
         </SaveButton>
       </SectionContainer>
+      ;
     </>
   );
 }
