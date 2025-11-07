@@ -15,7 +15,7 @@ export default function CardsOverview({ titleCard, icon, cardColor }) {
         const querySnapshot = await getDocs(collection(db, "inventoryItems"));
         setItemCount(querySnapshot.size);
       } catch (error) {
-        console.log(`Erro ao buscar itens`);
+        console.error(`Erro ao buscar itens`, error);
       }
     };
     fetchItems();

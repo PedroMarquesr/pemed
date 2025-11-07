@@ -5,7 +5,6 @@ import { AiFillMedicineBox, AiOutlineStock } from "react-icons/ai";
 import { IoPersonAddSharp, IoLogOutSharp } from "react-icons/io5";
 import { MdPointOfSale } from "react-icons/md";
 import { GiBuyCard } from "react-icons/gi";
-import { useAuthCheck } from "@/hooks/useAuthCheck";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import useStore from "@/components/globalStates/store";
 
@@ -49,7 +48,6 @@ export default function Sidebar() {
       link: "@/src/app/dashboard/contato/page.js",
     },
   ];
-  useAuthCheck();
   return (
     <>
       {user?.uid && (

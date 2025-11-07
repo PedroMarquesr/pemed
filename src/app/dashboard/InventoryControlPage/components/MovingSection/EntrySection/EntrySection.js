@@ -14,6 +14,7 @@ import {
   updateDoc,
   arrayUnion,
   getDoc,
+  increment,
 } from "firebase/firestore";
 import { db } from "@/components/libs/firebaseInit";
 import { FaPlus } from "react-icons/fa6";
@@ -32,7 +33,6 @@ export default function EntrySection() {
   });
 
   const handleItemSelect = (item) => {
-    console.log("📦 Item selecionado no EntrySection:", item);
     setSelectedItem(item);
   };
 
@@ -67,14 +67,14 @@ export default function EntrySection() {
       const docData = docSnap.data();
       const currentTotal = Number(docData?.quantity?.totalQuantity || 0);
       const newQuantity = Number(updateData.quantity);
-      const newTotal = currentTotal + newQuantity;
 
       console.log("🔢 Cálculo do estoque:", {
         currentTotal,
         newQuantity,
-        newTotal,
+        newTotal: currentTotal + newQuantity,
       });
 
+      // ✅ CORREÇÃO: Usar increment para atualizar o total
       await updateDoc(docRef, {
         batches: arrayUnion({
           ...updateData,
@@ -82,12 +82,12 @@ export default function EntrySection() {
           purchasePrice: Number(updateData.purchasePrice) || 0,
           createdAt: new Date().toISOString(),
         }),
-        quantity: {
-          totalQuantity: newTotal,
-          lastUpdated: new Date().toISOString(),
-        },
+        // ✅ Usando increment para garantir a atomicidade
+        "quantity.totalQuantity": increment(newQuantity),
+        "quantity.lastUpdated": new Date().toISOString(),
       });
 
+      console.log("✅ Entrada registrada com sucesso!");
       alert("Entrada registrada com sucesso !!");
 
       window.location.reload();
@@ -236,16 +236,6 @@ export default function EntrySection() {
         >
           Salvar
         </Button>
-      </Flex>
-
-      {/* ✅ DEBUG PARA VERIFICAR O ESTADO */}
-      <Flex p={2} bg="gray.50" borderRadius="md" flexDirection="column" mt={2}>
-        <Text fontWeight="bold">Debug:</Text>
-        <Text>
-          Item selecionado: {selectedItem ? selectedItem.label : "Nenhum"}
-        </Text>
-        <Text>Botão desabilitado: {checkRequiredFields() ? "Sim" : "Não"}</Text>
-        <Text>selectedItem existe: {selectedItem ? "Sim" : "Não"}</Text>
       </Flex>
     </Flex>
   );

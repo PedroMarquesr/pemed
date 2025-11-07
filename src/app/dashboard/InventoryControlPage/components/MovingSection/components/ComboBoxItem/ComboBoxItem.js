@@ -58,11 +58,12 @@ export default function ComboBoxItem({ placeholder, onSelect, listItems }) {
 
   return (
     <Combobox.Root
+      flex="1"
+      p="10"
       collection={collection}
       onInputValueChange={(e) => filter(e.inputValue)}
       onValueChange={handleValueChange}
       width="100%"
-      flex="1"
     >
       <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
         Insira o item: *

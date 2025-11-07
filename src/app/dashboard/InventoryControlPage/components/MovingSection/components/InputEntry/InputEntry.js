@@ -1,5 +1,5 @@
-"use client"
-import { Input, Field } from "@chakra-ui/react"
+"use client";
+import { Input, Field } from "@chakra-ui/react";
 
 export default function InputEntry({
   labelName,
@@ -7,14 +7,14 @@ export default function InputEntry({
   inputType,
   width,
   display,
-  data, // ✅ Recebe 'data'
-  setData, // ✅ Recebe 'setData'
+  data,
+  setData,
 }) {
   const handleChange = (e) => {
     if (setData) {
-      setData(e)
+      setData(e);
     }
-  }
+  };
 
   return (
     <Field.Root flex="1" p="10">
@@ -30,7 +30,7 @@ export default function InputEntry({
         placeholder={placeholder}
         w={width}
         type={inputType}
-        value={data} // ✅ Agora usa 'data' em vez de 'value'
+        value={data}
         onChange={handleChange}
         bg="white"
         boxShadow="md"
@@ -39,5 +39,5 @@ export default function InputEntry({
         display={display}
       />
     </Field.Root>
-  )
+  );
 }
