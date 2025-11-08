@@ -3,7 +3,6 @@ import { db } from "../libs/firebaseInit.js";
 import { Global } from "@emotion/react";
 import BtnGoogle from "../btnGoogle/BtnGoogle.js";
 import useStore from "../globalStates/store.js";
-import NavbarHome from "../NavbarHome/NavbarHome.js";
 import {
   Box,
   Flex,
