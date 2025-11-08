@@ -21,7 +21,14 @@ export default function ExibitionCodeItem({ data }) {
             <Text fontSize="xl" pt={"2"}>
               Código do item:
             </Text>
-            <Text fontSize={"xl"} textAlign={"center"} px={"5"} py={"1"} >
+            <Text
+              fontSize={"xl"}
+              textAlign={"center"}
+              px={"5"}
+              py={"1"}
+              fontWeight={"bold"}
+              fontStyle={"italic"}
+            >
               {codItem}
             </Text>
           </Flex>
