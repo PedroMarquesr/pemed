@@ -1,5 +1,5 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
 
 import {
   Flex,
@@ -9,14 +9,17 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react"
-import { ToggleTip } from "@/components/ui/toggle-tip"
+} from "@chakra-ui/react";
+import { ToggleTip } from "@/components/ui/toggle-tip";
 
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js"
-import viaAdministracao from "@/data/inventory/viaAdministracao.js"
+import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
+import viaAdministracao from "@/data/inventory/viaAdministracao.js";
 
-import { LuPill } from "react-icons/lu"
-import { BsFillInfoCircleFill } from "react-icons/bs"
+import TransactionItemTitle from "@/app/dashboard/InventoryControlPage/components/MovingSection/components/TransactionItemTitle/TransactionItemTitle";
+import ExibitionCodeItem from "@/app/dashboard/InventoryControlPage/components/ExibitionCodeItem/ExibitionCodeItem";
+
+import { LuPill } from "react-icons/lu";
+import { BsFillInfoCircleFill } from "react-icons/bs";
 
 export default function MedModal3({ data, setData }) {
   const liquidForms = [
@@ -31,7 +34,7 @@ export default function MedModal3({ data, setData }) {
     "Xarope",
     "Aerosol",
     "Inalador / Nebulizador",
-  ]
+  ];
   return (
     <Flex
       flexDirection="column"
@@ -41,11 +44,14 @@ export default function MedModal3({ data, setData }) {
       w="100%"
       boxShadow="xl"
     >
-      <Flex alignItems="center" gap={2} p={4}>
-        <LuPill color="rgba(19,92,254,255)" size={20} />
-        <Text color="black" fontWeight="bold" fontSize="lg">
-          Especificações Técnicas
-        </Text>
+      <Flex alignItems="center" gap={2} justifyContent={"space-between"}>
+        <TransactionItemTitle
+          icon={<LuPill />}
+          iconColor={"rgb(23,95,254)"}
+          title={"Classificação"}
+        />
+
+        <ExibitionCodeItem data={data} />
       </Flex>
       <Flex p={4} gap={4} justifyContent="space-between">
         <Field.Root flex="2" minW="0">
@@ -57,7 +63,7 @@ export default function MedModal3({ data, setData }) {
               unstyled
               value={data.dosageForm}
               onChange={(e) => {
-                setData({ ...data, dosageForm: e.target.value })
+                setData({ ...data, dosageForm: e.target.value });
               }}
               width="100%"
               bg="white"
@@ -351,5 +357,5 @@ export default function MedModal3({ data, setData }) {
         )}
       </Flex>
     </Flex>
-  )
+  );
 }

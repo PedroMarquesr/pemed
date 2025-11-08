@@ -26,7 +26,6 @@ export default function Modal1({
         return null;
     }
   };
-  let codItem = data.idItemForUser;
 
   return (
     <Flex
@@ -37,12 +36,7 @@ export default function Modal1({
       w="100%"
       boxShadow="xl"
     >
-      <Flex
-        alignItems="center"
-        gap={2}
-        justifyContent={"space-between"}
-        border={"1px solid red"}
-      >
+      <Flex alignItems="center" gap={2} justifyContent={"space-between"}>
         <TransactionItemTitle
           icon={<LuPill />}
           iconColor={"rgb(23,95,254)"}
