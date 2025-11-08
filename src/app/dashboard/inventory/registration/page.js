@@ -1,7 +1,7 @@
 "use client";
 
 import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
-import { use, useState, useEffect } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import {
   setDoc,
@@ -172,29 +172,31 @@ export default function Registration() {
     }
   };
 
-  useEffect(() => {
-    const saveData = async () => {
-      const docId = uuidv4(10);
+  const saveData = useCallback(async () => {
+    const docId = uuidv4(10);
 
-      await setDoc(doc(db, "inventoryItems", docId), {
-        ...data,
-        id: docId,
-        createdAt: serverTimestamp(),
-      });
-    };
+    await setDoc(doc(db, "inventoryItems", docId), {
+      ...data,
+      id: docId,
+      createdAt: serverTimestamp(),
+    });
+
+    if (data.hasBrandName) {
+      alert(
+        `Item ${data.brandName} cadastrado com sucesso - Cod: ${data.idItemForUser}`
+      );
+    } else {
+      alert(
+        `Item ${data.activeIngredients} cadastrado com sucesso - Cod: ${data.idItemForUser}`
+      );
+    }
+  }, [data]); // data como dependência aqui
+
+  useEffect(() => {
     if (currentStep === 4) {
       saveData();
-      if (data.hasBrandName) {
-        alert(
-          `Item ${data.brandName} cadastrado com sucesso - Cod: ${data.idItemForUser}`
-        );
-      } else {
-        alert(
-          `Item ${data.activeIngredients} cadastrado com sucesso - Cod: ${data.idItemForUser}`
-        );
-      }
     }
-  }, [currentStep, data]);
+  }, [currentStep, saveData]); // agora saveData é estável
   return (
     <>
       <Flex mb={"9"}>
