@@ -12,11 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db } from "@/components/libs/firebaseInit";
 
-import { useAuthCheck } from "@/hooks/useAuthCheck";
-
 export default function IventoryControlPage() {
-  useAuthCheck();
-
   return (
     <>
       <Flex flexDirection={"column"}>
