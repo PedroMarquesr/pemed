@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -9,11 +9,9 @@ import {
   Field,
   NativeSelect,
   Switch,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 export default function MatModal1({ data, setData }) {
-  let codItem = "MAT12345"
-
   return (
     <Flex w={"100%"}>
       <Box flex="1" p="4" borderRadius="md">
@@ -49,7 +47,7 @@ export default function MatModal1({ data, setData }) {
               <Input
                 value={data.brandName}
                 onChange={(e) =>
-                  setData({ ...data, brandName: e.target.value })
+                  setData({ ...data, brandName: e.target.value.toUpperCase() })
                 }
                 width="100%"
                 boxShadow="md"
@@ -80,7 +78,10 @@ export default function MatModal1({ data, setData }) {
             <Input
               value={data.technicalName}
               onChange={(e) =>
-                setData({ ...data, technicalName: e.target.value })
+                setData({
+                  ...data,
+                  technicalName: e.target.value.toUpperCase(),
+                })
               }
               width="100%"
               bg="white"
@@ -111,7 +112,7 @@ export default function MatModal1({ data, setData }) {
             <Input
               value={data.manufacturer}
               onChange={(e) =>
-                setData({ ...data, manufacturer: e.target.value })
+                setData({ ...data, manufacturer: e.target.value.toUpperCase() })
               }
               width="100%"
               bg="white"
@@ -148,9 +149,9 @@ export default function MatModal1({ data, setData }) {
           boxShadow={"md"}
           borderRadius="md"
         >
-          {codItem}
+          {data.idItemForUser}
         </Text>
       </Flex>
     </Flex>
-  )
+  );
 }

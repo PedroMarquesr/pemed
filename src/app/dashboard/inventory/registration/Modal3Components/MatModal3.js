@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 
 import {
   Flex,
@@ -9,9 +9,9 @@ import {
   Text,
   Field,
   NativeSelect,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
-import { FaSyringe } from "react-icons/fa";
+import { FaSyringe } from "react-icons/fa"
 
 export default function MatModal3({ data, setData }) {
   return (
@@ -39,7 +39,7 @@ export default function MatModal3({ data, setData }) {
               unstyled
               value={data.dimensionOrCharacteristic}
               onChange={(e) => {
-                setData({ ...data, dimensionOrCharacteristic: e.target.value });
+                setData({ ...data, dimensionOrCharacteristic: e.target.value })
               }}
               width="100%"
               bg="white"
@@ -115,7 +115,8 @@ export default function MatModal3({ data, setData }) {
                 onChange={(e) =>
                   setData({
                     ...data,
-                    otherDimensionOrCharacteristic: e.target.value,
+                    otherDimensionOrCharacteristic:
+                      e.target.value.toUpperCase(),
                   })
                 }
                 bg="white"
@@ -137,7 +138,7 @@ export default function MatModal3({ data, setData }) {
             onChange={(e) =>
               setData({
                 ...data,
-                dimensionReferenceSpecification: e.target.value,
+                dimensionReferenceSpecification: e.target.value.toUpperCase(),
               })
             }
             placeholder="Ex: 3 cm, 50 mL, 2 g, P, 23x3…"
@@ -159,7 +160,7 @@ export default function MatModal3({ data, setData }) {
             onChange={(e) =>
               setData({
                 ...data,
-                supplyUnit: e.target.value,
+                supplyUnit: e.target.value.toUpperCase(),
               })
             }
             placeholder="Ex: Rolo, Unidade"
@@ -195,5 +196,5 @@ export default function MatModal3({ data, setData }) {
         <Box flex="1"></Box>
       </Flex>
     </Flex>
-  );
+  )
 }

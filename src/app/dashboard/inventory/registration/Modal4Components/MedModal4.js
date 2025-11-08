@@ -6,6 +6,7 @@ import formatBrazilianDate from "@/app/dashboard/inventory/registration/utils/fo
 import { FaSyringe } from "react-icons/fa"
 
 export default function MedModal4({ data, setData }) {
+  
   return (
     <Flex
       flexDirection="column"

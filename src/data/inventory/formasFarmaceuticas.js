@@ -30,6 +30,6 @@ const formasFarmaceuticas = {
   "Adesivo transdérmico": ["Unidade"],
   Supositório: ["Unidade"],
   Óvulo: ["Unidade"],
-};
+}
 
-export default formasFarmaceuticas;
+export default formasFarmaceuticas

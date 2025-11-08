@@ -191,7 +191,7 @@ export default function MedModal3({ data, setData }) {
             onChange={(e) =>
               setData({
                 ...data,
-                packageQuantity: Number(e.target.value),
+                packageQuantity: Number(e.target.value.toUpperCase()),
               })
             }
             placeholder="Apenas números"
@@ -259,7 +259,10 @@ export default function MedModal3({ data, setData }) {
               <Input
                 value={data.additionalComponents}
                 onChange={(e) =>
-                  setData({ ...data, additionalComponents: e.target.value })
+                  setData({
+                    ...data,
+                    additionalComponents: e.target.value.toUpperCase(),
+                  })
                 }
                 placeholder="Ex: Diluente 500ml, solvente, seringa, agulha, bolsa ou solução com vasoconstritor"
                 bg="white"
@@ -325,7 +328,10 @@ export default function MedModal3({ data, setData }) {
                 <Input
                   value={data.temperatureRange}
                   onChange={(e) =>
-                    setData({ ...data, temperatureRange: e.target.value })
+                    setData({
+                      ...data,
+                      temperatureRange: e.target.value.toUpperCase(),
+                    })
                   }
                   placeholder="Exemplo: 8°C a 12°C"
                   width="100%"
