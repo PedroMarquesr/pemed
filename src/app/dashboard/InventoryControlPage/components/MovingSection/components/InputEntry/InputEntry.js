@@ -7,8 +7,8 @@ export default function InputEntry({
   inputType,
   width,
   display,
-  data, // ✅ Recebe 'data'
-  setData, // ✅ Recebe 'setData'
+  data,
+  setData,
 }) {
   const handleChange = (e) => {
     if (setData) {

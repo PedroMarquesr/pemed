@@ -10,11 +10,10 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         <Provider>
           {isLoged ? <Sidebar /> : null}
           {children}
-          {/*{isLoged ? <Footer /> : null}*/}
         </Provider>
       </body>
     </html>

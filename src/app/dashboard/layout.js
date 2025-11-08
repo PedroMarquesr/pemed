@@ -5,15 +5,16 @@ import { Global } from "@emotion/react";
 
 import { Provider } from "@/components/ui/provider";
 import Sidebar from "@/app/dashboard/components/Sidebar/Sidebar";
-import { useAuthCheck } from "@/hooks/useAuthCheck";
+import useStore from "@/components/globalStates/store";
 
 export default function DashboardLayout({ children }) {
-  useAuthCheck();
+  const { user } = useStore();
 
   return (
     <>
-      <Global
-        styles={`
+      <>
+        <Global
+          styles={`
               html, body, #__next {
                 width: 100%;
                 max-width: 100%;
@@ -30,32 +31,33 @@ export default function DashboardLayout({ children }) {
               }
     
             `}
-      />
-      <Provider>
-        <Flex h="100vh" w="100vw" overflow="hidden">
-          <Box
-            h="100%"
-            zIndex={2}
-            w="10px"
-            bg="gray.800"
-            color="black"
-            position="sticky"
-          >
-            <Sidebar />
-          </Box>
+        />
+        <Provider>
+          <Flex h="100vh" w="100vw" overflow="hidden">
+            <Box
+              h="100%"
+              zIndex={2}
+              w="10px"
+              bg="gray.800"
+              color="black"
+              position="sticky"
+            >
+              {user?.uid && <Sidebar />}
+            </Box>
 
-          <Box
-            zIndex={1}
-            flex={1}
-            p={20}
-            overflowY="auto"
-            color={"black"}
-            bg={"whiteAlpha.900"}
-          >
-            {children}
-          </Box>
-        </Flex>
-      </Provider>
+            <Box
+              zIndex={1}
+              flex={1}
+              p={20}
+              overflowY="auto"
+              color={"black"}
+              bg={"whiteAlpha.900"}
+            >
+              {children}
+            </Box>
+          </Flex>
+        </Provider>
+      </>
     </>
   );
 }

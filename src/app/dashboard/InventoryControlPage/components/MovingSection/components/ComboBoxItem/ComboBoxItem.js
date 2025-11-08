@@ -1,7 +1,4 @@
 "use client";
-import { collection as firestoreCollection, getDocs } from "firebase/firestore";
-import { db } from "@/components/libs/firebaseInit";
-import { useState, useEffect } from "react";
 import {
   Box,
   Combobox,
@@ -10,68 +7,63 @@ import {
   useListCollection,
 } from "@chakra-ui/react";
 
-export default function ComboBoxItem({ placeholder, onSelect }) {
+export default function ComboBoxItem({ placeholder, onSelect, listItems }) {
   const { contains } = useFilter({ sensitivity: "base" });
-  const { collection, filter, set } = useListCollection({
-    initialItems: [],
+  const { collection, filter } = useListCollection({
+    initialItems: listItems || [],
     itemToString: (item) => item.label,
     itemToValue: (item) => item.value,
     filter: contains,
   });
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      const querySnapshot = await getDocs(
-        firestoreCollection(db, "inventoryItems")
-      );
-      const data = querySnapshot.docs.map((doc) => {
-        const d = doc.data();
-        return {
-          id: doc.id,
-          label: d.displayName,
-          value: d.displayName,
-          ...d,
-        };
-      });
-      set(data);
-    };
-    fetchItems();
-  }, [set]);
+  const handleValueChange = (details) => {
+    console.log("🎯 Detalhes completos do evento:", details);
 
-  const handleValueChange = (selectedValue) => {
-    console.log("🎯 Valor selecionado (RAW):", selectedValue);
+    // O Chakra UI pode passar o valor de diferentes formas
+    let selectedValue = details.value;
+
+    // Se for um array, pega o primeiro item
+    if (Array.isArray(selectedValue)) {
+      selectedValue = selectedValue[0];
+    }
+
+    console.log("🎯 Valor selecionado processado:", selectedValue);
 
     if (selectedValue && onSelect) {
-      const selectedValueArray = selectedValue.value;
-      console.log("🎯 Array de valores:", selectedValueArray);
+      const selectedItem = collection.items.find(
+        (item) => item.value === selectedValue
+      );
 
-      if (selectedValueArray && selectedValueArray.length > 0) {
-        const actualValue = selectedValueArray[0];
-        console.log("🎯 Valor real:", actualValue);
+      console.log("🎯 Item encontrado:", selectedItem);
 
-        const selectedItem = collection.items.find(
-          (item) => item.value === actualValue
+      if (selectedItem) {
+        console.log("🎯 Item completo selecionado:", selectedItem);
+        onSelect(selectedItem);
+      } else {
+        console.error("❌ Item não encontrado para o valor:", selectedValue);
+        console.log(
+          "❌ Itens disponíveis:",
+          collection.items.map((item) => ({
+            value: item.value,
+            label: item.label,
+          }))
         );
-        console.log("🎯 Item completo encontrado:", selectedItem);
-
-        if (selectedItem) {
-          onSelect(selectedItem);
-        } else {
-          console.error("❌ Item não encontrado para o valor:", actualValue);
-          console.log("❌ Itens disponíveis:", collection.items);
-        }
       }
+    } else {
+      console.log("❌ Nenhum valor selecionado válido");
+      console.log("❌ selectedValue:", selectedValue);
+      console.log("❌ onSelect existe:", !!onSelect);
     }
   };
 
   return (
     <Combobox.Root
+      flex="1"
+      p="10"
       collection={collection}
       onInputValueChange={(e) => filter(e.inputValue)}
       onValueChange={handleValueChange}
       width="100%"
-      flex="1"
-      p="10"
     >
       <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
         Insira o item: *
@@ -98,7 +90,7 @@ export default function ComboBoxItem({ placeholder, onSelect }) {
           </Combobox.IndicatorGroup>
         </Box>
       </Combobox.Control>
-      <Portal p={"80%"}>
+      <Portal>
         <Combobox.Positioner>
           <Combobox.Content>
             <Combobox.Empty>Item não encontrado</Combobox.Empty>
