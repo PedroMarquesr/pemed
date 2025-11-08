@@ -122,51 +122,49 @@ export default function MedModal1({ data, setData }) {
           )
         )}
         {data.activeIngredients.map((item, index) => (
-          <>
-            <ContainerForm>
-              <InputForRegistrer
-                label={`Princípio ativo ${index + 1}`}
-                value={item.ingredient}
-                onChange={(e) => {
-                  const updated = [...data.activeIngredients];
-                  updated[index].ingredient = e.target.value.toUpperCase();
+          <ContainerForm key={index}>
+            <InputForRegistrer
+              label={`Princípio ativo ${index + 1}`}
+              value={item.ingredient}
+              onChange={(e) => {
+                const updated = [...data.activeIngredients];
+                updated[index].ingredient = e.target.value.toUpperCase();
+                setData({ ...data, activeIngredients: updated });
+              }}
+              mr={"5px"}
+            />
+            <InputForRegistrer
+              label={`Dosagem/Concentração:`}
+              value={item.concentration}
+              onChange={(e) => {
+                const updated = [...data.activeIngredients];
+                updated[index].concentration = e.target.value.toUpperCase();
+                setData({ ...data, activeIngredients: updated });
+              }}
+            />{" "}
+            <Box alignSelf="flex-end" pb="6">
+              <CloseButton
+                ml={"20%"}
+                opacity="40%"
+                boxShadow="md"
+                bg="rgba(24,24,24,255)"
+                size="xs"
+                colorScheme="red"
+                onClick={() => {
+                  const updated = data.activeIngredients.filter(
+                    (_, i) => i !== index
+                  );
                   setData({ ...data, activeIngredients: updated });
                 }}
-                mr={"5px"}
+                _hover={{
+                  opacity: "100%",
+                  bg: "red",
+                  transform: "translateY(-3px)",
+                  transition: "transform 0.2s ease",
+                }}
               />
-              <InputForRegistrer
-                label={`Dosagem/Concentração:`}
-                value={item.concentration}
-                onChange={(e) => {
-                  const updated = [...data.activeIngredients];
-                  updated[index].concentration = e.target.value.toUpperCase();
-                  setData({ ...data, activeIngredients: updated });
-                }}
-              />{" "}
-              <Box alignSelf="flex-end" pb="6">
-                <CloseButton
-                  ml={"20%"}
-                  opacity="40%"
-                  boxShadow="md"
-                  bg="rgba(24,24,24,255)"
-                  size="xs"
-                  colorScheme="red"
-                  onClick={() => {
-                    const updated = data.activeIngredients.filter(
-                      (_, i) => i !== index
-                    );
-                    setData({ ...data, activeIngredients: updated });
-                  }}
-                  _hover={{
-                    opacity: "100%",
-                    bg: "red",
-                    transform: "translateY(-3px)",
-                    transition: "transform 0.2s ease",
-                  }}
-                />
-              </Box>
-            </ContainerForm>
-          </>
+            </Box>
+          </ContainerForm>
         ))}
         <Flex px={4} flex="1" alignItems="center" gap={2}>
           <Text fontSize="sm" fontWeight="bold" color="gray.700">

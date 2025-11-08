@@ -142,6 +142,7 @@ export default function Registration() {
     data.manufacturer,
     data.displayName,
     data.idItemForUser,
+    data,
   ]);
   const renderModal2 = () => {
     if (currentStep === 2) {
@@ -193,7 +194,7 @@ export default function Registration() {
         );
       }
     }
-  }, [currentStep]);
+  }, [currentStep, data]);
   return (
     <>
       <Flex mb={"9"}>
