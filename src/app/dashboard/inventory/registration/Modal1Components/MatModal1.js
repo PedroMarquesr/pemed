@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -9,7 +9,7 @@ import {
   Field,
   NativeSelect,
   Switch,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 export default function MatModal1({ data, setData }) {
   return (
@@ -153,5 +153,5 @@ export default function MatModal1({ data, setData }) {
         </Text>
       </Flex>
     </Flex>
-  )
+  );
 }

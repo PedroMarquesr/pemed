@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
-import React, { useEffect } from "react"
-import { useState } from "react"
-import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch"
-import { collection as firestoreCollection, getDocs } from "firebase/firestore"
-import { db } from "@/components/libs/firebaseInit"
+import React, { useEffect } from "react";
+import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch";
+import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
+import ContainerForm from "../components/ContainerForm/ContainerForm";
+import SelectForRegistrer from "../components/SelectForRegistrer/SelectForRegistrer";
+import { regulatoryCategories } from "../constants/regulatoryCategories";
 
 import {
   Box,
@@ -16,8 +17,9 @@ import {
   Field,
   NativeSelect,
   Switch,
-} from "@chakra-ui/react"
-import { FaPlus } from "react-icons/fa"
+  Container,
+} from "@chakra-ui/react";
+import { FaPlus } from "react-icons/fa";
 
 export default function MedModal1({ data, setData }) {
   const addInputForNewActiveIngredient = () => {
@@ -27,60 +29,26 @@ export default function MedModal1({ data, setData }) {
         ...data.activeIngredients,
         { ingredient: "", concentration: "" },
       ],
-    })
-  }
-
-  let codItem = "MED12345"
+    });
+  };
 
   return (
     <Flex w={"100%"}>
       <Box flex="1" borderRadius="md">
         <Box p={4}>
-          <Field.Root>
-            <Field.Label
-              fontSize="sm"
-              fontWeight="bold"
-              color="gray.700"
-              mb={2}
-            >
-              Selecione a categoria regulatória:
-            </Field.Label>
-            <NativeSelect.Root>
-              <NativeSelect.Field
-                value={data.regulatoryCategory}
-                onChange={(e) =>
-                  setData({ ...data, regulatoryCategory: e.target.value })
-                }
-                unstyled
-                width="100%"
-                bg="white"
-                boxShadow="md"
-                color="black"
-                borderRadius="md"
-                border="1px solid #2b4d52ff"
-                px="3"
-                py="2"
-                _hover={{
-                  borderColor: "#5d8288c4",
-                }}
-              >
-                <option value="">Selecione</option>
-                <option value="baixo-risco">Baixo Risco</option>
-                <option value="biologico">Biológico</option>
-                <option value="dinamizado">Dinamizado</option>
-                <option value="especifico">Específico</option>
-                <option value="fitoterapico">Fitoterápico</option>
-                <option value="gases-medicinais">Gases Medicinais</option>
-                <option value="generico">Genérico</option>
-                <option value="novo">Novo</option>
-                <option value="similar">Similar</option>
-                <option value="radiofarmaco">Rádiofármaco</option>
-                <option value="produto-terapia-avancada">
-                  Produto de Terapia Avançada
-                </option>
-              </NativeSelect.Field>
-            </NativeSelect.Root>
-          </Field.Root>
+          <SelectForRegistrer
+            label={"Selecione a categoria regulatória "}
+            value={data.regulatoryCategory}
+            onChange={(e) =>
+              setData({ ...data, regulatoryCategory: e.target.value })
+            }
+          >
+            {regulatoryCategories.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                {cat.label}
+              </option>
+            ))}
+          </SelectForRegistrer>
         </Box>
         {data.regulatoryCategory === "novo" ||
         data.regulatoryCategory === "similar" ||
@@ -88,36 +56,17 @@ export default function MedModal1({ data, setData }) {
         data.regulatoryCategory === "produto-terapia-avancada" ||
         data.regulatoryCategory === "radiofarmaco" ? (
           <Box p={4}>
-            <Field.Root>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="bold"
-                color="gray.700"
-                mb={2}
-              >
-                Nome comercial:
-              </Field.Label>
-              <Input
-                value={data.brandName}
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    hasBrandName: true,
-                    brandName: e.target.value.toUpperCase(),
-                  })
-                }
-                width="100%"
-                boxShadow="md"
-                bg="white"
-                color="black"
-                borderRadius="md"
-                border="1px solid #2b4d52ff"
-                px="3"
-                py="2"
-                _hover={{ borderColor: "#5d8288c4" }}
-                placeholder="Digite o nome comercial"
-              />
-            </Field.Root>
+            <InputForRegistrer
+              label={"Nome comercial:"}
+              value={data.brandName}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  hasBrandName: true,
+                  brandName: e.target.value.toUpperCase(),
+                })
+              }
+            />
           </Box>
         ) : (
           data.regulatoryCategory && (
@@ -156,129 +105,68 @@ export default function MedModal1({ data, setData }) {
 
               {data.hasBrandName && (
                 <Box p={4}>
-                  <Field.Root>
-                    <Field.Label
-                      fontSize="sm"
-                      fontWeight="bold"
-                      color="gray.700"
-                      mb={2}
-                    >
-                      Nome comercial:
-                    </Field.Label>
-                    <Input
-                      value={data.brandName}
-                      onChange={(e) =>
-                        setData({
-                          ...data,
-                          brandName: e.target.value.toUpperCase(),
-                        })
-                      }
-                      width="100%"
-                      boxShadow="md"
-                      bg="white"
-                      color="black"
-                      borderRadius="md"
-                      border="1px solid #2b4d52ff"
-                      px="3"
-                      py="2"
-                      _hover={{ borderColor: "#5d8288c4" }}
-                      placeholder="Digite o nome comercial"
-                    />
-                  </Field.Root>
+                  <InputForRegistrer
+                    label={"Nome comercial:"}
+                    value={data.brandName}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        hasBrandName: true,
+                        brandName: e.target.value.toUpperCase(),
+                      })
+                    }
+                  />
                 </Box>
               )}
             </>
           )
         )}
         {data.activeIngredients.map((item, index) => (
-          <Flex
-            key={index}
-            alignItems="center"
-            justifyContent="flex-start"
-            p={4}
-            gap={4}
-          >
-            <Box flex="2">
-              <Field.Root>
-                <Field.Label
-                  fontSize="sm"
-                  fontWeight="bold"
-                  color="gray.700"
-                  mb={2}
-                >
-                  Princípio ativo {index + 1}:
-                </Field.Label>
-                <Input
-                  value={item.ingredient}
-                  onChange={(e) => {
-                    const updated = [...data.activeIngredients]
-                    updated[index].ingredient = e.target.value.toUpperCase()
-                    setData({ ...data, activeIngredients: updated })
-                  }}
-                  placeholder="Digite o princípio ativo"
-                  width="100%"
-                  bg="white"
-                  boxShadow="md"
-                  borderRadius="md"
-                  border="1px solid #2b4d52ff"
-                  px="3"
-                  py="2"
-                  _hover={{ borderColor: "#5d8288c4" }}
-                />
-              </Field.Root>
-            </Box>
-
-            <Box flex="1">
-              <Field.Root>
-                <Field.Label
-                  fontSize="sm"
-                  fontWeight="bold"
-                  color="gray.700"
-                  mb={2}
-                >
-                  Dosagem/Concentração:
-                </Field.Label>
-                <Input
-                  value={item.concentration}
-                  onChange={(e) => {
-                    const updated = [...data.activeIngredients]
-                    updated[index].concentration = e.target.value.toUpperCase()
-                    setData({ ...data, activeIngredients: updated })
-                  }}
-                  placeholder="Ex: 500mg, 5%, 100UI/ml"
-                  width="100%"
-                  bg="white"
-                  boxShadow="md"
-                  borderRadius="md"
-                  border="1px solid #2b4d52ff"
-                  px="3"
-                  py="2"
-                  _hover={{ borderColor: "#5d8288c4" }}
-                />
-              </Field.Root>
-            </Box>
-            <Box alignSelf="flex-end" pb="1">
-              <CloseButton
-                opacity="40%"
-                boxShadow="md"
-                bg="rgba(24,24,24,255)"
-                size="xs"
-                colorScheme="red"
-                onClick={() => {
-                  const updated = data.activeIngredients.filter(
-                    (_, i) => i !== index
-                  )
-                  setData({ ...data, activeIngredients: updated })
+          <>
+            <ContainerForm>
+              <InputForRegistrer
+                label={`Princípio ativo ${index + 1}`}
+                value={item.ingredient}
+                onChange={(e) => {
+                  const updated = [...data.activeIngredients];
+                  updated[index].ingredient = e.target.value.toUpperCase();
+                  setData({ ...data, activeIngredients: updated });
                 }}
-                _hover={{
-                  opacity: "100%",
-                  bg: "red",
-                  transform: "translateY(-3px)",
-                  transition: "transform 0.2s ease",
-                }}
+                mr={"5px"}
               />
-            </Box>
-          </Flex>
+              <InputForRegistrer
+                label={`Dosagem/Concentração:`}
+                value={item.concentration}
+                onChange={(e) => {
+                  const updated = [...data.activeIngredients];
+                  updated[index].concentration = e.target.value.toUpperCase();
+                  setData({ ...data, activeIngredients: updated });
+                }}
+              />{" "}
+              <Box alignSelf="flex-end" pb="6">
+                <CloseButton
+                  ml={"20%"}
+                  opacity="40%"
+                  boxShadow="md"
+                  bg="rgba(24,24,24,255)"
+                  size="xs"
+                  colorScheme="red"
+                  onClick={() => {
+                    const updated = data.activeIngredients.filter(
+                      (_, i) => i !== index
+                    );
+                    setData({ ...data, activeIngredients: updated });
+                  }}
+                  _hover={{
+                    opacity: "100%",
+                    bg: "red",
+                    transform: "translateY(-3px)",
+                    transition: "transform 0.2s ease",
+                  }}
+                />
+              </Box>
+            </ContainerForm>
+          </>
         ))}
         <Flex px={4} flex="1" alignItems="center" gap={2}>
           <Text fontSize="sm" fontWeight="bold" color="gray.700">
@@ -299,38 +187,17 @@ export default function MedModal1({ data, setData }) {
             <FaPlus />
           </Button>
         </Flex>
+
         <ComboboxForFetch
           labelName={"Fabricante:"}
           collectionName="suppliers"
           labelForList="tradeName"
           placeholder="Selecione o fabricante"
           onSelectItem={(item) => {
-            setData({ ...data, manufacturer: item.label })
+            setData({ ...data, manufacturer: item.label });
           }}
         />
       </Box>
-
-      <Flex
-        flexDirection={"column"}
-        flex="1"
-        alignItems="center"
-        justifyContent="center"
-        p={4}
-      >
-        <Text fontSize="xl" fontWeight="bold" color="gray.700" mb={2}>
-          Código do item
-        </Text>
-        <Text
-          textAlign={"center"}
-          border={"2px solid #0c142e"}
-          p={"4px"}
-          width="10vw"
-          boxShadow={"md"}
-          borderRadius="md"
-        >
-          {codItem}
-        </Text>
-      </Flex>
     </Flex>
-  )
+  );
 }
