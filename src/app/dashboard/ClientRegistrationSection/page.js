@@ -27,7 +27,6 @@ import {
 import { db } from "@/components/libs/firebaseInit";
 import { useState, useEffect } from "react";
 
-//ICON
 import { IoPersonAddOutline } from "react-icons/io5";
 
 export default function ClientRegistrationSection() {

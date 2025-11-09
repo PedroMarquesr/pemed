@@ -10,12 +10,12 @@ export default function TransactionItemTitle({
 }) {
   return (
     <>
-      <Flex flexDirection={"column"} p={"4"} pl={"10"}>
+      <Flex flexDirection={"column"} p={"4"} pl={"4"}>
         <Flex alignItems={"center"}>
-          <Text fontSize={"lg"} pr={"1"} color={iconColor}>
+          <Text fontSize={"xl"} pr={"1"} color={iconColor}>
             {icon}
           </Text>
-          <Text fontWeight={"semibold"} fontSize={"lg"}>
+          <Text fontWeight={"semibold"} pl={"2"} fontSize={"lg"}>
             {title}
           </Text>
         </Flex>

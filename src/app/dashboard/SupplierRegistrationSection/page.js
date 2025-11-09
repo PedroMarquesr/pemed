@@ -1,14 +1,5 @@
 "use client";
-import {
-  Flex,
-  Text,
-  Box,
-  Button,
-  CloseButton,
-  Dialog,
-  Portal,
-  Separator,
-} from "@chakra-ui/react";
+import { Flex, Separator } from "@chakra-ui/react";
 
 import PageHeader from "../components/PageHeader/PageHeader";
 import SectionContainer from "../components/SectionContainer/SectionContainer";

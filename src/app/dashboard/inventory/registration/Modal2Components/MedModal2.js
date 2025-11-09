@@ -16,6 +16,11 @@ import { LuPill } from "react-icons/lu";
 import { anvisaCodeRequired } from "@/app/dashboard/inventory/registration/utils/constants.js";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 
+import TransactionItemTitle from "@/app/dashboard/InventoryControlPage/components/MovingSection/components/TransactionItemTitle/TransactionItemTitle";
+import ExibitionCodeItem from "@/app/dashboard/InventoryControlPage/components/ExibitionCodeItem/ExibitionCodeItem";
+import ContainerForm from "../components/ContainerForm/ContainerForm";
+import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
+
 export default function MedModal2({ data, setData }) {
   const isRequired = anvisaCodeRequired.includes(data.regulatoryCategory);
 
@@ -38,15 +43,17 @@ export default function MedModal2({ data, setData }) {
       w="100%"
       boxShadow="xl"
     >
-      <Flex alignItems="center" gap={2} p={4}>
-        <LuPill color="rgba(19,92,254,255)" size={20} />
-        <Text color="black" fontWeight="bold" fontSize="lg">
-          Classificação
-        </Text>
+      <Flex alignItems="center" gap={2} justifyContent={"space-between"}>
+        <TransactionItemTitle
+          icon={<LuPill />}
+          iconColor={"rgb(23,95,254)"}
+          title={"Classificação"}
+        />
+        <ExibitionCodeItem data={data} />
       </Flex>
 
       {!isRequired && (
-        <Flex p={4} gap={4} alignItems="center" justifyContent="center">
+        <ContainerForm>
           <Field.Root>
             <Flex alignItems="center" gap={4}>
               <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
@@ -71,81 +78,55 @@ export default function MedModal2({ data, setData }) {
               </Switch.Root>
             </Flex>
           </Field.Root>
-        </Flex>
+        </ContainerForm>
       )}
 
       {!isRequired && data.hasSimplifiedNotification && (
-        <Flex p={4} gap={4}>
-          <Field.Root flex="1">
-            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-              Referência normativa (RDC aplicável)
-            </Field.Label>
-            <Input
-              value={data.simplifiedNotificationReference}
-              onChange={(e) =>
-                setData({
-                  ...data,
-                  simplifiedNotificationReference: e.target.value.toUpperCase(),
-                })
-              }
-              placeholder="RDC xx/xxxx"
-              bg="white"
-              boxShadow="md"
-              border="1px solid #2b4d52ff"
-              _hover={{ borderColor: "#5d8288c4" }}
-            />
-          </Field.Root>
-          <Box flex="1"></Box>
-        </Flex>
+        <ContainerForm>
+          <InputForRegistrer
+            label="Referência normativa (RDC aplicável)"
+            value={data.simplifiedNotificationReference}
+            onChange={(e) =>
+              setData({
+                ...data,
+                simplifiedNotificationReference: e.target.value.toUpperCase(),
+              })
+            }
+            placeholder="RDC xx/xxxx"
+          />
+        </ContainerForm>
       )}
 
       {(isRequired || !data.hasSimplifiedNotification) && (
         <>
-          <Flex p={4} gap={4} justifyContent="space-between">
-            <Field.Root flex="1">
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Registro ANVISA
-              </Field.Label>
-              <Input
-                value={data.anvisaRegistrationCode}
-                onChange={(e) =>
-                  setData({ ...data, anvisaRegistrationCode: e.target.value })
-                }
-                placeholder="Digite o registro"
-                maxLength={13}
-                bg="white"
-                boxShadow="md"
-                border="1px solid #2b4d52ff"
-                _hover={{ borderColor: "#5d8288c4" }}
-                disabled={isRequired ? false : data.hasSimplifiedNotification}
-              />
-            </Field.Root>
+          <ContainerForm>
+            <InputForRegistrer
+              label="Registro ANVISA"
+              value={data.anvisaRegistrationCode}
+              onChange={(e) =>
+                setData({ ...data, anvisaRegistrationCode: e.target.value })
+              }
+              placeholder="Digite o registro"
+              maxLength={13}
+              disabled={isRequired ? false : data.hasSimplifiedNotification}
+            />
+            <InputForRegistrer
+              label="Validade do Registro"
+              value={data.registrationValidity}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  registrationValidity: e.target.value.toUpperCase(),
+                })
+              }
+              type="date"
+              disabled={isRequired ? false : data.hasSimplifiedNotification}
+            />
+          </ContainerForm>
 
-            <Field.Root flex="1">
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Validade do Registro
-              </Field.Label>
-              <Input
-                value={data.registrationValidity}
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    registrationValidity: e.target.value.toUpperCase(),
-                  })
-                }
-                type="date"
-                bg="white"
-                boxShadow="md"
-                border="1px solid #2b4d52ff"
-                _hover={{ borderColor: "#5d8288c4" }}
-                disabled={isRequired ? false : data.hasSimplifiedNotification}
-              />
-            </Field.Root>
-          </Flex>
-
-          <Flex p={4} gap={4}>
-            <Field.Root flex="1">
-              <Flex>
+          <ContainerForm>
+            <Field.Root w="25%">
+              <Flex alignItems="center">
                 <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
                   Apresentação oficial (Anvisa)
                 </Field.Label>
@@ -197,52 +178,34 @@ export default function MedModal2({ data, setData }) {
                 disabled={isRequired ? false : data.hasSimplifiedNotification}
               />
             </Field.Root>
-            <Box flex="1"></Box>
-          </Flex>
+          </ContainerForm>
         </>
       )}
 
-      <Flex p={4} gap={4}>
-        <Field.Root flex="1">
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Classe terapêutica
-          </Field.Label>
-          <Input
-            value={data.therapeuticClass}
-            onChange={(e) =>
-              setData({
-                ...data,
-                therapeuticClass: e.target.value.toUpperCase(),
-              })
-            }
-            placeholder="Insira a classe"
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
-          />
-        </Field.Root>
-
-        <Field.Root flex="1">
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Validade total do medicamento (em meses)
-          </Field.Label>
-          <Input
-            value={data.totalDrugValidity}
-            onChange={(e) =>
-              setData({
-                ...data,
-                totalDrugValidity: e.target.value.toUpperCase(),
-              })
-            }
-            type="number"
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
-          />
-        </Field.Root>
-      </Flex>
+      <ContainerForm>
+        <InputForRegistrer
+          label="Classe terapêutica"
+          value={data.therapeuticClass}
+          onChange={(e) =>
+            setData({
+              ...data,
+              therapeuticClass: e.target.value.toUpperCase(),
+            })
+          }
+          placeholder="Insira a classe"
+        />
+        <InputForRegistrer
+          label="Validade total do medicamento (em meses)"
+          value={data.totalDrugValidity}
+          onChange={(e) =>
+            setData({
+              ...data,
+              totalDrugValidity: e.target.value.toUpperCase(),
+            })
+          }
+          type="number"
+        />
+      </ContainerForm>
     </Flex>
   );
 }

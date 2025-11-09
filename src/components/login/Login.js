@@ -62,11 +62,6 @@ export default function Login() {
         `}
       />
       <Flex flexDirection={"column"}>
-        {/* <Flex flex={1}>
-          <Box>
-            <Text>teste</Text>
-          </Box>
-        </Flex> */}
         <Flex
           bgImage={"url('/bg-teste.svg')"}
           bgRepeat="no-repeat"

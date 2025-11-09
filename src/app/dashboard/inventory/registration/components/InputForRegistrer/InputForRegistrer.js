@@ -2,7 +2,13 @@
 
 import { Box, Flex, Text, Field, Input } from "@chakra-ui/react";
 
-export default function InputForRegistrer({ label, value, onChange, mr }) {
+export default function InputForRegistrer({
+  label,
+  value,
+  onChange,
+  mr,
+  placeholder,
+}) {
   return (
     <>
       <Field.Root w={"25%"} mr={mr}>
@@ -20,7 +26,7 @@ export default function InputForRegistrer({ label, value, onChange, mr }) {
           borderRadius="md"
           border="1px solid #2b4d52ff"
           _hover={{ borderColor: "#5d8288c4" }}
-          placeholder="Digite o nome comercial"
+          placeholder={placeholder}
         />
       </Field.Root>
     </>

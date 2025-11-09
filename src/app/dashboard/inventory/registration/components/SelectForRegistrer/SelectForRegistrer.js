@@ -8,6 +8,7 @@ export default function SelectForRegistrer({
   children,
   value,
   onChange,
+  mb,
 }) {
   return (
     <>
@@ -28,6 +29,7 @@ export default function SelectForRegistrer({
             border="1px solid #2b4d52ff"
             px="3"
             py="2"
+            mb={mb}
             _hover={{
               borderColor: "#5d8288c4",
             }}
