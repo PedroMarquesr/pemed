@@ -1,40 +1,16 @@
 "use client";
 import React from "react";
+import { Flex, Field, Switch, Box } from "@chakra-ui/react";
 
-import {
-  Flex,
-  Input,
-  Box,
-  Switch,
-  Text,
-  Field,
-  NativeSelect,
-} from "@chakra-ui/react";
-import { ToggleTip } from "@/components/ui/toggle-tip";
-
-import formasFarmaceuticas from "@/data/inventory/formasFarmaceuticas.js";
-import viaAdministracao from "@/data/inventory/viaAdministracao.js";
-
+// Componentes reutilizáveis
+import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
+import ContainerForm from "../components/ContainerForm/ContainerForm";
+import SelectForRegistrer from "../components/SelectForRegistrer/SelectForRegistrer";
 import TransactionItemTitle from "@/app/dashboard/InventoryControlPage/components/MovingSection/components/TransactionItemTitle/TransactionItemTitle";
 import ExibitionCodeItem from "@/app/dashboard/InventoryControlPage/components/ExibitionCodeItem/ExibitionCodeItem";
-
-import { LuPill } from "react-icons/lu";
-import { BsFillInfoCircleFill } from "react-icons/bs";
+import { LuPackage, LuSyringe, LuThermometer } from "react-icons/lu";
 
 export default function MedModal3({ data, setData }) {
-  const liquidForms = [
-    "Solução oral",
-    "Xampu",
-    "Solução injetável",
-    "Solução tópica",
-    "Colírio (solução oftálmica)",
-    "Soro fisiológico",
-    "Suspensão oral",
-    "Suspensão injetável",
-    "Xarope",
-    "Aerosol",
-    "Inalador / Nebulizador",
-  ];
   return (
     <Flex
       flexDirection="column"
@@ -46,316 +22,257 @@ export default function MedModal3({ data, setData }) {
     >
       <Flex alignItems="center" gap={2} justifyContent={"space-between"}>
         <TransactionItemTitle
-          icon={<LuPill />}
+          icon={<LuPackage />}
           iconColor={"rgb(23,95,254)"}
-          title={"Classificação"}
+          title={"Embalagem e Características"}
         />
-
         <ExibitionCodeItem data={data} />
       </Flex>
-      <Flex p={4} gap={4} justifyContent="space-between">
-        <Field.Root flex="2" minW="0">
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Forma Farmacêutica
-          </Field.Label>
-          <NativeSelect.Root>
-            <NativeSelect.Field
-              unstyled
-              value={data.dosageForm}
-              onChange={(e) => {
-                setData({ ...data, dosageForm: e.target.value });
-              }}
-              width="100%"
-              bg="white"
-              boxShadow="md"
-              color="black"
-              borderRadius="md"
-              border="1px solid #2b4d52ff"
-              px={3}
-              py={2}
-              _hover={{
-                borderColor: "#5d8288c4",
-              }}
-            >
-              <option value={""}>Selecione</option>
-              {Object.keys(formasFarmaceuticas).map((dosageForm) => (
-                <option key={dosageForm} value={dosageForm}>
-                  {dosageForm}
-                </option>
-              ))}
-            </NativeSelect.Field>
-          </NativeSelect.Root>
-        </Field.Root>
 
-        {data.dosageForm && formasFarmaceuticas[data.dosageForm] ? (
-          <>
-            <Field.Root flex="1" minW="0">
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Unidade de fornecimento
-              </Field.Label>
-              <NativeSelect.Root>
-                <NativeSelect.Field
-                  unstyled
-                  value={data.supplyUnit}
-                  onChange={(e) =>
-                    setData({ ...data, supplyUnit: e.target.value })
-                  }
-                  width="100%"
-                  bg="white"
-                  boxShadow="md"
-                  color="black"
-                  borderRadius="md"
-                  border="1px solid #2b4d52ff"
-                  px={3}
-                  py={2}
-                  _hover={{
-                    borderColor: "#5d8288c4",
-                  }}
-                >
-                  <option value="">Selecione uma forma</option>
-                  {formasFarmaceuticas[data.dosageForm].map((emb) => (
-                    <option key={emb} value={emb}>
-                      {emb}
-                    </option>
-                  ))}
-                </NativeSelect.Field>
-              </NativeSelect.Root>
-            </Field.Root>
-            <Box flex="1" minW="0">
-              {liquidForms.includes(data.dosageForm) && (
-                <Field.Root>
-                  <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                    Volume disponível (mL){" "}
-                  </Field.Label>
-                  <Input
-                    value={data.contentVolume}
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        contentVolume: e.target.value,
-                      })
-                    }
-                    placeholder="Ex: 100ML, 200ML, 20ML"
-                    bg="white"
-                    boxShadow="md"
-                    border="1px solid #2b4d52ff"
-                    _hover={{ borderColor: "#5d8288c4" }}
-                  />
-                </Field.Root>
-              )}
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box flex="1" minW="0" />
-            <Box flex="1" minW="0" />
-          </>
-        )}
-      </Flex>
-      <Flex p={4} gap={4} justifyContent="space-between">
-        <Field.Root flex="1">
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Via de administração:{" "}
-          </Field.Label>
-          <NativeSelect.Root>
-            <NativeSelect.Field
-              unstyled
-              value={data.administrationRoute}
-              onChange={(e) =>
-                setData({ ...data, administrationRoute: e.target.value })
+      <ContainerForm>
+        <SelectForRegistrer
+          label="Tipo de embalagem"
+          value={data.packagingType}
+          onChange={(e) => setData({ ...data, packagingType: e.target.value })}
+        >
+          <option value="">Selecione o tipo</option>
+          <option value="primary">Primária</option>
+          <option value="secondary">Secundária</option>
+          <option value="tertiary">Terciária</option>
+        </SelectForRegistrer>
+
+        <InputForRegistrer
+          label="Material da embalagem"
+          value={data.packagingMaterial}
+          onChange={(e) =>
+            setData({
+              ...data,
+              packagingMaterial: e.target.value.toUpperCase(),
+            })
+          }
+          placeholder="Ex: Vidro, Plástico, etc."
+        />
+      </ContainerForm>
+
+      <ContainerForm>
+        <InputForRegistrer
+          label="Quantidade por embalagem"
+          value={data.quantityPerPackage}
+          onChange={(e) =>
+            setData({ ...data, quantityPerPackage: e.target.value })
+          }
+          type="number"
+          placeholder="Ex: 10, 20, 30..."
+        />
+
+        <InputForRegistrer
+          label="Volume/Conteúdo (ml, mg, etc.)"
+          value={data.packageContent}
+          onChange={(e) =>
+            setData({ ...data, packageContent: e.target.value.toUpperCase() })
+          }
+          placeholder="Ex: 100ml, 500mg..."
+        />
+      </ContainerForm>
+
+      <ContainerForm>
+        <InputForRegistrer
+          label="Via de administração"
+          value={data.administrationRoute}
+          onChange={(e) =>
+            setData({
+              ...data,
+              administrationRoute: e.target.value.toUpperCase(),
+            })
+          }
+          placeholder="Ex: Oral, Intravenosa, Subcutânea..."
+        />
+
+        <InputForRegistrer
+          label="Forma farmacêutica"
+          value={data.pharmaceuticalForm}
+          onChange={(e) =>
+            setData({
+              ...data,
+              pharmaceuticalForm: e.target.value.toUpperCase(),
+            })
+          }
+          placeholder="Ex: Comprimido, Solução, Cápsula..."
+        />
+      </ContainerForm>
+
+      <ContainerForm>
+        <Field.Root>
+          <Flex alignItems="center" gap={4}>
+            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+              Contém componente adicional
+            </Field.Label>
+            <Switch.Root
+              checked={data.hasAdditionalComponent}
+              onCheckedChange={(e) =>
+                setData({ ...data, hasAdditionalComponent: e.checked })
               }
-              width="100%"
-              bg="white"
-              boxShadow="md"
-              color="black"
-              borderRadius="md"
-              border="1px solid #2b4d52ff"
-              px={3}
-              py={2}
-              _hover={{
-                borderColor: "#5d8288c4",
-              }}
+              colorPalette="blue"
+              size="lg"
             >
-              <option value={""}>Selecione</option>
-              {viaAdministracao.via.map((via) => (
-                <option key={via} value={via}>
-                  {via}
-                </option>
-              ))}
-            </NativeSelect.Field>
-          </NativeSelect.Root>
+              <Switch.HiddenInput />
+              <Switch.Control>
+                <Switch.Thumb />
+              </Switch.Control>
+            </Switch.Root>
+          </Flex>
         </Field.Root>
-        <Box flex="1"></Box>
-      </Flex>
-      <Flex p={4} gap={4} justifyContent={"space-between"}>
-        <Field.Root flex="1">
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-            Quantidade de unidades por embalagem
-          </Field.Label>
-          <Input
-            value={data.packageQuantity}
+      </ContainerForm>
+
+      {data.hasAdditionalComponent && (
+        <ContainerForm>
+          <InputForRegistrer
+            label="Componente adicional"
+            value={data.additionalComponent}
             onChange={(e) =>
               setData({
                 ...data,
-                packageQuantity: Number(e.target.value.toUpperCase()),
+                additionalComponent: e.target.value.toUpperCase(),
               })
             }
-            placeholder="Apenas números"
-            maxLength={4}
-            bg="white"
-            boxShadow="md"
-            border="1px solid #2b4d52ff"
-            _hover={{ borderColor: "#5d8288c4" }}
+            placeholder="Descreva o componente"
           />
-        </Field.Root>
-        <Box flex="1"></Box>
-      </Flex>
+        </ContainerForm>
+      )}
 
-      <Flex
-        p={4}
-        gap={4}
-        justifyContent={"flex-start"}
-        flexDirection={"column"}
-      >
-        <Flex flexDirection={"row"}>
-          <Field.Root>
-            <Flex alignItems="center" gap={4}>
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Contém componente adicional
-              </Field.Label>
-              <Switch.Root
-                checked={data.hasAdditionalComponents}
-                onCheckedChange={(e) =>
-                  setData({ ...data, hasAdditionalComponents: e.checked })
-                }
-                colorPalette="blue"
-                size="lg"
-              >
-                <Switch.HiddenInput />
-                <Switch.Control>
-                  <Switch.Thumb />
-                </Switch.Control>
-              </Switch.Root>
-              <ToggleTip
-                content="Informe se o medicamento acompanha algum componente adicional (ex.: diluente, solvente, seringa, agulha, bolsa ou solução com vasoconstritor)."
-                positioning={{ placement: "right" }}
-              >
-                <Box
-                  pl={1}
-                  as="span"
-                  cursor="pointer"
-                  display="inline-flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  color="gray.500"
-                  _hover={{ color: "blue.500" }}
-                >
-                  <BsFillInfoCircleFill />
-                </Box>
-              </ToggleTip>
-            </Flex>
-          </Field.Root>
-        </Flex>
-        {data.hasAdditionalComponents && (
-          <Flex>
-            <Field.Root flex="1">
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Informe o componente adicional
-              </Field.Label>
-              <Input
-                value={data.additionalComponents}
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    additionalComponents: e.target.value.toUpperCase(),
-                  })
-                }
-                placeholder="Ex: Diluente 500ml, solvente, seringa, agulha, bolsa ou solução com vasoconstritor"
-                bg="white"
-                boxShadow="md"
-                border="1px solid #2b4d52ff"
-                _hover={{ borderColor: "#5d8288c4" }}
-              />
-            </Field.Root>
-            <Box flex="1"></Box>
+      <ContainerForm>
+        <Field.Root>
+          <Flex alignItems="center" gap={4}>
+            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+              <LuSyringe style={{ display: "inline", marginRight: "8px" }} />
+              Medicamento controlado
+            </Field.Label>
+            <Switch.Root
+              checked={data.isControlled}
+              onCheckedChange={(e) =>
+                setData({ ...data, isControlled: e.checked })
+              }
+              colorPalette="blue"
+              size="lg"
+            >
+              <Switch.HiddenInput />
+              <Switch.Control>
+                <Switch.Thumb />
+              </Switch.Control>
+            </Switch.Root>
           </Flex>
-        )}
-        <Flex flexDirection={"row"}>
-          <Field.Root>
-            <Flex alignItems="center" gap={4}>
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Medicamento controlado ?
-              </Field.Label>
-              <Switch.Root
-                checked={data.isControlledSubstance}
-                onCheckedChange={(e) =>
-                  setData({ ...data, isControlledSubstance: e.checked })
-                }
-                colorPalette="blue"
-                size="lg"
-              >
-                <Switch.HiddenInput />
-                <Switch.Control>
-                  <Switch.Thumb />
-                </Switch.Control>
-              </Switch.Root>
-            </Flex>
-          </Field.Root>
-        </Flex>
-        <Box>
-          <Field.Root>
-            <Flex alignItems="center" gap={4}>
-              <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                Medicamento termolábil ?
-              </Field.Label>
-              <Switch.Root
-                checked={data.isThermolabile}
-                onCheckedChange={(e) =>
-                  setData({ ...data, isThermolabile: e.checked })
-                }
-                colorPalette="blue"
-                size="lg"
-              >
-                <Switch.HiddenInput />
-                <Switch.Control>
-                  <Switch.Thumb />
-                </Switch.Control>
-              </Switch.Root>
-            </Flex>
-          </Field.Root>
-        </Box>
-        {data.isThermolabile && (
-          <>
-            <Flex>
-              <Field.Root flex="1">
-                <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
-                  Informe a faixa de temperatura indicada
-                </Field.Label>
-                <Input
-                  value={data.temperatureRange}
-                  onChange={(e) =>
-                    setData({
-                      ...data,
-                      temperatureRange: e.target.value.toUpperCase(),
-                    })
-                  }
-                  placeholder="Exemplo: 8°C a 12°C"
-                  width="100%"
-                  bg="white"
-                  boxShadow="md"
-                  color="black"
-                  borderRadius="md"
-                  border="1px solid #2b4d52ff"
-                  _hover={{
-                    borderColor: "#5d8288c4",
-                  }}
-                />
-              </Field.Root>
-              <Box flex="1" minW="0"></Box>
-            </Flex>
-          </>
-        )}
-      </Flex>
+        </Field.Root>
+      </ContainerForm>
+
+      {data.isControlled && (
+        <ContainerForm>
+          <SelectForRegistrer
+            label="Portaria/Regulamentação de controle"
+            value={data.controlRegulation}
+            onChange={(e) =>
+              setData({ ...data, controlRegulation: e.target.value })
+            }
+          >
+            <option value="">Selecione a regulamentação</option>
+            <option value="portaria-344-98">
+              Portaria 344/98 - Lista A1 (Entorpecentes)
+            </option>
+            <option value="portaria-344-98-a2">
+              Portaria 344/98 - Lista A2 (Entorpecentes)
+            </option>
+            <option value="portaria-344-98-b1">
+              Portaria 344/98 - Lista B1 (Psicotrópicos)
+            </option>
+            <option value="portaria-344-98-b2">
+              Portaria 344/98 - Lista B2 (Psicotrópicos)
+            </option>
+            <option value="portaria-344-98-c1">
+              Portaria 344/98 - Lista C1 (Antimicrobianos)
+            </option>
+            <option value="portaria-344-98-c2">
+              Portaria 344/98 - Lista C2 (Antimicrobianos)
+            </option>
+            <option value="portaria-599-2022">
+              Portaria 599/2022 - Outros controlados
+            </option>
+            <option value="rdc-222-2018">
+              RDC 222/2018 - Medicamentos especiais
+            </option>
+            <option value="lei-11343-2006">
+              Lei 11.343/2006 - Drogas ilícitas
+            </option>
+            <option value="outra">Outra regulamentação</option>
+          </SelectForRegistrer>
+
+          {data.controlRegulation === "outra" && (
+            <InputForRegistrer
+              label="Especificar regulamentação"
+              value={data.specificControlRegulation}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  specificControlRegulation: e.target.value.toUpperCase(),
+                })
+              }
+              placeholder="Ex: Portaria XXX/XXXX, RDC XXX/XXXX..."
+            />
+          )}
+        </ContainerForm>
+      )}
+
+      <ContainerForm>
+        <Field.Root>
+          <Flex alignItems="center" gap={4}>
+            <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
+              <LuThermometer
+                style={{ display: "inline", marginRight: "8px" }}
+              />
+              Medicamento termolábil
+            </Field.Label>
+            <Switch.Root
+              checked={data.isThermolabile}
+              onCheckedChange={(e) =>
+                setData({ ...data, isThermolabile: e.checked })
+              }
+              colorPalette="blue"
+              size="lg"
+            >
+              <Switch.HiddenInput />
+              <Switch.Control>
+                <Switch.Thumb />
+              </Switch.Control>
+            </Switch.Root>
+          </Flex>
+        </Field.Root>
+      </ContainerForm>
+
+      {data.isThermolabile && (
+        <ContainerForm>
+          <InputForRegistrer
+            label="Temperatura de conservação"
+            value={data.conservationTemperature}
+            onChange={(e) =>
+              setData({
+                ...data,
+                conservationTemperature: e.target.value.toUpperCase(),
+              })
+            }
+            placeholder="Ex: 2°C a 8°C"
+          />
+
+          <InputForRegistrer
+            label="Condições especiais de armazenamento"
+            value={data.specialStorageConditions}
+            onChange={(e) =>
+              setData({
+                ...data,
+                specialStorageConditions: e.target.value.toUpperCase(),
+              })
+            }
+            placeholder="Descreva as condições"
+          />
+        </ContainerForm>
+      )}
     </Flex>
   );
 }

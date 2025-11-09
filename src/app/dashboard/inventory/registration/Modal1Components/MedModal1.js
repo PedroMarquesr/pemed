@@ -13,13 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 
-// Components
 import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch";
 import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
 import ContainerForm from "../components/ContainerForm/ContainerForm";
 import SelectForRegistrer from "../components/SelectForRegistrer/SelectForRegistrer";
 
-// Constants
 import { regulatoryCategories } from "../constants/regulatoryCategories";
 
 export default function MedModal1({ data, setData }) {
@@ -56,7 +54,6 @@ export default function MedModal1({ data, setData }) {
     setData({ ...data, activeIngredients: updated });
   };
 
-  // Categories that always show brand name input
   const alwaysShowBrandName = [
     "novo",
     "similar",
@@ -72,7 +69,6 @@ export default function MedModal1({ data, setData }) {
   return (
     <Flex w="100%">
       <Box flex="1" borderRadius="md">
-        {/* Regulatory Category */}
         <ContainerForm>
           <SelectForRegistrer
             label="Selecione a categoria regulatória"
@@ -87,7 +83,6 @@ export default function MedModal1({ data, setData }) {
           </SelectForRegistrer>
         </ContainerForm>
 
-        {/* Brand Name Logic */}
         {shouldAlwaysShowBrandName ? (
           <ContainerForm>
             <InputForRegistrer
@@ -127,7 +122,6 @@ export default function MedModal1({ data, setData }) {
                 </Field.Root>
               </ContainerForm>
 
-              {/* Brand Name Input */}
               {data.hasBrandName && (
                 <ContainerForm>
                   <InputForRegistrer
@@ -141,7 +135,6 @@ export default function MedModal1({ data, setData }) {
           )
         )}
 
-        {/* Active Ingredients List */}
         {data.activeIngredients.map((item, index) => (
           <ContainerForm key={index} gap={2}>
             <InputForRegistrer
@@ -182,7 +175,6 @@ export default function MedModal1({ data, setData }) {
           </ContainerForm>
         ))}
 
-        {/* Add Ingredient Button */}
         <ContainerForm>
           <Text fontSize="sm" fontWeight="bold" color="gray.700">
             Adicionar princípio ativo
@@ -203,7 +195,6 @@ export default function MedModal1({ data, setData }) {
           </Button>
         </ContainerForm>
 
-        {/* Manufacturer Selection */}
         <ContainerForm>
           <ComboboxForFetch
             labelName="Fabricante:"

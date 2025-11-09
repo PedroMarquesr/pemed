@@ -28,6 +28,60 @@ export default function Registration() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectOption, setSelectOption] = useState("");
   const [itemCount, setItemCount] = useState(0);
+  // const [data, setData] = useState({
+  //   idItemForUser: "",
+  //   itemType: "",
+  //   hasBrandName: false,
+  //   regulatoryCategory: "",
+  //   brandName: "",
+  //   displayName: "",
+  //   technicalName: "",
+  //   activeIngredients: [{ ingredient: "", concentration: "" }],
+  //   manufacturer: "",
+  //   riskClassification: "",
+  //   mainComposition: "",
+  //   otherMainComposition: "",
+  //   dimensionOrCharacteristic: "",
+  //   otherDimensionOrCharacteristic: "",
+  //   dimensionReferenceSpecification: "",
+  //   contentVolume: "",
+  //   dosageForm: "",
+  //   supplyUnit: "",
+  //   hasAdditionalComponents: false,
+  //   additionalComponents: "",
+  //   hasAnvisaRegistration: true,
+  //   hasSimplifiedNotification: false,
+  //   simplifiedNotificationReference: "",
+  //   anvisaRegistrationCode: "",
+  //   registrationValidity: "",
+  //   anvisaPresentation: "",
+  //   anvisaModel: "",
+  //   therapeuticClass: "",
+  //   totalDrugValidity: "",
+  //   cmedGgremCode: "",
+  //   administrationRoute: "",
+  //   packageQuantity: 0,
+  //   isThermolabile: false,
+  //   temperatureRange: "",
+  //   isControlledSubstance: false,
+  //   quantity: [
+  //     {
+  //       totalQuantity: 0,
+  //       reservedQuantity: 0,
+  //     },
+  //   ],
+
+  //   batches: [
+  //     {
+  //       batchNumber: "",
+  //       expirationDate: "",
+  //       quantity: 0,
+  //       purchasePrice: 0,
+  //       purchaseDate: "",
+  //     },
+  //   ],
+  // });
+
   const [data, setData] = useState({
     idItemForUser: "",
     itemType: "",
@@ -64,6 +118,21 @@ export default function Registration() {
     isThermolabile: false,
     temperatureRange: "",
     isControlledSubstance: false,
+
+    // NOVOS ATRIBUTOS ADICIONADOS
+    packagingType: "",
+    packagingMaterial: "",
+    quantityPerPackage: "",
+    packageContent: "",
+    pharmaceuticalForm: "",
+    hasAdditionalComponent: false,
+    additionalComponent: "",
+    isControlled: false,
+    controlRegulation: "",
+    specificControlRegulation: "",
+    conservationTemperature: "",
+    specialStorageConditions: "",
+
     quantity: [
       {
         totalQuantity: 0,
@@ -81,7 +150,6 @@ export default function Registration() {
       },
     ],
   });
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
