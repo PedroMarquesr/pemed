@@ -74,7 +74,6 @@ export default function ComboboxForFetch({
             boxShadow="md"
             bg="white"
             px="3"
-            // py="2"
             mb={5}
             height="auto"
           >

@@ -2,7 +2,6 @@
 import React from "react";
 import { Flex, Field, Switch, Box } from "@chakra-ui/react";
 
-// Componentes reutilizáveis
 import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
 import ContainerForm from "../components/ContainerForm/ContainerForm";
 import SelectForRegistrer from "../components/SelectForRegistrer/SelectForRegistrer";

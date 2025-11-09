@@ -5,12 +5,6 @@ import { Switch, Field, Flex } from "@chakra-ui/react";
 export default function SwitchRegister({ checked, onCheckedChange, label }) {
   return (
     <>
-      {/* <Flex
-        gap={4}
-        alignItems={"center"}
-        justifyContent={"center"}
-        border={"1px solid red"}
-      > */}
       <Field.Root>
         <Flex alignItems="center" gap={4} justifyContent={"center"}>
           <Field.Label fontSize="sm" fontWeight="bold" color="gray.700">
@@ -29,7 +23,6 @@ export default function SwitchRegister({ checked, onCheckedChange, label }) {
           </Switch.Root>
         </Flex>
       </Field.Root>
-      {/* </Flex> */}
     </>
   );
 }

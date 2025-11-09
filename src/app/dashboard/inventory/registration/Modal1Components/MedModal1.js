@@ -94,7 +94,6 @@ export default function MedModal1({ data, setData }) {
         ) : (
           data.regulatoryCategory && (
             <>
-              {/* Brand Name Toggle */}
               <ContainerForm>
                 <Field.Root>
                   <Flex alignItems="center" gap={4} justifyContent="center">

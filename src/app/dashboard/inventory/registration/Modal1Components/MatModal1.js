@@ -1,38 +1,47 @@
 "use client";
 
-import React, { useState } from "react";
-import { Box, Flex, Input, Field, Switch } from "@chakra-ui/react";
+import React from "react";
+import { Box, Flex } from "@chakra-ui/react";
 
 import ContainerForm from "../components/ContainerForm/ContainerForm";
 import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
+import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch";
 import SwitchRegister from "../components/SwitchRegister/SwitchRegister";
 
 export default function MatModal1({ data, setData }) {
+  const handleBrandNameChange = (e) => {
+    setData({
+      ...data,
+      hasBrandName: true,
+      brandName: e.target.value.toUpperCase(),
+    });
+  };
+
   return (
-    <Flex w={"100%"}>
+    <Flex w="100%">
       <Box flex="1" borderRadius="md">
-        <SwitchRegister
-          label={"Contém nome comercial?"}
-          checked={data.hasBrandName}
-          onCheckedChange={(e) => setData({ ...data, hasBrandName: e.checked })}
-        />
+        <ContainerForm>
+          <SwitchRegister
+            label="Contém nome comercial?"
+            checked={data.hasBrandName}
+            onCheckedChange={(e) =>
+              setData({ ...data, hasBrandName: e.checked })
+            }
+          />
+        </ContainerForm>
 
         {data.hasBrandName && (
           <ContainerForm>
             <InputForRegistrer
-              label={`Nome Comercial:`}
+              label="Nome comercial:"
               value={data.brandName}
-              onChange={(e) =>
-                setData({ ...data, brandName: e.target.value.toUpperCase() })
-              }
-              mr={"5px"}
+              onChange={handleBrandNameChange}
             />
           </ContainerForm>
         )}
-
         <ContainerForm>
           <InputForRegistrer
-            label={`Nome técnico:`}
+            label="Nome técnico:"
             value={data.technicalName}
             onChange={(e) =>
               setData({
@@ -40,36 +49,21 @@ export default function MatModal1({ data, setData }) {
                 technicalName: e.target.value.toUpperCase(),
               })
             }
-            mr={"5px"}
-            placeholder={
-              "Ex: seringa descartável, cateter venoso, luva de procedimento"
-            }
+            placeholder="Ex: seringa descartável, cateter venoso, luva de procedimento"
           />
         </ContainerForm>
 
-        <Field.Root>
-          <Field.Label fontSize="sm" fontWeight="bold" color="gray.700" mb={2}>
-            Fabricante:
-          </Field.Label>
-          <Input
-            value={data.manufacturer}
-            onChange={(e) =>
-              setData({ ...data, manufacturer: e.target.value.toUpperCase() })
-            }
-            width="100%"
-            bg="white"
-            boxShadow={"md"}
-            color="black"
-            borderRadius="md"
-            border={"1px solid #2b4d52ff"}
-            px="3"
-            py="2"
-            _hover={{
-              borderColor: "#5d8288c4",
+        <ContainerForm>
+          <ComboboxForFetch
+            labelName="Fabricante:"
+            collectionName="suppliers"
+            labelForList="tradeName"
+            placeholder="Selecione o fabricante"
+            onSelectItem={(item) => {
+              setData({ ...data, manufacturer: item.label });
             }}
-            placeholder="Digite o nome do fabricante"
           />
-        </Field.Root>
+        </ContainerForm>
       </Box>
     </Flex>
   );
