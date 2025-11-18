@@ -24,8 +24,9 @@ export default function Home() {
       ) : (
         <Flex>
           <Box
-            bgImage={"url('/bg-container-medications.png')"}
-            bgColor={"rgba(126,198,197)"}
+            // bgImage={"url('/bg-container-medications.png')"}
+            // bgColor={"rgba(126,198,197)"}
+            bgColor={"white"}
             backgroundPosition="center 20%"
             bgSize="cover"
             h={"40vh"}
