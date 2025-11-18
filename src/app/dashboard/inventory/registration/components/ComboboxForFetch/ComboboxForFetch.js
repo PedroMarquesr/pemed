@@ -10,9 +10,10 @@ import {
   Flex,
   useFilter,
   useListCollection,
+  Field,
 } from "@chakra-ui/react";
 
-export default function ComboBoxForFetch({
+export default function ComboboxForFetch({
   placeholder,
   collectionName,
   labelForList,
@@ -54,59 +55,64 @@ export default function ComboBoxForFetch({
 
   return (
     <>
-      <Combobox.Root
-        collection={collection}
-        borderRadius="md"
-        onInputValueChange={(e) => filter(e.inputValue)}
-        width="50%"
-        px="3"
-        py="2"
-      >
-        <Combobox.Label fontSize="sm" fontWeight="bold" color="gray.700">
+      <Field.Root w={"25%"}>
+        <Field.Label fontSize="sm" fontWeight="bold" color="gray.700" mb={1}>
           {labelName}
-        </Combobox.Label>
-        <Combobox.Control
-          display="flex"
-          alignItems="center"
+        </Field.Label>
+        <Combobox.Root
+          collection={collection}
           borderRadius="md"
-          _hover={{ borderColor: "#5d8288c4" }}
-          border="1px solid #2b4d52ff"
-          boxShadow="md"
+          onInputValueChange={(e) => filter(e.inputValue)}
+          width="100%"
         >
-          <Box width={"100%"}>
-            <Combobox.Input
-              width="100%"
-              placeholder={placeholder}
-              bg="white"
-              border={"none"}
-            />
-          </Box>
-          <Box>
-            <Combobox.IndicatorGroup>
-              <Combobox.ClearTrigger />
-              <Combobox.Trigger />
-            </Combobox.IndicatorGroup>
-          </Box>
-        </Combobox.Control>
-        <Portal>
-          <Combobox.Positioner>
-            <Combobox.Content>
-              <Combobox.Empty>Item não encontrado</Combobox.Empty>
+          <Combobox.Control
+            display="flex"
+            alignItems="center"
+            borderRadius="md"
+            _hover={{ borderColor: "#5d8288c4" }}
+            border="1px solid #2b4d52ff"
+            boxShadow="md"
+            bg="white"
+            px="3"
+            mb={5}
+            height="auto"
+          >
+            <Box width={"100%"}>
+              <Combobox.Input
+                width="100%"
+                placeholder={placeholder}
+                bg="white"
+                border={"none"}
+                height="100%"
+              />
+            </Box>
+            <Box>
+              <Combobox.IndicatorGroup>
+                <Combobox.ClearTrigger />
+                <Combobox.Trigger />
+              </Combobox.IndicatorGroup>
+            </Box>
+          </Combobox.Control>
+          <Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>Item não encontrado</Combobox.Empty>
 
-              {collection.items.map((item) => (
-                <Combobox.Item
-                  item={item}
-                  key={item.id}
-                  onClick={() => onSelectItem && onSelectItem(item)}
-                >
-                  {item.label}
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
-              ))}
-            </Combobox.Content>
-          </Combobox.Positioner>
-        </Portal>
-      </Combobox.Root>
+                {collection.items.map((item) => (
+                  <Combobox.Item
+                    item={item}
+                    key={item.id}
+                    onClick={() => onSelectItem && onSelectItem(item)}
+                  >
+                    {item.label}
+                    <Combobox.ItemIndicator />
+                  </Combobox.Item>
+                ))}
+              </Combobox.Content>
+            </Combobox.Positioner>
+          </Portal>
+        </Combobox.Root>
+      </Field.Root>
     </>
   );
 }

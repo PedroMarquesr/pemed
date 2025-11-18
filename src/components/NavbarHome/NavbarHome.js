@@ -55,9 +55,7 @@ export default function NavbarHome() {
               }}
               onClick={() => router.push("/login")}
             >
-              {/* <Link href={"/login"}> */}
               <Text>Login</Text>
-              {/* </Link> */}
             </Button>
           </>
         )}

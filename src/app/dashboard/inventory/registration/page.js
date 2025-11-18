@@ -1,7 +1,7 @@
 "use client";
 
 import { Link, Box, Text, Flex, Button, Heading } from "@chakra-ui/react";
-import { use, useState, useEffect } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import {
   setDoc,
@@ -28,6 +28,7 @@ export default function Registration() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectOption, setSelectOption] = useState("");
   const [itemCount, setItemCount] = useState(0);
+
   const [data, setData] = useState({
     idItemForUser: "",
     itemType: "",
@@ -64,6 +65,20 @@ export default function Registration() {
     isThermolabile: false,
     temperatureRange: "",
     isControlledSubstance: false,
+
+    packagingType: "",
+    packagingMaterial: "",
+    quantityPerPackage: "",
+    packageContent: "",
+    pharmaceuticalForm: "",
+    hasAdditionalComponent: false,
+    additionalComponent: "",
+    isControlled: false,
+    controlRegulation: "",
+    specificControlRegulation: "",
+    conservationTemperature: "",
+    specialStorageConditions: "",
+
     quantity: [
       {
         totalQuantity: 0,
@@ -81,7 +96,6 @@ export default function Registration() {
       },
     ],
   });
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -142,6 +156,7 @@ export default function Registration() {
     data.manufacturer,
     data.displayName,
     data.idItemForUser,
+    data,
   ]);
   const renderModal2 = () => {
     if (currentStep === 2) {
@@ -171,29 +186,31 @@ export default function Registration() {
     }
   };
 
-  useEffect(() => {
-    const saveData = async () => {
-      const docId = uuidv4(10);
+  const saveData = useCallback(async () => {
+    const docId = uuidv4(10);
 
-      await setDoc(doc(db, "inventoryItems", docId), {
-        ...data,
-        id: docId,
-        createdAt: serverTimestamp(),
-      });
-    };
+    await setDoc(doc(db, "inventoryItems", docId), {
+      ...data,
+      id: docId,
+      createdAt: serverTimestamp(),
+    });
+
+    if (data.hasBrandName) {
+      alert(
+        `Item ${data.brandName} cadastrado com sucesso - Cod: ${data.idItemForUser}`
+      );
+    } else {
+      alert(
+        `Item ${data.activeIngredients} cadastrado com sucesso - Cod: ${data.idItemForUser}`
+      );
+    }
+  }, [data]);
+
+  useEffect(() => {
     if (currentStep === 4) {
       saveData();
-      if (data.hasBrandName) {
-        alert(
-          `Item ${data.brandName} cadastrado com sucesso - Cod: ${data.idItemForUser}`
-        );
-      } else {
-        alert(
-          `Item ${data.activeIngredients} cadastrado com sucesso - Cod: ${data.idItemForUser}`
-        );
-      }
     }
-  }, [currentStep]);
+  }, [currentStep, saveData]);
   return (
     <>
       <Flex mb={"9"}>

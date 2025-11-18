@@ -1,25 +1,24 @@
 "use client";
 
-import React, { useEffect } from "react";
-import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch";
-import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
-import ContainerForm from "../components/ContainerForm/ContainerForm";
-import SelectForRegistrer from "../components/SelectForRegistrer/SelectForRegistrer";
-import { regulatoryCategories } from "../constants/regulatoryCategories";
-
+import React from "react";
 import {
   Box,
   Flex,
   Button,
-  Input,
   Text,
   CloseButton,
   Field,
-  NativeSelect,
   Switch,
   Container,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
+
+import ComboboxForFetch from "../components/ComboboxForFetch/ComboboxForFetch";
+import InputForRegistrer from "../components/InputForRegistrer/InputForRegistrer";
+import ContainerForm from "../components/ContainerForm/ContainerForm";
+import SelectForRegistrer from "../components/SelectForRegistrer/SelectForRegistrer";
+
+import { regulatoryCategories } from "../constants/regulatoryCategories";
 
 export default function MedModal1({ data, setData }) {
   const addInputForNewActiveIngredient = () => {
@@ -32,16 +31,49 @@ export default function MedModal1({ data, setData }) {
     });
   };
 
+  const handleRegulatoryCategoryChange = (e) => {
+    setData({ ...data, regulatoryCategory: e.target.value });
+  };
+
+  const handleBrandNameChange = (e) => {
+    setData({
+      ...data,
+      hasBrandName: true,
+      brandName: e.target.value.toUpperCase(),
+    });
+  };
+
+  const handleIngredientChange = (index, field, value) => {
+    const updated = [...data.activeIngredients];
+    updated[index][field] = value.toUpperCase();
+    setData({ ...data, activeIngredients: updated });
+  };
+
+  const removeIngredient = (index) => {
+    const updated = data.activeIngredients.filter((_, i) => i !== index);
+    setData({ ...data, activeIngredients: updated });
+  };
+
+  const alwaysShowBrandName = [
+    "novo",
+    "similar",
+    "biologico",
+    "produto-terapia-avancada",
+    "radiofarmaco",
+  ];
+
+  const shouldAlwaysShowBrandName = alwaysShowBrandName.includes(
+    data.regulatoryCategory
+  );
+
   return (
-    <Flex w={"100%"}>
+    <Flex w="100%">
       <Box flex="1" borderRadius="md">
-        <Box p={4}>
+        <ContainerForm>
           <SelectForRegistrer
-            label={"Selecione a categoria regulatória "}
+            label="Selecione a categoria regulatória"
             value={data.regulatoryCategory}
-            onChange={(e) =>
-              setData({ ...data, regulatoryCategory: e.target.value })
-            }
+            onChange={handleRegulatoryCategoryChange}
           >
             {regulatoryCategories.map((cat) => (
               <option key={cat.value} value={cat.value}>
@@ -49,36 +81,22 @@ export default function MedModal1({ data, setData }) {
               </option>
             ))}
           </SelectForRegistrer>
-        </Box>
-        {data.regulatoryCategory === "novo" ||
-        data.regulatoryCategory === "similar" ||
-        data.regulatoryCategory === "biologico" ||
-        data.regulatoryCategory === "produto-terapia-avancada" ||
-        data.regulatoryCategory === "radiofarmaco" ? (
-          <Box p={4}>
+        </ContainerForm>
+
+        {shouldAlwaysShowBrandName ? (
+          <ContainerForm>
             <InputForRegistrer
-              label={"Nome comercial:"}
+              label="Nome comercial:"
               value={data.brandName}
-              onChange={(e) =>
-                setData({
-                  ...data,
-                  hasBrandName: true,
-                  brandName: e.target.value.toUpperCase(),
-                })
-              }
+              onChange={handleBrandNameChange}
             />
-          </Box>
+          </ContainerForm>
         ) : (
           data.regulatoryCategory && (
             <>
-              <Flex
-                p={4}
-                gap={4}
-                alignItems={"center"}
-                justifyContent={"center"}
-              >
+              <ContainerForm>
                 <Field.Root>
-                  <Flex alignItems="center" gap={4} justifyContent={"center"}>
+                  <Flex alignItems="center" gap={4} justifyContent="center">
                     <Field.Label
                       fontSize="sm"
                       fontWeight="bold"
@@ -101,74 +119,62 @@ export default function MedModal1({ data, setData }) {
                     </Switch.Root>
                   </Flex>
                 </Field.Root>
-              </Flex>
+              </ContainerForm>
 
               {data.hasBrandName && (
-                <Box p={4}>
+                <ContainerForm>
                   <InputForRegistrer
-                    label={"Nome comercial:"}
+                    label="Nome comercial:"
                     value={data.brandName}
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        hasBrandName: true,
-                        brandName: e.target.value.toUpperCase(),
-                      })
-                    }
+                    onChange={handleBrandNameChange}
                   />
-                </Box>
+                </ContainerForm>
               )}
             </>
           )
         )}
+
         {data.activeIngredients.map((item, index) => (
-          <>
-            <ContainerForm>
-              <InputForRegistrer
-                label={`Princípio ativo ${index + 1}`}
-                value={item.ingredient}
-                onChange={(e) => {
-                  const updated = [...data.activeIngredients];
-                  updated[index].ingredient = e.target.value.toUpperCase();
-                  setData({ ...data, activeIngredients: updated });
+          <ContainerForm key={index} gap={2}>
+            <InputForRegistrer
+              label={`Princípio ativo ${index + 1}`}
+              value={item.ingredient}
+              onChange={(e) =>
+                handleIngredientChange(index, "ingredient", e.target.value)
+              }
+              flex="1"
+            />
+
+            <InputForRegistrer
+              label="Dosagem/Concentração:"
+              value={item.concentration}
+              onChange={(e) =>
+                handleIngredientChange(index, "concentration", e.target.value)
+              }
+              flex="1"
+            />
+
+            <Box alignSelf="flex-end" pb={6}>
+              <CloseButton
+                ml="20%"
+                opacity="40%"
+                boxShadow="md"
+                bg="rgba(24,24,24,255)"
+                size="xs"
+                colorScheme="red"
+                onClick={() => removeIngredient(index)}
+                _hover={{
+                  opacity: "100%",
+                  bg: "red",
+                  transform: "translateY(-3px)",
+                  transition: "transform 0.2s ease",
                 }}
-                mr={"5px"}
               />
-              <InputForRegistrer
-                label={`Dosagem/Concentração:`}
-                value={item.concentration}
-                onChange={(e) => {
-                  const updated = [...data.activeIngredients];
-                  updated[index].concentration = e.target.value.toUpperCase();
-                  setData({ ...data, activeIngredients: updated });
-                }}
-              />{" "}
-              <Box alignSelf="flex-end" pb="6">
-                <CloseButton
-                  ml={"20%"}
-                  opacity="40%"
-                  boxShadow="md"
-                  bg="rgba(24,24,24,255)"
-                  size="xs"
-                  colorScheme="red"
-                  onClick={() => {
-                    const updated = data.activeIngredients.filter(
-                      (_, i) => i !== index
-                    );
-                    setData({ ...data, activeIngredients: updated });
-                  }}
-                  _hover={{
-                    opacity: "100%",
-                    bg: "red",
-                    transform: "translateY(-3px)",
-                    transition: "transform 0.2s ease",
-                  }}
-                />
-              </Box>
-            </ContainerForm>
-          </>
+            </Box>
+          </ContainerForm>
         ))}
-        <Flex px={4} flex="1" alignItems="center" gap={2}>
+
+        <ContainerForm>
           <Text fontSize="sm" fontWeight="bold" color="gray.700">
             Adicionar princípio ativo
           </Text>
@@ -176,7 +182,7 @@ export default function MedModal1({ data, setData }) {
             boxShadow="md"
             size="xs"
             bg="rgba(24,24,24,255)"
-            onClick={() => addInputForNewActiveIngredient()}
+            onClick={addInputForNewActiveIngredient}
             color="rgba(223,223,223,255)"
             _hover={{
               bg: "rgba(19,92,254,255)",
@@ -186,17 +192,19 @@ export default function MedModal1({ data, setData }) {
           >
             <FaPlus />
           </Button>
-        </Flex>
+        </ContainerForm>
 
-        <ComboboxForFetch
-          labelName={"Fabricante:"}
-          collectionName="suppliers"
-          labelForList="tradeName"
-          placeholder="Selecione o fabricante"
-          onSelectItem={(item) => {
-            setData({ ...data, manufacturer: item.label });
-          }}
-        />
+        <ContainerForm>
+          <ComboboxForFetch
+            labelName="Fabricante:"
+            collectionName="suppliers"
+            labelForList="tradeName"
+            placeholder="Selecione o fabricante"
+            onSelectItem={(item) => {
+              setData({ ...data, manufacturer: item.label });
+            }}
+          />
+        </ContainerForm>
       </Box>
     </Flex>
   );
