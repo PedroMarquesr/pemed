@@ -6,14 +6,13 @@ import { BsStars } from "react-icons/bs";
 export default function HeaderHome() {
   return (
     <>
-      <Flex border={"1px solid red"} flexDirection={"column"}>
+      <Flex flexDirection={"column"} mt={"8"} mb={"8"}>
         <Flex
           p={"2"}
           bgColor={"rgb(229,243,245)"}
           borderRadius={"30px"}
           border={"1px solid rgb(197,220,244)"}
           width={"30%"}
-          mb={"4px"}
         >
           <Text color={"rgb(19,92,254)"} pr={"2"}>
             <BsStars />
@@ -24,10 +23,33 @@ export default function HeaderHome() {
         </Flex>
 
         <Flex justifyContent={"space-between"}>
-          <Flex>
+          <Flex flexDirection={"column"} justifyContent={"space-evenly"}>
             {" "}
             <Text textStyle={"5xl"} color={"black"} fontWeight={"bolder"}>
-              Gerencie seu Estoque Farmacêutico com Inteligência
+              Gerencie seu{" "}
+              <Text
+                as="span"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgb(5,68,105), rgb(0,152,139))",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                Estoque Farmacêutico
+              </Text>{" "}
+              com Inteligência
+            </Text>
+            <Text
+              color={"rgb(95,105,116)"}
+              textStyle={"xl"}
+              textAlign={"justify"}
+              pr={"3"}
+            >
+              Controle total sobre medicamentos, fornecedores e validades.
+              Otimize sua gestão e tome decisões baseadas em dados reais.
             </Text>
           </Flex>
 

@@ -15,7 +15,7 @@ export default function NavbarHome() {
         justifyContent="space-between"
         alignItems="center"
         width={"100%"}
-        opacity={"100%"}
+        // opacity={"100%"}
       >
         <Flex
           justifyContent="center"
@@ -34,11 +34,19 @@ export default function NavbarHome() {
             alt="logotipo"
           />
           <Text
-            bgGradient="linear(to-r, #1f55ad, rgb(0,152,139))"
+            style={{
+              background:
+                "linear-gradient(to right, rgb(5,68,105), rgb(0,152,139))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
             bgClip="text"
             fontSize="4xl"
             fontWeight="extrabold"
             ml="4"
+            color="transparent"
           >
             PEMED
           </Text>

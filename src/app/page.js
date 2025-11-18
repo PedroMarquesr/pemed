@@ -13,6 +13,7 @@ import DashboardLayout from "./dashboard/layout";
 import NavbarHome from "@/components/NavbarHome/NavbarHome";
 import IventoryControlPage from "./dashboard/InventoryControlPage/page";
 import HeaderHome from "@/components/HeaderHome/HeaderHome";
+import FeaturesSection from "@/components/FeaturesSection/FeaturesSection";
 
 export default function Home() {
   const { user } = useStore();
@@ -33,6 +34,8 @@ export default function Home() {
             <NavbarHome />
 
             <HeaderHome />
+
+            <FeaturesSection />
           </Flex>
         </Flex>
       )}
