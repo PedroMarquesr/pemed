@@ -12,6 +12,7 @@ import useStore from "@/components/globalStates/store";
 import DashboardLayout from "./dashboard/layout";
 import NavbarHome from "@/components/NavbarHome/NavbarHome";
 import IventoryControlPage from "./dashboard/InventoryControlPage/page";
+import HeaderHome from "@/components/HeaderHome/HeaderHome";
 
 export default function Home() {
   const { user } = useStore();
@@ -22,24 +23,17 @@ export default function Home() {
           <IventoryControlPage />
         </DashboardLayout>
       ) : (
-        <Flex>
-          <Box
-            // bgImage={"url('/bg-container-medications.png')"}
-            // bgColor={"rgba(126,198,197)"}
-            bgColor={"white"}
-            backgroundPosition="center 20%"
-            bgSize="cover"
-            h={"40vh"}
-            w={"100vw"}
-            data-state="open"
-            animationDuration="slow"
-            animationStyle={{
-              _open: "slide-fade-in",
-              _closed: "slide-fade-out",
-            }}
+        <Flex margin={"0"} p={"0"} width={"100vw"} backgroundColor={"white"}>
+          <Flex
+            marginX={"10%"}
+            backgroundColor={"white"}
+            width={"100%"}
+            flexDirection={"column"}
           >
             <NavbarHome />
-          </Box>
+
+            <HeaderHome />
+          </Flex>
         </Flex>
       )}
     </>
