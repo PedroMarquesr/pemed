@@ -18,7 +18,7 @@ export default function HeaderHome() {
           <Text color={"rgb(19,92,254)"} pr={"2"}>
             <BsStars />
           </Text>
-          <Text color={"rgb(98,109,122)"}>
+          <Text color={"rgb(98,109,122)"} fontFamily={""}>
             Gestão Inteligente de Medicamentos
           </Text>
         </Flex>
