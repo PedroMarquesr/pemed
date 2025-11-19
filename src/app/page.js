@@ -10,6 +10,14 @@ import FeaturesSection from "@/components/FeaturesSection/FeaturesSection";
 import WhyChoosePemed from "@/components/WhyChoosePemed/WhyChoosePemed";
 import Footer from "@/components/Footer/Footer";
 
+import {
+  SlideFromLeft,
+  SlideFromRight,
+  FloatUp,
+  ScaleIn,
+  FlipIn,
+} from "@/components/animations/ScrollAnimations";
+
 export default function Home() {
   const { user } = useStore();
   return (
@@ -23,9 +31,13 @@ export default function Home() {
           <NavbarHome />
 
           <Flex width="100%" flexDirection="column" paddingX="10%">
-            <HeaderHome />
+            <SlideFromLeft>
+              <HeaderHome />
+            </SlideFromLeft>
             <div id="recursos">
-              <FeaturesSection />
+              <SlideFromRight>
+                <FeaturesSection />
+              </SlideFromRight>
             </div>
             <WhyChoosePemed />
           </Flex>
