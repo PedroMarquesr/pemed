@@ -16,7 +16,7 @@ export default function NavbarHome() {
         justifyContent="space-between"
         alignItems="center"
         width={"100%"}
-        // opacity={"100%"}
+        opacity={"100%"}
       >
         <Flex
           justifyContent="center"

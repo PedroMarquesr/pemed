@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import Footer from "../Footer/Footer.js";
 
 export default function Login() {
   const { user } = useStore();
@@ -61,134 +62,138 @@ export default function Login() {
           }
         `}
       />
-      <Flex
-        margin={"0"}
-        p={"0"}
-        width={"100vw"}
-        backgroundColor={"white"}
-        overflowX={"hidden"}
-      >
+      <Box backgroundColor={"white"}>
+        <NavbarHome />
+
         <Flex
-          marginX={"10%"}
+          margin={"0"}
+          p={"0"}
+          width={"100vw"}
           backgroundColor={"white"}
-          width={"100%"}
-          flexDirection={"column"}
+          overflowX={"hidden"}
         >
-          <NavbarHome />
           <Flex
-            justifyContent={"center"}
-            pt={"10px"}
-            overflowX={"hidden"}
-            p={"6"}
+            marginX={"10%"}
+            backgroundColor={"white"}
+            width={"100%"}
+            flexDirection={"column"}
           >
             <Flex
-              p={"6"}
-              overflowX={"hidden"}
-              borderColor="gray.900"
-              bg="white"
-              boxShadow="md"
-              borderRadius="8px"
-              w="100%"
-              maxW="500px"
-              alignItems="center"
               justifyContent={"center"}
-              flexDirection="column"
-              color="gray.700"
+              pt={"10px"}
+              overflowX={"hidden"}
+              p={"6"}
             >
-              <Box>
-                <Image src="/logo.png" alt="Logo Pemed" width={90} />
-              </Box>
+              <Flex
+                p={"6"}
+                overflowX={"hidden"}
+                borderColor="gray.900"
+                bg="white"
+                boxShadow="md"
+                borderRadius="8px"
+                w="100%"
+                maxW="500px"
+                alignItems="center"
+                justifyContent={"center"}
+                flexDirection="column"
+                color="gray.700"
+              >
+                <Box>
+                  <Image src="/logo.png" alt="Logo Pemed" width={90} />
+                </Box>
 
-              <Box mt={2}>
-                <Text fontSize="xl" fontWeight="bold" color="blue.600">
-                  Pemed
-                </Text>
-              </Box>
+                <Box mt={2}>
+                  <Text fontSize="xl" fontWeight="bold" color="blue.600">
+                    Pemed
+                  </Text>
+                </Box>
 
-              <Box mb={4}>
-                <Text color="gray.500" fontSize="sm" fontStyle="italic">
-                  Sistema de Gestão Farmacêutica
-                </Text>
-              </Box>
+                <Box mb={4}>
+                  <Text color="gray.500" fontSize="sm" fontStyle="italic">
+                    Sistema de Gestão Farmacêutica
+                  </Text>
+                </Box>
 
-              <Box mb={4}>
-                <Text fontSize="lg" fontWeight="medium">
-                  Entrar
-                </Text>
-              </Box>
-
-              <Flex flexDirection="column" alignItems="center" w="100%">
-                <Field.Root w="100%">
-                  <Field.Label fontSize="sm" color="gray.600">
-                    Email
-                    <Field.RequiredIndicator />
-                  </Field.Label>
-                  <Input
-                    placeholder="Endereço de email"
-                    _placeholder={{ color: "gray.400" }}
-                    borderColor="gray.300"
-                    _hover={{ borderColor: "blue.300" }}
-                  />
-                </Field.Root>
-
-                <Field.Root w="100%" pt={4}>
-                  <Field.Label fontSize="sm" color="gray.600">
-                    Senha
-                    <Field.RequiredIndicator />
-                  </Field.Label>
-                  <Input
-                    type="password"
-                    placeholder="Insira sua senha"
-                    _placeholder={{ color: "gray.400" }}
-                    borderColor="gray.300"
-                    _hover={{ borderColor: "blue.300" }}
-                  />
-                </Field.Root>
-
-                <Flex
-                  pt={4}
-                  w="100%"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Checkbox.Root colorScheme="blue">
-                    <Checkbox.HiddenInput />
-                    <Checkbox.Control />
-                    <Checkbox.Label fontSize="sm" color="gray.600">
-                      Lembrar-me
-                    </Checkbox.Label>
-                  </Checkbox.Root>
-
-                  <Button
-                    fontSize="sm"
-                    variant="link"
-                    color="blue.500"
-                    _hover={{ color: "blue.600" }}
-                  >
-                    Esqueci minha senha
-                  </Button>
-                </Flex>
-
-                <Flex flexDirection={"column"} mt={"2%"}>
-                  <Button
-                    width="220px"
-                    mt={6}
-                    mb={2}
-                    colorScheme="blue"
-                    _hover={{ bg: "blue.600", color: "white" }}
-                    bg={"#7ec6c5"}
-                    fontWeight="600"
-                  >
+                <Box mb={4}>
+                  <Text fontSize="lg" fontWeight="medium">
                     Entrar
-                  </Button>
+                  </Text>
+                </Box>
 
-                  <BtnGoogle />
+                <Flex flexDirection="column" alignItems="center" w="100%">
+                  <Field.Root w="100%">
+                    <Field.Label fontSize="sm" color="gray.600">
+                      Email
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Input
+                      placeholder="Endereço de email"
+                      _placeholder={{ color: "gray.400" }}
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.300" }}
+                    />
+                  </Field.Root>
+
+                  <Field.Root w="100%" pt={4}>
+                    <Field.Label fontSize="sm" color="gray.600">
+                      Senha
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Input
+                      type="password"
+                      placeholder="Insira sua senha"
+                      _placeholder={{ color: "gray.400" }}
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.300" }}
+                    />
+                  </Field.Root>
+
+                  <Flex
+                    pt={4}
+                    w="100%"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Checkbox.Root colorScheme="blue">
+                      <Checkbox.HiddenInput />
+                      <Checkbox.Control />
+                      <Checkbox.Label fontSize="sm" color="gray.600">
+                        Lembrar-me
+                      </Checkbox.Label>
+                    </Checkbox.Root>
+
+                    <Button
+                      fontSize="sm"
+                      variant="link"
+                      color="blue.500"
+                      _hover={{ color: "blue.600" }}
+                    >
+                      Esqueci minha senha
+                    </Button>
+                  </Flex>
+
+                  <Flex flexDirection={"column"} mt={"2%"}>
+                    <Button
+                      width="220px"
+                      mt={6}
+                      mb={2}
+                      colorScheme="blue"
+                      _hover={{ bg: "blue.600", color: "white" }}
+                      bg={"#7ec6c5"}
+                      fontWeight="600"
+                    >
+                      Entrar
+                    </Button>
+
+                    <BtnGoogle />
+                  </Flex>
                 </Flex>
               </Flex>
             </Flex>
           </Flex>
         </Flex>
-      </Flex>
+        <Footer />
+      </Box>
     </>
   );
 }
