@@ -30,7 +30,7 @@ export default function FeaturesSection() {
             `}
       />
       <Flex flexDirection={"column"} alignItems={"center"}>
-        <Text textStyle={"3xl"} color={"black"} fontWeight={"bolder"} pb={"3"}>
+        <Text textStyle={"4xl"} color={"black"} fontWeight={"bolder"} pb={"3"}>
           Recursos que{" "}
           <Text
             as="span"

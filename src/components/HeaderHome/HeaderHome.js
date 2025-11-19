@@ -53,7 +53,12 @@ export default function HeaderHome() {
             </Text>
           </Flex>
 
-          <Image src="./pills-header.jpeg" alt="pills" width={"50%"} />
+          <Image
+            src="./pills-header.jpeg"
+            alt="pills"
+            width={"50%"}
+            borderRadius={"md"}
+          />
         </Flex>
       </Flex>
     </>

@@ -14,6 +14,7 @@ import NavbarHome from "@/components/NavbarHome/NavbarHome";
 import IventoryControlPage from "./dashboard/InventoryControlPage/page";
 import HeaderHome from "@/components/HeaderHome/HeaderHome";
 import FeaturesSection from "@/components/FeaturesSection/FeaturesSection";
+import WhyChoosePemed from "@/components/WhyChoosePemed/WhyChoosePemed";
 
 export default function Home() {
   const { user } = useStore();
@@ -36,6 +37,7 @@ export default function Home() {
             <HeaderHome />
 
             <FeaturesSection />
+            <WhyChoosePemed />
           </Flex>
         </Flex>
       )}
