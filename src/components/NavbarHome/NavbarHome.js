@@ -12,6 +12,7 @@ export default function NavbarHome() {
   return (
     <>
       <Flex
+        paddingX="10%"
         justifyContent="space-between"
         alignItems="center"
         width={"100%"}

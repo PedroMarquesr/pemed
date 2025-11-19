@@ -11,7 +11,7 @@ import { IoDocumentTextOutline } from "react-icons/io5"; //Documento
 import { MdGraphicEq } from "react-icons/md"; // relatório
 import { subscribe } from "firebase/data-connect";
 
-export default function FeaturesSection() {
+export default function FeaturesSection({ id }) {
   return (
     <>
       <Global
@@ -29,7 +29,7 @@ export default function FeaturesSection() {
               }
             `}
       />
-      <Flex flexDirection={"column"} alignItems={"center"}>
+      <Flex flexDirection={"column"} alignItems={"center"} id={id}>
         <Text textStyle={"4xl"} color={"black"} fontWeight={"bolder"} pb={"3"}>
           Recursos que{" "}
           <Text

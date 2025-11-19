@@ -1,13 +1,6 @@
 "use client";
 import react from "react";
-import Link from "next/link";
-import {
-  Box,
-  Text,
-  Flex,
-  Button,
-  defineAnimationStyles,
-} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import useStore from "@/components/globalStates/store";
 import DashboardLayout from "./dashboard/layout";
 import NavbarHome from "@/components/NavbarHome/NavbarHome";
@@ -15,6 +8,7 @@ import IventoryControlPage from "./dashboard/InventoryControlPage/page";
 import HeaderHome from "@/components/HeaderHome/HeaderHome";
 import FeaturesSection from "@/components/FeaturesSection/FeaturesSection";
 import WhyChoosePemed from "@/components/WhyChoosePemed/WhyChoosePemed";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
   const { user } = useStore();
@@ -25,20 +19,18 @@ export default function Home() {
           <IventoryControlPage />
         </DashboardLayout>
       ) : (
-        <Flex margin={"0"} p={"0"} width={"100vw"} backgroundColor={"white"}>
-          <Flex
-            marginX={"10%"}
-            backgroundColor={"white"}
-            width={"100%"}
-            flexDirection={"column"}
-          >
-            <NavbarHome />
+        <Flex flexDirection={"column"} width={"100%"} backgroundColor={"white"}>
+          <NavbarHome />
 
+          <Flex width="100%" flexDirection="column" paddingX="10%">
             <HeaderHome />
-
-            <FeaturesSection />
+            <div id="recursos">
+              <FeaturesSection />
+            </div>
             <WhyChoosePemed />
           </Flex>
+
+          <Footer />
         </Flex>
       )}
     </>
